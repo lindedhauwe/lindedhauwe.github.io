@@ -109,24 +109,24 @@
 	}
 
 	.hero__word--im {
-		left: 5%;
+		left: 10%;
 		top: 60%;
 	}
 
 	.hero__word--inmy {
-		left: 46%;
+		left: 55%;
 		top: 60%;
 	}
 
 	.hero__word--craft {
-		left: 4%;
-		top: 82%;
+		left: 10%;
+		top: 76%;
 		font-size: clamp(4.5rem, 14vw, 11rem);
 	}
 
 	.hero__word--era {
-		right: 10%;
-		top: 86%;
+		right: 15%;
+		top: 80%;
 	}
 }
 
