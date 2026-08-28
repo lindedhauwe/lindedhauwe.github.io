@@ -53,7 +53,7 @@
 /* The rotating discipline is set in the handwriting face — size it up to
    carry the same visual weight as the display caps around it. */
 .hero__word--craft {
-	font-size: clamp(2.75rem, 12vw, 4.75rem);
+	font-size: clamp(3.25rem, 15vw, 6rem);
 }
 
 /* --- Hero: mockup composition (desktop) ------------------------ */
@@ -91,7 +91,7 @@
 		position: absolute;
 		inset: 0;
 		display: block;
-		font-size: clamp(3rem, 10.5vw, 8rem);
+		font-size: clamp(3.5rem, 10.5vw, 8rem);
 		line-height: 0.8;
 	}
 
@@ -100,8 +100,8 @@
 	}
 
 	.hero__word--im {
-		left: 4%;
-		top: 52%;
+		left: 5%;
+		top: 60%;
 	}
 
 	.hero__word--inmy {
@@ -111,8 +111,8 @@
 
 	.hero__word--craft {
 		left: 4%;
-		top: 83%;
-		font-size: clamp(3.5rem, 11vw, 8.5rem);
+		top: 82%;
+		font-size: clamp(4.5rem, 14vw, 11rem);
 	}
 
 	.hero__word--era {
