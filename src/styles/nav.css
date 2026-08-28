@@ -39,12 +39,19 @@
 	inset: -0.15em -0.1em;
 	width: calc(100% + 0.2em);
 	height: calc(100% + 0.3em);
+	overflow: visible;
 	color: var(--nav-fg, var(--color-paper));
-	opacity: 0.55;
+	opacity: 0.5;
 	transform: rotate(-2deg) scale(0.96);
 	transition:
 		opacity 0.18s ease,
 		transform 0.18s ease;
+}
+
+/* Circle is drawn (visible) by default. */
+.scribble__ellipse path {
+	stroke-dasharray: 100;
+	stroke-dashoffset: 0;
 }
 
 .scribble:hover .scribble__ellipse,
@@ -52,6 +59,28 @@
 .scribble.is-active .scribble__ellipse {
 	opacity: 1;
 	transform: rotate(-2deg) scale(1);
+}
+
+/* On hover / focus, redraw the circle around the label. */
+.scribble:hover .scribble__ellipse path,
+.scribble:focus-visible .scribble__ellipse path {
+	animation: scribble-draw 0.55s ease forwards;
+}
+
+@keyframes scribble-draw {
+	from {
+		stroke-dashoffset: 100;
+	}
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.scribble:hover .scribble__ellipse path,
+	.scribble:focus-visible .scribble__ellipse path {
+		animation: none;
+	}
 }
 
 /* Give the middle bubble the opposite lean. */
