@@ -113,10 +113,22 @@ import '../styles/home.css';
 		<div class="contact__inner">
 			<h2 class="contact__heading">Text, don&rsquo;t call!</h2>
 			<p class="contact__lead">
-				Got a project, a question, or just want to say hi? My inbox is open.
+				Got a project, a question, or just want to say hi? My inbox is always open.
 			</p>
 
-			<a class="contact__email" href={`mailto:${site.email}`}>{site.email}</a>
+			<div class="contact__lines">
+				<a class="contact__link" href={`mailto:${site.email}`}>{site.email}</a>
+				{
+					site.phone && (
+						<a
+							class="contact__link"
+							href={`sms:${site.phone.replace(/\s+/g, '')}`}
+						>
+							{site.phone}
+						</a>
+					)
+				}
+			</div>
 
 			<ul class="contact__socials">
 				{

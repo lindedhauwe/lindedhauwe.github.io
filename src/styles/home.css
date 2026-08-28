@@ -287,7 +287,7 @@
    4. "Selected work" teaser — a few tilted project cards + CTA
 --------------------------------------------------------------------------- */
 .work {
-	background: var(--color-green);
+	background: var(--color-blush);
 	color: var(--color-paper);
 }
 
@@ -436,8 +436,14 @@
 	opacity: 0.9;
 }
 
-.contact__email {
+.contact__lines {
+	display: grid;
+	justify-items: start;
+	gap: var(--space-s);
 	margin-top: var(--space-s);
+}
+
+.contact__link {
 	font-family: var(--font-hand);
 	font-weight: 700;
 	font-size: clamp(1.75rem, 6vw, 3.25rem);
@@ -449,8 +455,8 @@
 	transition: color 0.16s ease;
 }
 
-.contact__email:hover,
-.contact__email:focus-visible {
+.contact__link:hover,
+.contact__link:focus-visible {
 	color: var(--color-orange);
 }
 

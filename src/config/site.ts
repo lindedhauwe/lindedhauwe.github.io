@@ -9,6 +9,8 @@ export const site = {
 	description:
 		"Portfolio of Linde D'Hauwe — Digital Design & Development student. Projects across UX, illustration, graphic design and front-end development.",
 	email: 'linde.dhauwe@outlook.com',
+	/** International format, e.g. "+32 476 12 34 56". Empty = hidden. */
+	phone: '',
 	locale: 'en',
 } as const;
 
@@ -19,8 +21,8 @@ export const nav = [
 ] as const;
 
 export const socials: { label: string; href: string }[] = [
-	// Handles carried over from the old site — confirm on the Contact page step.
 	{ label: 'Instagram', href: 'https://instagram.com/lindedhauwe' },
+	{ label: 'Behance', href: 'https://www.behance.net/lindedhauwe' },
 	{ label: 'GitHub', href: 'https://github.com/lindedhauwe' },
 	// { label: 'LinkedIn', href: 'https://linkedin.com/in/…' },
 ];
