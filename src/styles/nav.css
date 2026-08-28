@@ -83,7 +83,7 @@
 		transform: translateY(0.25rem) rotate(-4deg);
 	}
 	.site-nav li:nth-child(2) {
-		transform: translateY(-1.25rem) rotate(3deg);
+		transform: translateY(-2.5rem) rotate(3deg);
 	}
 	.site-nav li:nth-child(3) {
 		transform: translateY(0.9rem) rotate(-2deg);
