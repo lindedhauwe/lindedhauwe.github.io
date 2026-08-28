@@ -1,8 +1,6 @@
 ---
-import TiltText from './TiltText.astro';
-
 /** The rotating discipline in "I'm in my ___ era". */
-const words = ['DESIGN', 'DEVELOPMENT', 'MOTION', 'UX/UI'];
+const words = ['design', 'development', 'motion', 'UX/UI'];
 ---
 
 <span class="era-word" data-era-word>
@@ -13,7 +11,21 @@ const words = ['DESIGN', 'DEVELOPMENT', 'MOTION', 'UX/UI'];
 				class:list={['era-word__slot', { 'is-active': i === 0 }]}
 				aria-hidden="true"
 			>
-				<TiltText text={word} jitter={5} />
+				<span class="era-word__text">{word}</span>
+				<svg
+					class="era-word__underline"
+					viewBox="0 0 200 12"
+					preserveAspectRatio="none"
+					aria-hidden="true"
+				>
+					<path
+						d="M3 7C40 3 70 9 100 6C135 2 165 10 197 5"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="3"
+						stroke-linecap="round"
+					/>
+				</svg>
 			</span>
 		))
 	}

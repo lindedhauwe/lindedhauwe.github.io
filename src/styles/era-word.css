@@ -1,23 +1,28 @@
 /* ---------------------------------------------------------------------------
    EraWord — the discipline that cycles in "I'm in my ___ era".
-   All variants are stacked in one grid cell so the surrounding layout never
-   reflows as the word changes.
+   Set in the handwriting face so it reads as scribbled into the sentence.
+   All variants share one grid cell so the layout never reflows.
 --------------------------------------------------------------------------- */
 
 .era-word {
 	display: inline-grid;
+	font-family: var(--font-hand);
+	font-weight: 700;
 	color: var(--color-orange);
-	-webkit-text-stroke: 0.5px var(--color-ink);
+	line-height: 1;
 }
 
 .era-word__slot {
 	grid-area: 1 / 1;
+	align-self: end;
+	justify-self: start;
+	position: relative;
 	white-space: nowrap;
 	opacity: 0;
-	transform: translateY(0.3em) rotate(-4deg);
+	transform: translateY(0.35em) rotate(-3deg);
 	transition:
 		opacity 0.4s ease,
-		transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+		transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .era-word__slot.is-active {
@@ -25,8 +30,15 @@
 	transform: translateY(0) rotate(-2deg);
 }
 
-.era-word__slot .tilt {
-	flex-wrap: nowrap;
+.era-word__underline {
+	position: absolute;
+	left: -0.05em;
+	right: -0.08em;
+	bottom: -0.2em;
+	width: auto;
+	height: 0.24em;
+	overflow: visible;
+	color: var(--color-pink);
 }
 
 @media (prefers-reduced-motion: reduce) {

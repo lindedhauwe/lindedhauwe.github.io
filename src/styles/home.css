@@ -50,9 +50,10 @@
 	color: var(--color-ink);
 }
 
-/* The rotating discipline runs a touch smaller so the long words still fit. */
+/* The rotating discipline is set in the handwriting face — size it up to
+   carry the same visual weight as the display caps around it. */
 .hero__word--craft {
-	font-size: clamp(2rem, 9vw, 3.5rem);
+	font-size: clamp(2.75rem, 12vw, 4.75rem);
 }
 
 /* --- Hero: mockup composition (desktop) ------------------------ */
@@ -110,13 +111,13 @@
 
 	.hero__word--craft {
 		left: 4%;
-		top: 71%;
-		font-size: clamp(2.5rem, 7vw, 5.5rem);
+		top: 83%;
+		font-size: clamp(3.5rem, 11vw, 8.5rem);
 	}
 
 	.hero__word--era {
 		right: 5%;
-		top: 72%;
+		top: 86%;
 	}
 }
 
