@@ -1,8 +1,13 @@
-/* ---------------------------------------------------------------------------
-   Home page — hero composition. (Teaser section: about-teaser.css)
---------------------------------------------------------------------------- */
+/* ===========================================================================
+   HOME PAGE
+   1. Hero composition
+   2. Rotating "era" word
+   3. "Who am I???" teaser
+=========================================================================== */
 
-/* --- Hero: mobile-first stack ----------------------------------- */
+/* ---------------------------------------------------------------------------
+   1. Hero — mobile-first stack
+--------------------------------------------------------------------------- */
 .hero {
 	position: relative;
 	display: grid;
@@ -59,13 +64,11 @@
 	letter-spacing: normal;
 }
 
-/* The rotating discipline is set in the handwriting face — size it up to
-   carry the same visual weight as the display caps around it. */
 .hero__word--craft {
 	font-size: clamp(3.25rem, 15vw, 6rem);
 }
 
-/* --- Hero: mockup composition (desktop) ------------------------ */
+/* Hero — mockup composition (desktop) */
 @media (min-width: 40rem) {
 	.hero {
 		gap: 0;
@@ -93,7 +96,6 @@
 		transform: translateY(-50%);
 		z-index: 2;
 		justify-self: unset;
-		
 	}
 
 	.hero__statement {
@@ -127,5 +129,154 @@
 	.hero__word--era {
 		right: 15%;
 		top: 83%;
+	}
+}
+
+/* ---------------------------------------------------------------------------
+   2. EraWord — the discipline that cycles in "I'm in my ___ era".
+   All variants share one grid cell so the layout never reflows.
+--------------------------------------------------------------------------- */
+.era-word {
+	display: inline-grid;
+	font-family: var(--font-hand);
+	font-weight: 700;
+	color: var(--color-orange);
+	line-height: 1;
+}
+
+.era-word__slot {
+	position: relative;
+	grid-area: 1 / 1;
+	align-self: end;
+	justify-self: start;
+	white-space: nowrap;
+	opacity: 0;
+	transform: translateY(0.35em) rotate(-3deg);
+	transition:
+		opacity 0.4s ease,
+		transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.era-word__slot.is-active {
+	opacity: 1;
+	transform: translateY(0) rotate(-2deg);
+}
+
+.era-word__underline {
+	position: absolute;
+	left: -0.05em;
+	right: -0.08em;
+	bottom: -0.2em;
+	width: auto;
+	height: 0.24em;
+	overflow: visible;
+	color: var(--color-pink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.era-word__slot {
+		transform: none;
+		transition: opacity 0.25s ease;
+	}
+	.era-word__slot.is-active {
+		transform: none;
+	}
+}
+
+/* ---------------------------------------------------------------------------
+   3. "Who am I???" teaser — intro copy + CTA beside an Instagram-story portrait
+--------------------------------------------------------------------------- */
+.about-teaser {
+	background: var(--color-blush);
+}
+
+.about-teaser__inner {
+	display: grid;
+	gap: var(--space-xl);
+	align-items: center;
+	max-width: var(--content-width);
+	margin-inline: auto;
+	padding: var(--space-3xl) var(--space-m);
+}
+
+.about-teaser__heading {
+	margin: 0 0 var(--space-s);
+	font-family: var(--font-display);
+	font-size: var(--step-5);
+	color: var(--color-orange);
+	transform: rotate(-1.5deg);
+}
+
+.about-teaser__body {
+	max-width: 46ch;
+	font-size: var(--step-1);
+}
+
+.about-teaser__prompt {
+	margin: var(--space-m) 0 var(--space-s);
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-2);
+	color: var(--color-blue);
+}
+
+/* Instagram-story portrait */
+.story {
+	display: grid;
+	justify-items: center;
+	justify-self: center;
+	gap: var(--space-s);
+	margin: 0;
+}
+
+.story__ring {
+	display: grid;
+	place-items: center;
+	width: clamp(9rem, 34vw, 15rem);
+	aspect-ratio: 1;
+	padding: 5px;
+	border-radius: 50%;
+	background: conic-gradient(
+		from 210deg,
+		var(--color-pink),
+		var(--color-orange),
+		var(--color-blue),
+		var(--color-green),
+		var(--color-pink)
+	);
+}
+
+.story__inner {
+	display: grid;
+	place-items: center;
+	width: 100%;
+	height: 100%;
+	padding: 5px;
+	border-radius: 50%;
+	background: var(--color-blush);
+}
+
+.story__img {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.story__name {
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-2);
+	color: var(--color-ink);
+}
+
+@media (min-width: 48rem) {
+	.about-teaser__inner {
+		grid-template-columns: 1fr auto;
+		gap: var(--space-3xl);
+	}
+
+	.story {
+		order: 1;
 	}
 }
