@@ -19,8 +19,8 @@ export const nav = [
 ] as const;
 
 export const socials: { label: string; href: string }[] = [
-	// Filled in on the Contact page step.
-	// { label: 'Instagram', href: 'https://instagram.com/…' },
-	// { label: 'GitHub', href: 'https://github.com/…' },
+	// Handles carried over from the old site — confirm on the Contact page step.
+	{ label: 'Instagram', href: 'https://instagram.com/lindedhauwe' },
+	{ label: 'GitHub', href: 'https://github.com/lindedhauwe' },
 	// { label: 'LinkedIn', href: 'https://linkedin.com/in/…' },
 ];

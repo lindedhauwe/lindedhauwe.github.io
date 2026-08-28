@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import EraWord from '../components/EraWord.astro';
+import { site, socials } from '../config/site';
 import { featuredWork } from '../data/featured-work';
 import headerImg from '../assets/illustrations/header-img.png';
 import profilePic from '../assets/illustrations/profile-pic.png';
@@ -93,6 +94,41 @@ import '../styles/home.css';
 			</ul>
 
 			<a class="btn" href="/projects/">See all projects &rarr;</a>
+		</div>
+	</section>
+
+	<section class="contact">
+		<svg
+			class="contact__edge"
+			viewBox="0 0 1200 80"
+			preserveAspectRatio="none"
+			aria-hidden="true"
+		>
+			<path
+				d="M0,80 L0,54 C90,30 150,62 250,46 C345,31 385,66 470,52 C560,37 620,60 720,42 C820,24 875,60 970,48 C1055,37 1110,54 1200,40 L1200,80 Z"
+				fill="currentColor"
+			/>
+		</svg>
+
+		<div class="contact__inner">
+			<h2 class="contact__heading">Text, don&rsquo;t call!</h2>
+			<p class="contact__lead">
+				Got a project, a question, or just want to say hi? My inbox is open.
+			</p>
+
+			<a class="contact__email" href={`mailto:${site.email}`}>{site.email}</a>
+
+			<ul class="contact__socials">
+				{
+					socials.map((s) => (
+						<li>
+							<a href={s.href} target="_blank" rel="noopener noreferrer">
+								{s.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
 		</div>
 	</section>
 </BaseLayout>
