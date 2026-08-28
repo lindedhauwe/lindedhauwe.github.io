@@ -285,17 +285,29 @@
 }
 
 /* ---------------------------------------------------------------------------
-   4. "Selected work" teaser — a few tilted project cards + CTA
+   4. "Selected work" — scrapbook of taped photo prints, wavy top edge
 --------------------------------------------------------------------------- */
 .work {
-	background: var(--color-blush);
+	position: relative;
+	background: var(--color-green);
 	color: var(--color-paper);
+}
+
+.work__edge {
+	position: absolute;
+	bottom: 100%;
+	left: 0;
+	display: block;
+	width: 100%;
+	height: clamp(2.5rem, 7vw, 4.5rem);
+	margin-bottom: -1px;
+	color: var(--color-green);
 }
 
 .work__inner {
 	display: grid;
 	justify-items: start;
-	gap: var(--space-xl);
+	gap: var(--space-2xl);
 	max-width: var(--content-width);
 	margin-inline: auto;
 	padding: var(--space-3xl) var(--space-m);
@@ -319,47 +331,32 @@
 }
 
 .work-card {
-	transition:
-		transform 0.18s ease,
-		filter 0.18s ease;
-}
-
-.work-card:nth-child(1) {
-	transform: rotate(-2deg);
-}
-.work-card:nth-child(2) {
-	transform: rotate(1.5deg);
-}
-.work-card:nth-child(3) {
-	transform: rotate(-1deg);
-}
-
-.work-card:hover,
-.work-card:focus-within {
-	transform: rotate(0) translateY(-5px);
+	justify-self: center;
+	width: 100%;
+	max-width: 22rem;
+	transition: transform 0.2s ease;
 }
 
 .work-card__link {
-	display: grid;
-	gap: var(--space-2xs);
+	display: block;
 	color: inherit;
 	text-decoration: none;
 }
 
-.work-card__frame {
+/* the cream photo print */
+.work-card__photo {
+	position: relative;
 	display: block;
-	margin-bottom: var(--space-2xs);
-	border: 3px solid var(--color-ink);
-	border-radius: var(--radius);
-	overflow: hidden;
+	padding: 0.7rem 0.7rem 0.4rem;
 	background: var(--color-paper);
-	box-shadow: 0.5rem 0.5rem 0 rgba(14, 13, 8, 0.25);
-	transition: box-shadow 0.18s ease;
+	box-shadow: 0 0.7rem 1.6rem rgba(14, 13, 8, 0.22);
+	transition: box-shadow 0.2s ease;
 }
 
-.work-card:hover .work-card__frame,
-.work-card:focus-within .work-card__frame {
-	box-shadow: 0.75rem 0.75rem 0 rgba(14, 13, 8, 0.3);
+.work-card__frame {
+	display: block;
+	overflow: hidden;
+	background: var(--color-blush);
 }
 
 .work-card__img {
@@ -369,28 +366,90 @@
 	object-fit: cover;
 }
 
-.work-card__title {
-	font-family: var(--font-statement);
-	font-weight: 800;
-	font-size: var(--step-2);
-	letter-spacing: -0.01em;
-	text-transform: uppercase;
+.work-card__caption {
+	display: block;
+	padding: 0.55rem 0.2rem 0.25rem;
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-1);
+	line-height: 1;
+	text-align: center;
+	color: var(--color-ink);
+}
+
+/* washi tape */
+.work-card__tape {
+	position: absolute;
+	width: 5.5rem;
+	height: 1.6rem;
+	box-shadow: 0 0.1rem 0.3rem rgba(14, 13, 8, 0.12);
+}
+
+.work-card:nth-child(1) {
+	transform: rotate(-3deg);
+}
+.work-card:nth-child(2) {
+	transform: rotate(2.5deg);
+}
+.work-card:nth-child(3) {
+	transform: rotate(-1.5deg);
+}
+
+.work-card:nth-child(1) .work-card__tape {
+	top: -0.55rem;
+	left: -1rem;
+	transform: rotate(-38deg);
+	background: rgba(221, 126, 138, 0.78);
+}
+.work-card:nth-child(2) .work-card__tape {
+	top: -0.7rem;
+	right: -1rem;
+	transform: rotate(34deg);
+	background: rgba(67, 90, 140, 0.72);
+}
+.work-card:nth-child(3) .work-card__tape {
+	top: -0.5rem;
+	left: 38%;
+	transform: rotate(7deg);
+	background: rgba(205, 91, 37, 0.74);
+}
+
+.work-card:hover,
+.work-card:focus-within {
+	transform: rotate(0) translateY(-6px);
+}
+
+.work-card:hover .work-card__photo,
+.work-card:focus-within .work-card__photo {
+	box-shadow: 0 1rem 2.2rem rgba(14, 13, 8, 0.3);
 }
 
 @media (min-width: 48rem) {
 	.work__grid {
 		grid-template-columns: repeat(3, 1fr);
-		gap: var(--space-l);
+		gap: var(--space-xl);
 		align-items: start;
+	}
+
+	.work-card {
+		max-width: none;
 	}
 
 	/* nudge the middle card down for a hand-placed feel */
 	.work-card:nth-child(2) {
-		transform: rotate(1.5deg) translateY(var(--space-l));
+		transform: rotate(2.5deg) translateY(var(--space-l));
 	}
 	.work-card:nth-child(2):hover,
 	.work-card:nth-child(2):focus-within {
-		transform: rotate(0) translateY(calc(var(--space-l) - 5px));
+		transform: rotate(0) translateY(calc(var(--space-l) - 6px));
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.work-card,
+	.work-card:hover,
+	.work-card:focus-within {
+		transition: none;
 	}
 }
 

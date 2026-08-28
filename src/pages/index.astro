@@ -69,6 +69,18 @@ import '../styles/home.css';
 	</section>
 
 	<section class="work">
+		<svg
+			class="work__edge"
+			viewBox="0 0 1200 80"
+			preserveAspectRatio="none"
+			aria-hidden="true"
+		>
+			<path
+				d="M0,80 L0,46 C95,64 150,30 250,42 C345,53 385,22 470,34 C560,47 620,20 720,36 C820,52 875,24 970,38 C1055,50 1110,28 1200,44 L1200,80 Z"
+				fill="currentColor"
+			/>
+		</svg>
+
 		<div class="work__inner">
 			<h2 class="work__heading">Selected work</h2>
 
@@ -77,16 +89,19 @@ import '../styles/home.css';
 					featuredWork.map((w) => (
 						<li class="work-card">
 							<a class="work-card__link" href={w.href}>
-								<span class="work-card__frame">
-									<Image
-										class="work-card__img"
-										src={w.image}
-										alt={w.alt}
-										widths={[400, 640, 900]}
-										sizes="(min-width: 48rem) 22rem, 90vw"
-									/>
+								<span class="work-card__photo">
+									<span class="work-card__tape" aria-hidden="true" />
+									<span class="work-card__frame">
+										<Image
+											class="work-card__img"
+											src={w.image}
+											alt={w.alt}
+											widths={[400, 640, 900]}
+											sizes="(min-width: 48rem) 22rem, 90vw"
+										/>
+									</span>
+									<span class="work-card__caption">{w.title}</span>
 								</span>
-								<span class="work-card__title">{w.title}</span>
 							</a>
 						</li>
 					))
