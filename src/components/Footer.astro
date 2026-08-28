@@ -1,22 +1,9 @@
 ---
-import { site, socials } from '../config/site';
+import { site } from '../config/site';
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
 	<p class="site-footer__tag">Made with too much coffee &amp; coloured pencils.</p>
-	{
-		socials.length > 0 && (
-			<ul class="site-footer__socials">
-				{socials.map((s) => (
-					<li>
-						<a href={s.href} target="_blank" rel="noopener noreferrer">
-							{s.label}
-						</a>
-					</li>
-				))}
-			</ul>
-		)
-	}
 	<p class="site-footer__copy">© {year} {site.name}</p>
 </footer>
