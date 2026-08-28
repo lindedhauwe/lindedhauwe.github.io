@@ -1,0 +1,35 @@
+/* ---------------------------------------------------------------------------
+   .btn — the shared sticker-style call-to-action button.
+--------------------------------------------------------------------------- */
+
+.btn {
+	display: inline-block;
+	padding: 0.7em 1.5em;
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-1);
+	line-height: 1;
+	text-decoration: none;
+	color: var(--color-paper);
+	background: var(--color-ink);
+	border: none;
+	border-radius: 999px;
+	transform: rotate(-2deg);
+	transition:
+		transform 0.16s ease,
+		background-color 0.16s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+	transform: rotate(-2deg) translateY(-2px) scale(1.04);
+	background: var(--color-orange);
+}
+
+.btn--orange {
+	background: var(--color-orange);
+}
+.btn--orange:hover,
+.btn--orange:focus-visible {
+	background: var(--color-ink);
+}

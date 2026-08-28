@@ -3,8 +3,10 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import EraWord from '../components/EraWord.astro';
 import headerImg from '../assets/illustrations/header-img.png';
+import profilePic from '../assets/illustrations/profile-pic.png';
 import '../styles/home.css';
 import '../styles/era-word.css';
+import '../styles/about-teaser.css';
 ---
 
 <BaseLayout>
@@ -32,13 +34,37 @@ import '../styles/era-word.css';
 		</h1>
 	</section>
 
-	<section class="intro">
-		<div class="intro__inner">
-			<p class="intro__lead">
-				{/* TODO: replace with real intro copy */}
-				Placeholder intro — a line or two about who you are and what you make.
-			</p>
-			<a class="intro__cta" href="/projects/">See the work &rarr;</a>
+	<section class="about-teaser">
+		<div class="about-teaser__inner">
+			<div class="about-teaser__content">
+				<h2 class="about-teaser__heading">Who am I???</h2>
+				<p class="about-teaser__body">
+					Hi, I&rsquo;m Linde! A creative Digital Design &amp; Development
+					student with a passion for turning ideas into meaningful digital
+					experiences. I enjoy exploring the space where design, technology
+					and creativity meet, and I&rsquo;m always looking for new things to
+					learn and create.
+				</p>
+				<p class="about-teaser__prompt">
+					Want to know more about the person behind the projects?
+				</p>
+				<a class="btn" href="/about/">More about me</a>
+			</div>
+
+			<figure class="story">
+				<span class="story__ring">
+					<span class="story__inner">
+						<Image
+							class="story__img"
+							src={profilePic}
+							alt="Illustrated portrait of Linde D'Hauwe"
+							widths={[200, 320, 480]}
+							sizes="15rem"
+						/>
+					</span>
+				</span>
+				<figcaption class="story__name">Linde D'Hauwe</figcaption>
+			</figure>
 		</div>
 	</section>
 </BaseLayout>

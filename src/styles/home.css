@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
-   Home page — hero composition + intro band.
+   Home page — hero composition. (Teaser section: about-teaser.css)
 --------------------------------------------------------------------------- */
 
 /* --- Hero: mobile-first stack ----------------------------------- */
@@ -120,44 +120,12 @@
 
 	.hero__word--craft {
 		left: 10%;
-		top: 76%;
+		top: 79%;
 		font-size: clamp(4.5rem, 14vw, 11rem);
 	}
 
 	.hero__word--era {
 		right: 15%;
-		top: 80%;
+		top: 83%;
 	}
-}
-
-/* --- Intro band ----------------------------------------------- */
-.intro {
-	background: var(--color-blush);
-}
-
-.intro__inner {
-	display: grid;
-	gap: var(--space-m);
-	max-width: var(--content-width);
-	margin-inline: auto;
-	padding: var(--space-2xl) var(--space-m) var(--space-3xl);
-}
-
-.intro__lead {
-	max-width: 42ch;
-	font-size: var(--step-1);
-}
-
-.intro__cta {
-	justify-self: start;
-	font-family: var(--font-hand);
-	font-size: var(--step-2);
-	font-weight: 700;
-	text-decoration: none;
-	color: var(--color-ink);
-	border-bottom: 3px solid var(--color-orange);
-}
-
-.intro__cta:hover {
-	color: var(--color-orange);
 }

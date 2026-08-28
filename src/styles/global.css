@@ -12,6 +12,7 @@
 /* Design tokens + base */
 @import './tokens.css';
 @import './base.css';
+@import './button.css';
 
 /* Components (rendered on every page via BaseLayout) */
 @import './nav.css';
