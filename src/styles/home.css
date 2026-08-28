@@ -146,22 +146,19 @@
 	line-height: 1;
 }
 
+/* Words swap instantly — a hard cut, no slide. */
 .era-word__slot {
 	position: relative;
 	grid-area: 1 / 1;
 	align-self: end;
 	justify-self: start;
 	white-space: nowrap;
-	opacity: 0;
-	transform: translateY(0.35em) rotate(-3deg);
-	transition:
-		opacity 0.4s ease,
-		transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+	visibility: hidden;
+	transform: rotate(-2deg);
 }
 
 .era-word__slot.is-active {
-	opacity: 1;
-	transform: translateY(0) rotate(-2deg);
+	visibility: visible;
 }
 
 .era-word__underline {
@@ -174,16 +171,6 @@
 	overflow: visible;
 	color: var(--color-pink);
 	filter: url(#pencil);
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.era-word__slot {
-		transform: none;
-		transition: opacity 0.25s ease;
-	}
-	.era-word__slot.is-active {
-		transform: none;
-	}
 }
 
 /* ---------------------------------------------------------------------------
