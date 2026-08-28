@@ -7,89 +7,137 @@ import headerImg from '../assets/illustrations/header-img.png';
 
 <BaseLayout>
 	<section class="hero">
-		<h1 class="hero__title">
+		<p class="hero__brand">
 			<span>Portfolio</span>
 			<span class="hero__year">2026</span>
-		</h1>
+		</p>
 
 		<Image
 			class="hero__art"
 			src={headerImg}
 			alt="Illustration of Linde lying on her back, scrolling on her phone"
 			widths={[480, 800, 1200, 1800]}
-			sizes="(min-width: 60rem) 60rem, 90vw"
+			sizes="(min-width: 60rem) 55rem, 90vw"
 			loading="eager"
 			fetchpriority="high"
 		/>
+
+		<h1 class="hero__statement">
+			<span class="word word--im"><TiltText text="I'M" /></span>
+			<span class="word word--inmy"><TiltText text="IN MY" /></span>
+			<span class="word word--design"><TiltText text="DESIGN" /></span>
+			<span class="word word--era"><TiltText text="ERA" /></span>
+		</h1>
 	</section>
 
-	<section class="era">
-		<div class="era__inner">
-			<h2 class="era__title">
-				<TiltText text="I'M IN MY DESIGN ERA" />
-			</h2>
-
-			<p class="era__lead">
+	<section class="intro">
+		<div class="intro__inner">
+			<p class="intro__lead">
 				{/* TODO: replace with real intro copy */}
 				Placeholder intro — a line or two about who you are and what you make.
 			</p>
-
-			<a class="era__cta" href="/projects/">See the work &rarr;</a>
+			<a class="intro__cta" href="/projects/">See the work &rarr;</a>
 		</div>
 	</section>
 </BaseLayout>
 
 <style>
-	/* --- Hero --------------------------------------------------------- */
+	/* --- Hero: mobile-first stack ----------------------------------- */
 	.hero {
 		position: relative;
 		display: grid;
-		place-items: start center;
-		min-height: calc(100svh - 5rem);
-		padding: var(--space-l) var(--space-m) 0;
+		gap: var(--space-m);
+		padding: var(--space-3xl) var(--space-m) var(--space-xl);
 		overflow: hidden;
 		background: linear-gradient(
-			var(--color-green) 0 58%,
-			var(--color-blush) 58% 100%
+			var(--color-green) 0 42%,
+			var(--color-blush) 42% 100%
 		);
 	}
 
-	.hero__title {
+	.hero__brand {
 		margin: 0;
 		font-family: var(--font-display);
-		color: var(--color-paper);
-		text-align: center;
-		font-size: var(--step-6);
-		letter-spacing: 0.02em;
+		font-size: var(--step-5);
 		line-height: 0.9;
-		text-shadow: 0.06em 0.06em 0 var(--color-ink);
+		color: var(--color-paper);
+		text-shadow: 0.05em 0.05em 0 var(--color-ink);
 	}
 
-	.hero__title span {
+	.hero__brand span {
 		display: block;
 	}
 
 	.hero__year {
 		color: var(--color-pink);
-		transform: rotate(-3deg);
 	}
 
 	.hero__art {
-		position: relative;
-		z-index: 1;
-		width: min(60rem, 92vw);
+		width: min(90%, 34rem);
 		height: auto;
-		margin-top: auto;
-		margin-bottom: -2%;
-		filter: drop-shadow(0.4rem 0.5rem 0 rgba(14, 13, 8, 0.12));
+		justify-self: center;
 	}
 
-	/* --- Design era ------------------------------------------------- */
-	.era {
+	.hero__statement {
+		display: grid;
+		grid-template-columns: auto auto;
+		justify-content: space-between;
+		gap: 0.05em 0.4em;
+		margin: 0;
+		font-family: var(--font-display);
+		font-size: clamp(2.75rem, 15vw, 5rem);
+		line-height: 0.85;
+		color: var(--color-ink);
+	}
+
+	.word--inmy,
+	.word--era {
+		justify-self: end;
+	}
+
+	/* --- Hero: desktop composition --------------------------------- */
+	@media (min-width: 60rem) {
+		.hero {
+			gap: 0;
+			min-height: 100svh;
+			padding: 0;
+			background: linear-gradient(
+				var(--color-green) 0 50%,
+				var(--color-blush) 50% 100%
+			);
+		}
+
+		.hero__brand {
+			position: absolute;
+			top: 22%;
+			left: clamp(1.5rem, 5vw, 5rem);
+			font-size: clamp(3rem, 7vw, 6rem);
+		}
+
+		.hero__art {
+			position: absolute;
+			top: 50%;
+			right: 3%;
+			width: min(58vw, 52rem);
+			transform: translateY(-47%);
+			z-index: 2;
+			filter: drop-shadow(0.4rem 0.5rem 0 rgba(14, 13, 8, 0.12));
+		}
+
+		.hero__statement {
+			position: absolute;
+			inset: auto clamp(1.5rem, 5vw, 5rem) 6%;
+			font-size: clamp(4rem, 10vw, 8.5rem);
+			row-gap: 0.08em;
+		}
+	}
+
+	/* --- Intro band ----------------------------------------------- */
+	.intro {
 		background: var(--color-blush);
 	}
 
-	.era__inner {
+	.intro__inner {
 		display: grid;
 		gap: var(--space-m);
 		max-width: var(--content-width);
@@ -97,20 +145,12 @@ import headerImg from '../assets/illustrations/header-img.png';
 		padding: var(--space-2xl) var(--space-m) var(--space-3xl);
 	}
 
-	.era__title {
-		margin: 0;
-		font-family: var(--font-display);
-		font-size: var(--step-5);
-		color: var(--color-orange);
-		-webkit-text-stroke: 1.5px var(--color-ink);
-	}
-
-	.era__lead {
+	.intro__lead {
 		max-width: 42ch;
 		font-size: var(--step-1);
 	}
 
-	.era__cta {
+	.intro__cta {
 		justify-self: start;
 		font-family: var(--font-hand);
 		font-size: var(--step-2);
@@ -120,7 +160,7 @@ import headerImg from '../assets/illustrations/header-img.png';
 		border-bottom: 3px solid var(--color-orange);
 	}
 
-	.era__cta:hover {
+	.intro__cta:hover {
 		color: var(--color-orange);
 	}
 </style>
