@@ -1,0 +1,32 @@
+/* ---------------------------------------------------------------------------
+   Site footer.
+--------------------------------------------------------------------------- */
+
+.site-footer {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: var(--space-xs) var(--space-m);
+	padding: var(--space-l) var(--space-m);
+	background: var(--color-ink);
+	color: var(--color-paper);
+}
+
+.site-footer__tag {
+	font-family: var(--font-hand);
+	font-size: var(--step-1);
+}
+
+.site-footer__socials {
+	display: flex;
+	gap: var(--space-m);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.site-footer__copy {
+	font-size: var(--step--1);
+	opacity: 0.7;
+}

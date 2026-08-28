@@ -10,6 +10,8 @@ interface Props {
 	jitter?: number;
 }
 
+import '../styles/tilt-text.css';
+
 const { text, jitter = 6 } = Astro.props;
 
 const words = text.split(' ');
@@ -26,15 +28,15 @@ let charIndex = 0;
 	{
 		words.map((word, w) => (
 			<>
-				{w > 0 && <span class="space"> </span>}
-				<span class="word">
+				{w > 0 && <span class="tilt__space"> </span>}
+				<span class="tilt__word">
 					{word.split('').map((char) => {
 						const r = wobble(charIndex);
 						const y = wobble(charIndex + 100);
 						charIndex++;
 						return (
 							<span
-								class="char"
+								class="tilt__char"
 								style={`--r:${(r * jitter).toFixed(2)}deg; --y:${(y * 0.06).toFixed(3)}em`}
 							>
 								{char}
@@ -46,31 +48,3 @@ let charIndex = 0;
 		))
 	}
 </span>
-
-<style>
-	.tilt {
-		display: inline-flex;
-		flex-wrap: wrap;
-		gap: 0.12em;
-	}
-
-	.word {
-		display: inline-flex;
-		white-space: nowrap;
-	}
-
-	.space {
-		width: 0.3em;
-	}
-
-	.char {
-		display: inline-block;
-		transform: rotate(var(--r)) translateY(var(--y));
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.char {
-			transform: rotate(var(--r));
-		}
-	}
-</style>

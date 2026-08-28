@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TiltText from '../components/TiltText.astro';
 import headerImg from '../assets/illustrations/header-img.png';
+import '../styles/home.css';
 ---
 
 <BaseLayout>
@@ -23,10 +24,10 @@ import headerImg from '../assets/illustrations/header-img.png';
 		/>
 
 		<h1 class="hero__statement">
-			<span class="word word--im"><TiltText text="I'M" /></span>
-			<span class="word word--inmy"><TiltText text="IN MY" /></span>
-			<span class="word word--design"><TiltText text="DESIGN" /></span>
-			<span class="word word--era"><TiltText text="ERA" /></span>
+			<span class="hero__word hero__word--im"><TiltText text="I'M" /></span>
+			<span class="hero__word hero__word--inmy"><TiltText text="IN MY" /></span>
+			<span class="hero__word hero__word--design"><TiltText text="DESIGN" /></span>
+			<span class="hero__word hero__word--era"><TiltText text="ERA" /></span>
 		</h1>
 	</section>
 
@@ -40,149 +41,3 @@ import headerImg from '../assets/illustrations/header-img.png';
 		</div>
 	</section>
 </BaseLayout>
-
-<style>
-	/* --- Hero: mobile-first stack ----------------------------------- */
-	.hero {
-		position: relative;
-		display: grid;
-		gap: var(--space-m);
-		padding: var(--space-3xl) var(--space-m) var(--space-xl);
-		overflow: hidden;
-		background: linear-gradient(
-			var(--color-green) 0 42%,
-			var(--color-blush) 42% 100%
-		);
-	}
-
-	.hero__brand {
-		margin: 0;
-		font-family: var(--font-display);
-		font-size: var(--step-4);
-		line-height: 0.9;
-		color: var(--color-paper);
-		text-shadow: 0.04em 0.04em 0 var(--color-ink);
-	}
-
-	.hero__brand span {
-		display: block;
-	}
-
-	.hero__year {
-		color: var(--color-pink);
-	}
-
-	.hero__art {
-		width: min(78%, 24rem);
-		height: auto;
-		justify-self: center;
-	}
-
-	.hero__statement {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 0.02em;
-		margin: 0;
-		font-family: var(--font-display);
-		font-size: clamp(2.5rem, 13vw, 4.5rem);
-		line-height: 0.9;
-		color: var(--color-ink);
-	}
-
-	/* --- Hero: mockup composition --------------------------------- */
-	@media (min-width: 40rem) {
-		.hero {
-			gap: 0;
-			min-height: 100svh;
-			padding: 0;
-			background: linear-gradient(
-				var(--color-green) 0 50%,
-				var(--color-blush) 50% 100%
-			);
-		}
-
-		.hero__brand {
-			position: absolute;
-			top: 19%;
-			left: 4%;
-			font-size: clamp(2.5rem, 6.5vw, 5.5rem);
-			text-align: left;
-		}
-
-		.hero__art {
-			position: absolute;
-			top: 37%;
-			right: -1%;
-			width: min(56vw, 44rem);
-			transform: translateY(-50%);
-			z-index: 2;
-			justify-self: unset;
-			filter: drop-shadow(0.4rem 0.5rem 0 rgba(14, 13, 8, 0.12));
-		}
-
-		.hero__statement {
-			position: absolute;
-			inset: 0;
-			display: block;
-			font-size: clamp(3rem, 10.5vw, 8rem);
-			line-height: 0.8;
-		}
-
-		.hero__statement .word {
-			position: absolute;
-		}
-
-		.word--im {
-			left: 4%;
-			top: 52%;
-		}
-
-		.word--inmy {
-			left: 56%;
-			top: 54%;
-		}
-
-		.word--design {
-			left: 4%;
-			top: 72%;
-		}
-
-		.word--era {
-			right: 5%;
-			top: 72%;
-		}
-	}
-
-	/* --- Intro band ----------------------------------------------- */
-	.intro {
-		background: var(--color-blush);
-	}
-
-	.intro__inner {
-		display: grid;
-		gap: var(--space-m);
-		max-width: var(--content-width);
-		margin-inline: auto;
-		padding: var(--space-2xl) var(--space-m) var(--space-3xl);
-	}
-
-	.intro__lead {
-		max-width: 42ch;
-		font-size: var(--step-1);
-	}
-
-	.intro__cta {
-		justify-self: start;
-		font-family: var(--font-hand);
-		font-size: var(--step-2);
-		font-weight: 700;
-		text-decoration: none;
-		color: var(--color-ink);
-		border-bottom: 3px solid var(--color-orange);
-	}
-
-	.intro__cta:hover {
-		color: var(--color-orange);
-	}
-</style>

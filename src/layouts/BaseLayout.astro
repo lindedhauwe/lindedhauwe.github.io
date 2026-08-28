@@ -41,21 +41,3 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 		<Footer />
 	</body>
 </html>
-
-<style>
-	.skip-link {
-		position: absolute;
-		left: var(--space-s);
-		top: -3rem;
-		padding: var(--space-2xs) var(--space-s);
-		background: var(--color-ink);
-		color: var(--color-paper);
-		border-radius: var(--radius);
-		transition: top 0.2s;
-		z-index: 100;
-	}
-
-	.skip-link:focus {
-		top: var(--space-s);
-	}
-</style>

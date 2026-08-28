@@ -1,0 +1,147 @@
+/* ---------------------------------------------------------------------------
+   Home page — hero composition + intro band.
+--------------------------------------------------------------------------- */
+
+/* --- Hero: mobile-first stack ----------------------------------- */
+.hero {
+	position: relative;
+	display: grid;
+	gap: var(--space-m);
+	padding: var(--space-3xl) var(--space-m) var(--space-xl);
+	overflow: hidden;
+	background: linear-gradient(
+		var(--color-green) 0 42%,
+		var(--color-blush) 42% 100%
+	);
+}
+
+.hero__brand {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: var(--step-4);
+	line-height: 0.9;
+	color: var(--color-paper);
+	text-shadow: 0.04em 0.04em 0 var(--color-ink);
+}
+
+.hero__brand span {
+	display: block;
+}
+
+.hero__year {
+	color: var(--color-pink);
+}
+
+.hero__art {
+	width: min(78%, 24rem);
+	height: auto;
+	justify-self: center;
+}
+
+.hero__statement {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.02em;
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(2.5rem, 13vw, 4.5rem);
+	line-height: 0.9;
+	color: var(--color-ink);
+}
+
+/* --- Hero: mockup composition (desktop) ------------------------ */
+@media (min-width: 40rem) {
+	.hero {
+		gap: 0;
+		min-height: 100svh;
+		padding: 0;
+		background: linear-gradient(
+			var(--color-green) 0 50%,
+			var(--color-blush) 50% 100%
+		);
+	}
+
+	.hero__brand {
+		position: absolute;
+		top: 19%;
+		left: 4%;
+		font-size: clamp(2.5rem, 6.5vw, 5.5rem);
+		text-align: left;
+	}
+
+	.hero__art {
+		position: absolute;
+		top: 37%;
+		right: -1%;
+		width: min(56vw, 44rem);
+		transform: translateY(-50%);
+		z-index: 2;
+		justify-self: unset;
+		filter: drop-shadow(0.4rem 0.5rem 0 rgba(14, 13, 8, 0.12));
+	}
+
+	.hero__statement {
+		position: absolute;
+		inset: 0;
+		display: block;
+		font-size: clamp(3rem, 10.5vw, 8rem);
+		line-height: 0.8;
+	}
+
+	.hero__word {
+		position: absolute;
+	}
+
+	.hero__word--im {
+		left: 4%;
+		top: 52%;
+	}
+
+	.hero__word--inmy {
+		left: 56%;
+		top: 54%;
+	}
+
+	.hero__word--design {
+		left: 4%;
+		top: 72%;
+	}
+
+	.hero__word--era {
+		right: 5%;
+		top: 72%;
+	}
+}
+
+/* --- Intro band ----------------------------------------------- */
+.intro {
+	background: var(--color-blush);
+}
+
+.intro__inner {
+	display: grid;
+	gap: var(--space-m);
+	max-width: var(--content-width);
+	margin-inline: auto;
+	padding: var(--space-2xl) var(--space-m) var(--space-3xl);
+}
+
+.intro__lead {
+	max-width: 42ch;
+	font-size: var(--step-1);
+}
+
+.intro__cta {
+	justify-self: start;
+	font-family: var(--font-hand);
+	font-size: var(--step-2);
+	font-weight: 700;
+	text-decoration: none;
+	color: var(--color-ink);
+	border-bottom: 3px solid var(--color-orange);
+}
+
+.intro__cta:hover {
+	color: var(--color-orange);
+}

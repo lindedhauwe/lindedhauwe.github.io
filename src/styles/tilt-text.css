@@ -1,0 +1,29 @@
+/* ---------------------------------------------------------------------------
+   TiltText — per-letter wonky rotation for display headings.
+--------------------------------------------------------------------------- */
+
+.tilt {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 0.12em;
+}
+
+.tilt__word {
+	display: inline-flex;
+	white-space: nowrap;
+}
+
+.tilt__space {
+	width: 0.3em;
+}
+
+.tilt__char {
+	display: inline-block;
+	transform: rotate(var(--r)) translateY(var(--y));
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.tilt__char {
+		transform: rotate(var(--r));
+	}
+}
