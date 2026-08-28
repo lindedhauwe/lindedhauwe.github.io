@@ -20,9 +20,12 @@
 	--accent: var(--color-orange);
 
 	/* --- Font families ---------------------------------------------------
-	   'luckiest' is confirmed (site title). 'hand' and 'body' are
-	   placeholders — swap the stacks here once chosen. */
+	   'display'   — site title "PORTFOLIO 2026" (Luckiest Guy, confirmed)
+	   'statement' — big hero statement "I'M IN MY … ERA"
+	   'hand'      — handwritten bits (nav bubbles, rotating word)
+	   'body'      — running text (placeholder) */
 	--font-display: 'Luckiest Guy', system-ui, sans-serif;
+	--font-statement: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
 	--font-hand: 'Caveat', 'Bradley Hand', cursive;
 	--font-body: 'Hanken Grotesk Variable', system-ui, sans-serif;
 

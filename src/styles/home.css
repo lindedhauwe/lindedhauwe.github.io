@@ -44,7 +44,7 @@
 	align-items: flex-start;
 	gap: 0.02em;
 	margin: 0;
-	font-family: var(--font-display);
+	font-family: var(--font-statement);
 	font-size: clamp(2.5rem, 13vw, 4.5rem);
 	line-height: 0.9;
 	color: var(--color-ink);
@@ -91,7 +91,7 @@
 		position: absolute;
 		inset: 0;
 		display: block;
-		font-size: clamp(3.5rem, 10.5vw, 8rem);
+		font-size: clamp(4.5rem, 14vw, 11rem);
 		line-height: 0.8;
 	}
 
@@ -105,8 +105,8 @@
 	}
 
 	.hero__word--inmy {
-		left: 56%;
-		top: 54%;
+		left: 46%;
+		top: 60%;
 	}
 
 	.hero__word--craft {
@@ -116,7 +116,7 @@
 	}
 
 	.hero__word--era {
-		right: 5%;
+		right: 10%;
 		top: 86%;
 	}
 }
