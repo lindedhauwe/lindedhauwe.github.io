@@ -4,13 +4,20 @@ import { nav } from '../config/site';
 const current = Astro.url.pathname;
 const isActive = (href: string) =>
 	href === '/' ? current === '/' : current.startsWith(href);
+
+// A few hand-drawn ellipse variants so no two bubbles share the same scribble.
+const scribblePaths = [
+	'M12 26C10 12 42 5 78 6C122 8 144 17 141 29C138 42 96 47 52 45C20 43 14 38 13 25',
+	'M20 11C44 3 112 2 136 12C151 18 147 35 126 42C92 53 28 51 11 39C1 31 7 17 24 10C27 9 31 8 36 8',
+	'M15 21C8 9 46 3 82 5C121 7 147 13 139 27C133 39 98 47 54 45C17 43 9 33 17 20C20 15 27 12 37 11',
+];
 ---
 
 <header class="site-nav">
 	<nav aria-label="Primary">
 		<ul>
 			{
-				nav.map((item) => (
+				nav.map((item, i) => (
 					<li>
 						<a
 							href={item.href}
@@ -25,7 +32,7 @@ const isActive = (href: string) =>
 								aria-hidden="true"
 							>
 								<path
-									d="M12 26C10 12 42 5 78 6C122 8 144 17 141 29C138 42 96 47 52 45C20 43 14 38 13 25"
+									d={scribblePaths[i % scribblePaths.length]}
 									pathLength="100"
 									fill="none"
 									stroke="currentColor"
