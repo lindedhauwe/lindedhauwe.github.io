@@ -95,8 +95,8 @@ import headerImg from '../assets/illustrations/header-img.png';
 		justify-self: end;
 	}
 
-	/* --- Hero: desktop composition --------------------------------- */
-	@media (min-width: 60rem) {
+	/* --- Hero: mockup composition --------------------------------- */
+	@media (min-width: 40rem) {
 		.hero {
 			gap: 0;
 			min-height: 100svh;
@@ -110,24 +110,26 @@ import headerImg from '../assets/illustrations/header-img.png';
 		.hero__brand {
 			position: absolute;
 			top: 22%;
-			left: clamp(1.5rem, 5vw, 5rem);
-			font-size: clamp(3rem, 7vw, 6rem);
+			left: clamp(1.25rem, 4vw, 5rem);
+			font-size: clamp(2.5rem, 7vw, 6rem);
+			text-align: left;
 		}
 
 		.hero__art {
 			position: absolute;
 			top: 50%;
-			right: 3%;
-			width: min(58vw, 52rem);
-			transform: translateY(-47%);
+			right: 2%;
+			width: min(70vw, 54rem);
+			transform: translateY(-48%);
 			z-index: 2;
+			justify-self: unset;
 			filter: drop-shadow(0.4rem 0.5rem 0 rgba(14, 13, 8, 0.12));
 		}
 
 		.hero__statement {
 			position: absolute;
-			inset: auto clamp(1.5rem, 5vw, 5rem) 6%;
-			font-size: clamp(4rem, 10vw, 8.5rem);
+			inset: auto clamp(1.25rem, 4vw, 5rem) 6%;
+			font-size: clamp(3rem, 11vw, 8.5rem);
 			row-gap: 0.08em;
 		}
 	}
