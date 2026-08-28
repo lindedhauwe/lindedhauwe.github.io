@@ -46,8 +46,17 @@
 	margin: 0;
 	font-family: var(--font-statement);
 	font-size: clamp(2.5rem, 13vw, 4.5rem);
-	line-height: 0.9;
+	font-weight: 800;
+	line-height: 0.95;
+	letter-spacing: -0.02em;
+	text-transform: uppercase;
 	color: var(--color-ink);
+}
+
+/* The rotating word keeps its own loose, lowercase handwriting. */
+.hero__statement .era-word {
+	text-transform: none;
+	letter-spacing: normal;
 }
 
 /* The rotating discipline is set in the handwriting face — size it up to
