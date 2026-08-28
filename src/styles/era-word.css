@@ -1,0 +1,40 @@
+/* ---------------------------------------------------------------------------
+   EraWord — the discipline that cycles in "I'm in my ___ era".
+   All variants are stacked in one grid cell so the surrounding layout never
+   reflows as the word changes.
+--------------------------------------------------------------------------- */
+
+.era-word {
+	display: inline-grid;
+	color: var(--color-orange);
+	-webkit-text-stroke: 0.5px var(--color-ink);
+}
+
+.era-word__slot {
+	grid-area: 1 / 1;
+	white-space: nowrap;
+	opacity: 0;
+	transform: translateY(0.3em) rotate(-4deg);
+	transition:
+		opacity 0.4s ease,
+		transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.era-word__slot.is-active {
+	opacity: 1;
+	transform: translateY(0) rotate(-2deg);
+}
+
+.era-word__slot .tilt {
+	flex-wrap: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.era-word__slot {
+		transform: none;
+		transition: opacity 0.25s ease;
+	}
+	.era-word__slot.is-active {
+		transform: none;
+	}
+}

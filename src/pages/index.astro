@@ -2,8 +2,10 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TiltText from '../components/TiltText.astro';
+import EraWord from '../components/EraWord.astro';
 import headerImg from '../assets/illustrations/header-img.png';
 import '../styles/home.css';
+import '../styles/era-word.css';
 ---
 
 <BaseLayout>
@@ -26,7 +28,7 @@ import '../styles/home.css';
 		<h1 class="hero__statement">
 			<span class="hero__word hero__word--im"><TiltText text="I'M" /></span>
 			<span class="hero__word hero__word--inmy"><TiltText text="IN MY" /></span>
-			<span class="hero__word hero__word--design"><TiltText text="DESIGN" /></span>
+			<span class="hero__word hero__word--craft"><EraWord /></span>
 			<span class="hero__word hero__word--era"><TiltText text="ERA" /></span>
 		</h1>
 	</section>

@@ -1,0 +1,43 @@
+---
+import TiltText from './TiltText.astro';
+
+/** The rotating discipline in "I'm in my ___ era". */
+const words = ['DESIGN', 'DEVELOPMENT', 'MOTION', 'UX/UI'];
+---
+
+<span class="era-word" data-era-word>
+	<span class="visually-hidden">design, development, motion &amp; UX/UI</span>
+	{
+		words.map((word, i) => (
+			<span
+				class:list={['era-word__slot', { 'is-active': i === 0 }]}
+				aria-hidden="true"
+			>
+				<TiltText text={word} jitter={5} />
+			</span>
+		))
+	}
+</span>
+
+<script>
+	function startEraWords() {
+		document
+			.querySelectorAll<HTMLElement>('[data-era-word]')
+			.forEach((root) => {
+				if (root.dataset.eraRunning) return;
+				const slots = Array.from(root.querySelectorAll('.era-word__slot'));
+				if (slots.length < 2) return;
+				root.dataset.eraRunning = 'true';
+
+				let i = 0;
+				window.setInterval(() => {
+					slots[i].classList.remove('is-active');
+					i = (i + 1) % slots.length;
+					slots[i].classList.add('is-active');
+				}, 2000);
+			});
+	}
+
+	startEraWords();
+	document.addEventListener('astro:page-load', startEraWords);
+</script>

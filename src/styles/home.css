@@ -50,6 +50,11 @@
 	color: var(--color-ink);
 }
 
+/* The rotating discipline runs a touch smaller so the long words still fit. */
+.hero__word--craft {
+	font-size: clamp(2rem, 9vw, 3.5rem);
+}
+
 /* --- Hero: mockup composition (desktop) ------------------------ */
 @media (min-width: 40rem) {
 	.hero {
@@ -103,9 +108,10 @@
 		top: 54%;
 	}
 
-	.hero__word--design {
+	.hero__word--craft {
 		left: 4%;
-		top: 72%;
+		top: 71%;
+		font-size: clamp(2.5rem, 7vw, 5.5rem);
 	}
 
 	.hero__word--era {
