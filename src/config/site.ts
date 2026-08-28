@@ -9,8 +9,8 @@ export const site = {
 	description:
 		"Portfolio of Linde D'Hauwe — Digital Design & Development student. Projects across UX, illustration, graphic design and front-end development.",
 	email: 'linde.dhauwe@outlook.com',
-	/** International format, e.g. "+32 476 12 34 56". Empty = hidden. */
-	phone: '',
+	/** International format. Empty = hidden. */
+	phone: '+32 470 75 47 12',
 	locale: 'en',
 } as const;
 
