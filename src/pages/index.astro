@@ -58,10 +58,10 @@ import headerImg from '../assets/illustrations/header-img.png';
 	.hero__brand {
 		margin: 0;
 		font-family: var(--font-display);
-		font-size: var(--step-5);
+		font-size: var(--step-4);
 		line-height: 0.9;
 		color: var(--color-paper);
-		text-shadow: 0.05em 0.05em 0 var(--color-ink);
+		text-shadow: 0.04em 0.04em 0 var(--color-ink);
 	}
 
 	.hero__brand span {
@@ -73,26 +73,21 @@ import headerImg from '../assets/illustrations/header-img.png';
 	}
 
 	.hero__art {
-		width: min(90%, 34rem);
+		width: min(78%, 24rem);
 		height: auto;
 		justify-self: center;
 	}
 
 	.hero__statement {
-		display: grid;
-		grid-template-columns: auto auto;
-		justify-content: space-between;
-		gap: 0.05em 0.4em;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.02em;
 		margin: 0;
 		font-family: var(--font-display);
-		font-size: clamp(2.75rem, 15vw, 5rem);
-		line-height: 0.85;
+		font-size: clamp(2.5rem, 13vw, 4.5rem);
+		line-height: 0.9;
 		color: var(--color-ink);
-	}
-
-	.word--inmy,
-	.word--era {
-		justify-self: end;
 	}
 
 	/* --- Hero: mockup composition --------------------------------- */
@@ -109,18 +104,18 @@ import headerImg from '../assets/illustrations/header-img.png';
 
 		.hero__brand {
 			position: absolute;
-			top: 22%;
-			left: clamp(1.25rem, 4vw, 5rem);
-			font-size: clamp(2.5rem, 7vw, 6rem);
+			top: 19%;
+			left: 4%;
+			font-size: clamp(2.5rem, 6.5vw, 5.5rem);
 			text-align: left;
 		}
 
 		.hero__art {
 			position: absolute;
-			top: 50%;
-			right: 2%;
-			width: min(70vw, 54rem);
-			transform: translateY(-48%);
+			top: 37%;
+			right: -1%;
+			width: min(56vw, 44rem);
+			transform: translateY(-50%);
 			z-index: 2;
 			justify-self: unset;
 			filter: drop-shadow(0.4rem 0.5rem 0 rgba(14, 13, 8, 0.12));
@@ -128,9 +123,34 @@ import headerImg from '../assets/illustrations/header-img.png';
 
 		.hero__statement {
 			position: absolute;
-			inset: auto clamp(1.25rem, 4vw, 5rem) 6%;
-			font-size: clamp(3rem, 11vw, 8.5rem);
-			row-gap: 0.08em;
+			inset: 0;
+			display: block;
+			font-size: clamp(3rem, 10.5vw, 8rem);
+			line-height: 0.8;
+		}
+
+		.hero__statement .word {
+			position: absolute;
+		}
+
+		.word--im {
+			left: 4%;
+			top: 52%;
+		}
+
+		.word--inmy {
+			left: 56%;
+			top: 54%;
+		}
+
+		.word--design {
+			left: 4%;
+			top: 72%;
+		}
+
+		.word--era {
+			right: 5%;
+			top: 72%;
 		}
 	}
 
