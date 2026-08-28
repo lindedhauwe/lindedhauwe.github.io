@@ -40,8 +40,8 @@ const isActive = (href: string) =>
 <script>
 	function initFloatNav() {
 		const root = document.querySelector<HTMLElement>('[data-float-nav]');
+		if (!root) return;
 		const header = document.querySelector('.site-nav');
-		if (!root || !header) return;
 		const details = root.querySelector('details');
 
 		const setVisible = (visible: boolean) => {
@@ -49,10 +49,14 @@ const isActive = (href: string) =>
 			if (!visible && details) details.open = false;
 		};
 
-		if ('IntersectionObserver' in window) {
+		if (header && 'IntersectionObserver' in window) {
+			// Home: reveal once the bubble nav has scrolled away.
 			new IntersectionObserver(([entry]) => setVisible(!entry.isIntersecting), {
 				threshold: 0,
 			}).observe(header);
+		} else {
+			// Other pages have no bubble nav — the floating nav is the nav.
+			setVisible(true);
 		}
 
 		if (root.dataset.bound) return;

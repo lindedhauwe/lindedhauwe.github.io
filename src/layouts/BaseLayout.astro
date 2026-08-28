@@ -8,9 +8,11 @@ import Footer from '../components/Footer.astro';
 interface Props {
 	title?: string;
 	description?: string;
+	/** The scribble-bubble nav is a home-page thing; other pages use FloatingNav only. */
+	bubbleNav?: boolean;
 }
 
-const { title, description = site.description } = Astro.props;
+const { title, description = site.description, bubbleNav = false } = Astro.props;
 const pageTitle = title ? `${title} — ${site.name}` : `${site.name} · ${site.title}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -72,7 +74,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 		</svg>
 
 		<a class="skip-link" href="#main">Skip to content</a>
-		<Nav />
+		{bubbleNav && <Nav />}
 		<FloatingNav />
 		<main id="main">
 			<slot />

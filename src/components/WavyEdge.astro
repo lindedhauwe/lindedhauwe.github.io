@@ -1,0 +1,30 @@
+---
+/**
+ * A torn/wavy divider that sits at the top of a section and "peels" its colour
+ * up over the section above. Put it as the first child of a `position: relative`
+ * section and pass that section's background colour.
+ */
+interface Props {
+	/** CSS colour of the section this edge belongs to */
+	color: string;
+	variant?: 1 | 2 | 3;
+}
+
+const { color, variant = 1 } = Astro.props;
+
+const paths: Record<number, string> = {
+	1: 'M0,80 L0,46 C95,64 150,30 250,42 C345,53 385,22 470,34 C560,47 620,20 720,36 C820,52 875,24 970,38 C1055,50 1110,28 1200,44 L1200,80 Z',
+	2: 'M0,80 L0,54 C90,30 150,62 250,46 C345,31 385,66 470,52 C560,37 620,60 720,42 C820,24 875,60 970,48 C1055,37 1110,54 1200,40 L1200,80 Z',
+	3: 'M0,80 L0,40 C110,58 170,24 280,40 C380,54 430,26 540,40 C650,54 700,22 820,40 C930,56 990,26 1100,42 C1140,48 1170,38 1200,42 L1200,80 Z',
+};
+---
+
+<svg
+	class="wavy-edge"
+	viewBox="0 0 1200 80"
+	preserveAspectRatio="none"
+	aria-hidden="true"
+	style={`color:${color}`}
+>
+	<path d={paths[variant]} fill="currentColor"></path>
+</svg>

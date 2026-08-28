@@ -1,11 +1,122 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import '../styles/page.css';
+import WavyEdge from '../components/WavyEdge.astro';
+import '../styles/about.css';
+
+const interests = [
+	'creative coding',
+	'badminton',
+	'walks',
+	'painting',
+	'music',
+	'films',
+	'puzzles',
+	'reading',
+];
+
+const languages = [
+	{ name: 'Dutch', level: 'native' },
+	{ name: 'English', level: 'fluent' },
+	{ name: 'French', level: 'some' },
+	{ name: 'German', level: 'learning' },
+];
+
+// Placeholder — real logos + a proper bag illustration are on the way.
+const toolGroups = [
+	{ label: 'Design', tools: ['Figma', 'Photoshop', 'Illustrator'] },
+	{ label: '3D & drawing', tools: ['Blender', 'Procreate'] },
+	{ label: 'Code', tools: ['HTML', 'CSS', 'JavaScript', 'PHP'] },
+];
 ---
 
-<BaseLayout title="About me">
-	<section class="page-stub">
-		<h1>About me</h1>
-		<p>Coming next.</p>
+<BaseLayout
+	title="The Lore"
+	description="The lore behind Linde D'Hauwe — a Digital Design & Development student from Leuven, based in Kortrijk."
+>
+	<section class="lore">
+		<div class="lore__inner">
+			<h1 class="lore__title">The Lore</h1>
+
+			<p class="lore__intro">
+				Hi, my name is Linde, and I am a second-year Digital Design and
+				Development student at Howest in Kortrijk. I&rsquo;m 20 years old and I
+				was born and raised in Leuven. Currently, I live in student housing in
+				Kortrijk &mdash; but my heart and home lie in Leuven.
+			</p>
+
+			<p class="lore__note">Kortrijk address, Leuven heart.</p>
+
+			<div class="lore__photo" aria-hidden="true">
+				<span>photo dropping soon</span>
+			</div>
+		</div>
+	</section>
+
+	<section class="interests">
+		<WavyEdge color="var(--color-blush)" variant={2} />
+
+		<div class="interests__inner">
+			<h2 class="interests__heading">My interests</h2>
+
+			<div class="interests__body">
+				<p>
+					I&rsquo;m passionate about design and user experience, and I enjoy
+					creating thoughtful and imaginative solutions. Creative coding is a
+					hobby I do just for fun. Outside of my studies I love playing
+					badminton, going for walks, and painting &mdash; and music, films,
+					puzzles and reading are a big part of my life too.
+				</p>
+				<p>
+					My native language is Dutch, but I&rsquo;m also fluent in English,
+					speak some French, and I&rsquo;m currently learning German. I&rsquo;m
+					curious and creative, with a natural pull toward exploring new ideas. I
+					come from an artistic background &mdash; I hold a diploma in arts
+					education from SLAC academy in Leuven &mdash; and in secondary school I
+					studied economics and humanities.
+				</p>
+			</div>
+
+			<ul class="tag-list">
+				{interests.map((t) => <li class="tag">{t}</li>)}
+			</ul>
+
+			<ul class="langs">
+				{
+					languages.map((l) => (
+						<li class="lang">
+							<span class="lang__name">{l.name}</span>
+							<span class="lang__level">{l.level}</span>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<section class="bag">
+		<WavyEdge color="var(--color-blue)" variant={3} />
+
+		<div class="bag__inner">
+			<h2 class="bag__heading">What&rsquo;s in my bag</h2>
+			<p class="bag__note">
+				The tools I actually reach for. Real logos &amp; a proper bag are being
+				packed &mdash; placeholder for now.
+			</p>
+
+			<div class="bag__groups">
+				{
+					toolGroups.map((g) => (
+						<div class="bag__group">
+							<h3 class="bag__group-label">{g.label}</h3>
+							<ul class="tag-list">
+								{g.tools.map((t) => (
+									<li class="tag tag--light">{t}</li>
+								))}
+							</ul>
+						</div>
+					))
+				}
+			</div>
+		</div>
 	</section>
 </BaseLayout>

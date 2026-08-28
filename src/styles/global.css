@@ -13,6 +13,7 @@
 @import './tokens.css';
 @import './base.css';
 @import './button.css';
+@import './wavy-edge.css';
 
 /* Components (rendered on every page via BaseLayout) */
 @import './nav.css';

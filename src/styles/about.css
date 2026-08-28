@@ -1,0 +1,239 @@
+/* ===========================================================================
+   ABOUT — "The Lore"
+   1. The Lore (title + intro)
+   2. My interests
+   3. What's in my bag
+=========================================================================== */
+
+/* shared: little handwritten pill tags -------------------------------- */
+.tag-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-2xs) var(--space-xs);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.tag {
+	padding: 0.35em 1em;
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-1);
+	line-height: 1;
+	color: var(--color-ink);
+	background: var(--color-paper);
+	border: 2px solid var(--color-ink);
+	border-radius: 999px;
+}
+
+.tag:nth-child(odd) {
+	transform: rotate(-2deg);
+}
+.tag:nth-child(even) {
+	transform: rotate(1.5deg);
+}
+
+.tag--light {
+	color: var(--color-paper);
+	background: transparent;
+	border-color: var(--color-paper);
+}
+
+/* ---------------------------------------------------------------------------
+   1. The Lore
+--------------------------------------------------------------------------- */
+.lore {
+	position: relative;
+	background: var(--color-green);
+	color: var(--color-paper);
+}
+
+.lore__inner {
+	display: grid;
+	gap: var(--space-l);
+	max-width: var(--content-width);
+	margin-inline: auto;
+	padding: var(--space-2xl) var(--space-m) var(--space-3xl);
+}
+
+.lore__title {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(2.75rem, 9.5vw, 6.5rem);
+	line-height: 0.9;
+	color: var(--color-paper);
+	transform: rotate(-2deg);
+}
+
+.lore__intro {
+	max-width: 46ch;
+	font-size: var(--step-2);
+	line-height: 1.5;
+}
+
+.lore__note {
+	margin: 0;
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-2);
+	color: var(--color-blush);
+	transform: rotate(-1.5deg);
+}
+
+.lore__photo {
+	justify-self: start;
+	display: grid;
+	place-items: center;
+	width: clamp(11rem, 42vw, 16rem);
+	aspect-ratio: 3 / 4;
+	padding: 0.7rem;
+	color: var(--color-ink);
+	font-family: var(--font-hand);
+	font-weight: 700;
+	text-align: center;
+	background: var(--color-paper);
+	box-shadow: 0 0.7rem 1.6rem rgba(14, 13, 8, 0.28);
+	transform: rotate(3deg);
+}
+
+@media (min-width: 48rem) {
+	.lore__inner {
+		grid-template-columns: 1fr auto;
+		grid-template-areas:
+			'title  photo'
+			'intro  photo'
+			'note   photo';
+		align-items: start;
+		column-gap: var(--space-3xl);
+		padding-top: var(--space-3xl);
+	}
+	.lore__title {
+		grid-area: title;
+	}
+	.lore__intro {
+		grid-area: intro;
+	}
+	.lore__note {
+		grid-area: note;
+	}
+	.lore__photo {
+		grid-area: photo;
+		align-self: center;
+	}
+}
+
+/* ---------------------------------------------------------------------------
+   2. My interests
+--------------------------------------------------------------------------- */
+.interests {
+	position: relative;
+	background: var(--color-blush);
+	color: var(--color-ink);
+}
+
+.interests__inner {
+	display: grid;
+	gap: var(--space-l);
+	max-width: var(--content-width);
+	margin-inline: auto;
+	padding: var(--space-3xl) var(--space-m);
+}
+
+.interests__heading {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: var(--step-5);
+	color: var(--color-orange);
+	transform: rotate(-1.5deg);
+}
+
+.interests__body {
+	display: grid;
+	gap: var(--space-m);
+	max-width: 62ch;
+	font-size: var(--step-1);
+}
+
+.langs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-s) var(--space-l);
+	margin: var(--space-s) 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.lang {
+	display: grid;
+	gap: 0.15em;
+}
+
+.lang__name {
+	font-family: var(--font-statement);
+	font-weight: 800;
+	font-size: var(--step-2);
+	letter-spacing: -0.01em;
+	text-transform: uppercase;
+}
+
+.lang__level {
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-1);
+	color: var(--color-orange);
+}
+
+/* ---------------------------------------------------------------------------
+   3. What's in my bag
+--------------------------------------------------------------------------- */
+.bag {
+	position: relative;
+	background: var(--color-blue);
+	color: var(--color-paper);
+}
+
+.bag__inner {
+	display: grid;
+	gap: var(--space-l);
+	max-width: var(--content-width);
+	margin-inline: auto;
+	padding: var(--space-3xl) var(--space-m);
+}
+
+.bag__heading {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: var(--step-5);
+	color: var(--color-paper);
+	transform: rotate(-1.5deg);
+}
+
+.bag__note {
+	max-width: 44ch;
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-1);
+	opacity: 0.9;
+}
+
+.bag__groups {
+	display: grid;
+	gap: var(--space-xl);
+}
+
+.bag__group-label {
+	margin: 0 0 var(--space-s);
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-2);
+	color: var(--color-blush);
+}
+
+@media (min-width: 48rem) {
+	.bag__groups {
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-l);
+		align-items: start;
+	}
+}
