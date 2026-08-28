@@ -130,11 +130,11 @@
 --------------------------------------------------------------------------- */
 .float-nav {
 	position: fixed;
+	top: var(--space-m);
 	right: var(--space-m);
-	bottom: var(--space-m);
 	z-index: 60;
 	opacity: 0;
-	transform: translateY(0.75rem) scale(0.9);
+	transform: translateY(-0.75rem) scale(0.9);
 	pointer-events: none;
 	transition:
 		opacity 0.25s ease,
@@ -191,7 +191,7 @@
 .float-nav__list {
 	position: absolute;
 	right: 0;
-	bottom: calc(100% + var(--space-2xs));
+	top: calc(100% + var(--space-2xs));
 	display: grid;
 	gap: var(--space-2xs);
 	justify-items: end;
