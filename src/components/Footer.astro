@@ -1,0 +1,53 @@
+---
+import { site, socials } from '../config/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+	<p class="tag">Made with too much coffee &amp; coloured pencils.</p>
+	{
+		socials.length > 0 && (
+			<ul class="socials">
+				{socials.map((s) => (
+					<li>
+						<a href={s.href} target="_blank" rel="noopener noreferrer">
+							{s.label}
+						</a>
+					</li>
+				))}
+			</ul>
+		)
+	}
+	<p class="copy">© {year} {site.name}</p>
+</footer>
+
+<style>
+	.site-footer {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: var(--space-xs) var(--space-m);
+		padding: var(--space-l) var(--space-m);
+		background: var(--color-ink);
+		color: var(--color-paper);
+	}
+
+	.tag {
+		font-family: var(--font-hand);
+		font-size: var(--step-1);
+	}
+
+	.socials {
+		display: flex;
+		gap: var(--space-m);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.copy {
+		font-size: var(--step--1);
+		opacity: 0.7;
+	}
+</style>

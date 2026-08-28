@@ -1,0 +1,110 @@
+---
+import { site, nav } from '../config/site';
+
+const current = Astro.url.pathname;
+const isActive = (href: string) =>
+	href === '/' ? current === '/' : current.startsWith(href);
+---
+
+<header class="site-nav">
+	<a class="brand" href="/">{site.name}</a>
+
+	<nav aria-label="Primary">
+		<ul>
+			{
+				nav.map((item) => (
+					<li>
+						<a
+							href={item.href}
+							class:list={['scribble', { 'is-active': isActive(item.href) }]}
+							aria-current={isActive(item.href) ? 'page' : undefined}
+						>
+							<span>{item.label}</span>
+							<svg
+								class="ellipse"
+								viewBox="0 0 150 50"
+								preserveAspectRatio="none"
+								aria-hidden="true"
+							>
+								<path
+									d="M12 26C10 12 42 5 78 6C122 8 144 17 141 29C138 42 96 47 52 45C20 43 14 38 13 25"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2.5"
+									stroke-linecap="round"
+								/>
+							</svg>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+</header>
+
+<style>
+	.site-nav {
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-xs) var(--space-m);
+		padding: var(--space-xs) var(--space-m);
+	}
+
+	.brand {
+		font-family: var(--font-hand);
+		font-size: var(--step-2);
+		font-weight: 700;
+		text-decoration: none;
+		line-height: 1;
+	}
+
+	nav ul {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-xs) var(--space-l);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.scribble {
+		position: relative;
+		display: inline-block;
+		padding: 0.35em 0.9em;
+		font-family: var(--font-hand);
+		font-size: var(--step-1);
+		font-weight: 700;
+		text-decoration: none;
+		color: var(--color-ink);
+	}
+
+	.scribble .ellipse {
+		position: absolute;
+		inset: -0.15em -0.1em;
+		width: calc(100% + 0.2em);
+		height: calc(100% + 0.3em);
+		color: var(--color-orange);
+		opacity: 0;
+		transform: rotate(-2deg) scale(0.9);
+		transition:
+			opacity 0.18s ease,
+			transform 0.18s ease;
+	}
+
+	.scribble:hover .ellipse,
+	.scribble:focus-visible .ellipse,
+	.scribble.is-active .ellipse {
+		opacity: 1;
+		transform: rotate(-2deg) scale(1);
+	}
+
+	.scribble.is-active .ellipse {
+		color: var(--color-green);
+	}
+</style>
