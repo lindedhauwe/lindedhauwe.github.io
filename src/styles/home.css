@@ -146,7 +146,7 @@
 	line-height: 1;
 }
 
-/* Words swap instantly — a hard cut, no slide. */
+/* Each new word is "written in" left-to-right, underline drawing beneath it. */
 .era-word__slot {
 	position: relative;
 	grid-area: 1 / 1;
@@ -159,6 +159,16 @@
 
 .era-word__slot.is-active {
 	visibility: visible;
+	animation: era-write 0.42s ease both;
+}
+
+@keyframes era-write {
+	from {
+		clip-path: inset(-45% 100% -75% -6%);
+	}
+	to {
+		clip-path: inset(-45% -6% -75% -6%);
+	}
 }
 
 .era-word__underline {
@@ -171,6 +181,31 @@
 	overflow: visible;
 	color: var(--color-pink);
 	filter: url(#pencil);
+}
+
+.era-word__underline path {
+	stroke-dasharray: 100;
+	stroke-dashoffset: 100;
+}
+
+.era-word__slot.is-active .era-word__underline path {
+	animation: era-underline 0.5s ease 0.06s both;
+}
+
+@keyframes era-underline {
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.era-word__slot.is-active,
+	.era-word__slot.is-active .era-word__underline path {
+		animation: none;
+	}
+	.era-word__underline path {
+		stroke-dashoffset: 0;
+	}
 }
 
 /* ---------------------------------------------------------------------------
