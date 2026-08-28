@@ -343,11 +343,11 @@
 	text-decoration: none;
 }
 
-/* the cream photo print */
+/* the polaroid print — thin margin on 3 sides, fat white strip at the bottom */
 .work-card__photo {
 	position: relative;
 	display: block;
-	padding: 0.7rem 0.7rem 0.4rem;
+	padding: 0.65rem 0.65rem 0;
 	background: var(--color-paper);
 	box-shadow: 0 0.7rem 1.6rem rgba(14, 13, 8, 0.22);
 	transition: box-shadow 0.2s ease;
@@ -368,21 +368,21 @@
 
 .work-card__caption {
 	display: block;
-	padding: 0.55rem 0.2rem 0.25rem;
+	padding: 1.4rem 0.5rem 1.7rem;
 	font-family: var(--font-hand);
 	font-weight: 700;
-	font-size: var(--step-1);
+	font-size: var(--step-2);
 	line-height: 1;
 	text-align: center;
 	color: var(--color-ink);
 }
 
-/* washi tape */
+/* strip of coloured tape holding the photo down — opaque, matte */
 .work-card__tape {
 	position: absolute;
-	width: 5.5rem;
-	height: 1.6rem;
-	box-shadow: 0 0.1rem 0.3rem rgba(14, 13, 8, 0.12);
+	width: 7.5rem;
+	height: 2.2rem;
+	box-shadow: 0 0.15rem 0.4rem rgba(14, 13, 8, 0.16);
 }
 
 .work-card:nth-child(1) {
@@ -396,22 +396,22 @@
 }
 
 .work-card:nth-child(1) .work-card__tape {
-	top: -0.55rem;
-	left: -1rem;
-	transform: rotate(-38deg);
-	background: rgba(221, 126, 138, 0.78);
+	top: -0.9rem;
+	left: -1.4rem;
+	transform: rotate(-40deg);
+	background: color-mix(in srgb, var(--color-pink) 62%, var(--color-paper));
 }
 .work-card:nth-child(2) .work-card__tape {
-	top: -0.7rem;
-	right: -1rem;
-	transform: rotate(34deg);
-	background: rgba(67, 90, 140, 0.72);
+	top: -1rem;
+	right: -1.4rem;
+	transform: rotate(36deg);
+	background: color-mix(in srgb, var(--color-blue) 55%, var(--color-paper));
 }
 .work-card:nth-child(3) .work-card__tape {
-	top: -0.5rem;
-	left: 38%;
-	transform: rotate(7deg);
-	background: rgba(205, 91, 37, 0.74);
+	top: -0.85rem;
+	left: 36%;
+	transform: rotate(6deg);
+	background: color-mix(in srgb, var(--color-orange) 58%, var(--color-paper));
 }
 
 .work-card:hover,
