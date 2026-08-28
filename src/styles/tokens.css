@@ -19,6 +19,13 @@
 	--fg: var(--color-ink);
 	--accent: var(--color-orange);
 
+	/* --- Font families ---------------------------------------------------
+	   'luckiest' is confirmed (site title). 'hand' and 'body' are
+	   placeholders — swap the stacks here once chosen. */
+	--font-display: 'Luckiest Guy', system-ui, sans-serif;
+	--font-hand: 'Caveat', 'Bradley Hand', cursive;
+	--font-body: 'Hanken Grotesk Variable', system-ui, sans-serif;
+
 	/* --- Type scale (fluid, 320 -> 1280px) ----------------------------- */
 	--step--1: clamp(0.83rem, 0.8rem + 0.16vw, 0.94rem);
 	--step-0: clamp(1rem, 0.95rem + 0.24vw, 1.13rem);
