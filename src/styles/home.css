@@ -124,13 +124,13 @@
 
 	.hero__word--craft {
 		left: 10%;
-		top: 79%;
+		top: 70%;
 		font-size: clamp(4.5rem, 14vw, 11rem);
 	}
 
 	.hero__word--era {
 		right: 15%;
-		top: 83%;
+		top: 74%;
 	}
 }
 
