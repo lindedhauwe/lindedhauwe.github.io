@@ -377,12 +377,38 @@
 	color: var(--color-ink);
 }
 
-/* strip of coloured tape holding the photo down — opaque, matte */
+/* strip of coloured tape holding the photo down — opaque, matte, torn ends */
 .work-card__tape {
 	position: absolute;
-	width: 7.5rem;
-	height: 2.2rem;
-	box-shadow: 0 0.15rem 0.4rem rgba(14, 13, 8, 0.16);
+	width: 7rem;
+	height: 2.1rem;
+	filter: drop-shadow(0 0.2rem 0.35rem rgba(14, 13, 8, 0.22));
+	clip-path: polygon(
+		0% 6%,
+		100% 10%,
+		95% 32%,
+		100% 54%,
+		96% 78%,
+		100% 96%,
+		0% 90%,
+		5% 68%,
+		0% 46%,
+		4% 22%
+	);
+}
+
+/* faint diagonal sheen so the strip reads as tape, not a colour block */
+.work-card__tape::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(
+		108deg,
+		rgba(255, 255, 255, 0.28),
+		rgba(255, 255, 255, 0) 38%,
+		rgba(255, 255, 255, 0.14) 72%,
+		rgba(255, 255, 255, 0) 100%
+	);
 }
 
 .work-card:nth-child(1) {
@@ -395,23 +421,24 @@
 	transform: rotate(-1.5deg);
 }
 
+/* each strip straddles an edge/corner, half on the photo, half on the wall */
 .work-card:nth-child(1) .work-card__tape {
-	top: -0.9rem;
-	left: -1.4rem;
-	transform: rotate(-40deg);
-	background: color-mix(in srgb, var(--color-pink) 62%, var(--color-paper));
+	top: -0.75rem;
+	left: -1.75rem;
+	transform: rotate(-45deg);
+	background: color-mix(in srgb, var(--color-pink) 60%, var(--color-paper));
 }
 .work-card:nth-child(2) .work-card__tape {
-	top: -1rem;
-	right: -1.4rem;
-	transform: rotate(36deg);
-	background: color-mix(in srgb, var(--color-blue) 55%, var(--color-paper));
+	top: -0.75rem;
+	right: -1.75rem;
+	transform: rotate(45deg);
+	background: color-mix(in srgb, var(--color-blue) 52%, var(--color-paper));
 }
 .work-card:nth-child(3) .work-card__tape {
-	top: -0.85rem;
-	left: 36%;
-	transform: rotate(6deg);
-	background: color-mix(in srgb, var(--color-orange) 58%, var(--color-paper));
+	top: -1.05rem;
+	left: 22%;
+	transform: rotate(-5deg);
+	background: color-mix(in srgb, var(--color-orange) 56%, var(--color-paper));
 }
 
 .work-card:hover,
