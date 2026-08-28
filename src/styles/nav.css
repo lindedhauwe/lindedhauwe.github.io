@@ -124,3 +124,125 @@
 		padding: 0.4em 1.1em;
 	}
 }
+
+/* ---------------------------------------------------------------------------
+   Floating nav — appears once the header nav has scrolled out of view.
+--------------------------------------------------------------------------- */
+.float-nav {
+	position: fixed;
+	right: var(--space-m);
+	bottom: var(--space-m);
+	z-index: 60;
+	opacity: 0;
+	transform: translateY(0.75rem) scale(0.9);
+	pointer-events: none;
+	transition:
+		opacity 0.25s ease,
+		transform 0.25s ease;
+}
+
+.float-nav.is-visible {
+	opacity: 1;
+	transform: none;
+	pointer-events: auto;
+}
+
+.float-nav__wrap {
+	position: relative;
+}
+
+.float-nav__btn {
+	display: grid;
+	place-items: center;
+	width: 3.5rem;
+	height: 3.5rem;
+	list-style: none;
+	border-radius: 50%;
+	background: var(--color-ink);
+	color: var(--color-paper);
+	cursor: pointer;
+	transform: rotate(-4deg);
+	box-shadow: 0.3rem 0.35rem 0 rgba(14, 13, 8, 0.22);
+	transition: background-color 0.16s ease;
+}
+
+.float-nav__btn::-webkit-details-marker {
+	display: none;
+}
+
+.float-nav__wrap[open] .float-nav__btn {
+	background: var(--color-orange);
+}
+
+.float-nav__icon {
+	width: 1.4rem;
+	height: auto;
+	color: currentColor;
+	filter: url(#pencil);
+}
+
+.float-nav__icon path {
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 2.6;
+	stroke-linecap: round;
+}
+
+.float-nav__list {
+	position: absolute;
+	right: 0;
+	bottom: calc(100% + var(--space-2xs));
+	display: grid;
+	gap: var(--space-2xs);
+	justify-items: end;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.float-nav__list a {
+	display: block;
+	padding: 0.4em 1.1em;
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-0);
+	white-space: nowrap;
+	text-decoration: none;
+	color: var(--color-ink);
+	background: var(--color-paper);
+	border: 2px solid var(--color-ink);
+	border-radius: 999px;
+}
+
+.float-nav__list li:nth-child(odd) a {
+	transform: rotate(-2deg);
+}
+.float-nav__list li:nth-child(even) a {
+	transform: rotate(1.5deg);
+}
+
+.float-nav__list a:hover,
+.float-nav__list a:focus-visible {
+	background: var(--color-orange);
+	color: var(--color-paper);
+}
+
+.float-nav__list a[aria-current='page'] {
+	background: var(--color-orange);
+	color: var(--color-paper);
+}
+
+.float-nav__btn:focus-visible {
+	outline: 3px solid var(--color-orange);
+	outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.float-nav {
+		transition: opacity 0.2s ease;
+		transform: none;
+	}
+	.float-nav:not(.is-visible) {
+		transform: none;
+	}
+}

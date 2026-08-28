@@ -1,0 +1,74 @@
+---
+import { nav } from '../config/site';
+
+const links = [{ label: 'home', href: '/' }, ...nav];
+const current = Astro.url.pathname;
+const isActive = (href: string) =>
+	href === '/' ? current === '/' : current.startsWith(href);
+---
+
+<div class="float-nav" data-float-nav>
+	<details class="float-nav__wrap">
+		<summary class="float-nav__btn">
+			<span class="visually-hidden">Menu</span>
+			<svg class="float-nav__icon" viewBox="0 0 32 24" aria-hidden="true">
+				<path d="M3 5H29" />
+				<path d="M3 12H29" />
+				<path d="M3 19H29" />
+			</svg>
+		</summary>
+
+		<nav aria-label="Page">
+			<ul class="float-nav__list">
+				{
+					links.map((l) => (
+						<li>
+							<a
+								href={l.href}
+								aria-current={isActive(l.href) ? 'page' : undefined}
+							>
+								{l.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+	</details>
+</div>
+
+<script>
+	function initFloatNav() {
+		const root = document.querySelector<HTMLElement>('[data-float-nav]');
+		const header = document.querySelector('.site-nav');
+		if (!root || !header) return;
+		const details = root.querySelector('details');
+
+		const setVisible = (visible: boolean) => {
+			root.classList.toggle('is-visible', visible);
+			if (!visible && details) details.open = false;
+		};
+
+		if ('IntersectionObserver' in window) {
+			new IntersectionObserver(([entry]) => setVisible(!entry.isIntersecting), {
+				threshold: 0,
+			}).observe(header);
+		}
+
+		if (root.dataset.bound) return;
+		root.dataset.bound = 'true';
+
+		root.addEventListener('click', (e) => {
+			if ((e.target as HTMLElement).closest('a') && details) details.open = false;
+		});
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && details) details.open = false;
+		});
+		document.addEventListener('click', (e) => {
+			if (details?.open && !root.contains(e.target as Node)) details.open = false;
+		});
+	}
+
+	initFloatNav();
+	document.addEventListener('astro:page-load', initFloatNav);
+</script>
