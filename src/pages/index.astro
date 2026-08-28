@@ -84,6 +84,23 @@ import '../styles/home.css';
 		<div class="work__inner">
 			<h2 class="work__heading">Selected work</h2>
 
+			<span class="work__slay" aria-hidden="true">
+				slay!
+				<svg
+					class="work__slay-line"
+					viewBox="0 0 120 10"
+					preserveAspectRatio="none"
+				>
+					<path
+						d="M2 6C25 3 48 9 68 5C90 1 106 8 118 4"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="3.2"
+						stroke-linecap="round"
+					/>
+				</svg>
+			</span>
+
 			<ul class="work__grid">
 				{
 					featuredWork.map((w) => (
