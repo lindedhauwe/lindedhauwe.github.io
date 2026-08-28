@@ -173,6 +173,7 @@
 	height: 0.24em;
 	overflow: visible;
 	color: var(--color-pink);
+	filter: url(#pencil);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -444,6 +445,8 @@
 }
 
 .contact__link {
+	position: relative;
+	padding-bottom: 0.16em;
 	font-family: var(--font-hand);
 	font-weight: 700;
 	font-size: clamp(1.75rem, 6vw, 3.25rem);
@@ -451,8 +454,19 @@
 	word-break: break-word;
 	text-decoration: none;
 	color: var(--color-paper);
-	border-bottom: 4px solid var(--color-orange);
 	transition: color 0.16s ease;
+}
+
+.contact__scribble {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 0.3em;
+	overflow: visible;
+	color: var(--color-orange);
+	filter: url(#pencil);
 }
 
 .contact__link:hover,
@@ -473,12 +487,23 @@
 }
 
 .contact__socials a {
+	position: relative;
 	text-decoration: none;
-	border-bottom: 3px solid transparent;
-	transition: border-color 0.16s ease;
 }
 
-.contact__socials a:hover,
-.contact__socials a:focus-visible {
-	border-bottom-color: var(--color-orange);
+.contact__socials a::after {
+	content: '';
+	position: absolute;
+	left: -0.1em;
+	right: -0.1em;
+	bottom: -0.18em;
+	border-bottom: 3px solid var(--color-orange);
+	opacity: 0;
+	filter: url(#pencil);
+	transition: opacity 0.16s ease;
+}
+
+.contact__socials a:hover::after,
+.contact__socials a:focus-visible::after {
+	opacity: 1;
 }

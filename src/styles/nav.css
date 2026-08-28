@@ -43,6 +43,7 @@
 	color: var(--nav-fg, var(--color-paper));
 	opacity: 1;
 	transform: rotate(-2deg) scale(0.96);
+	filter: url(#pencil);
 	transition:
 		opacity 0.18s ease,
 		transform 0.18s ease;

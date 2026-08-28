@@ -33,6 +33,43 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 		<meta property="og:url" content={canonical} />
 	</head>
 	<body>
+		{/* Shared SVG filter: roughens hand-drawn strokes so they read as pencil, not marker. */}
+		<svg class="svg-defs" aria-hidden="true" focusable="false">
+			<defs>
+				<filter id="pencil" x="-25%" y="-25%" width="150%" height="150%">
+					<feTurbulence
+						type="fractalNoise"
+						baseFrequency="0.026"
+						numOctaves="2"
+						seed="7"
+						result="warp"
+					/>
+					<feDisplacementMap
+						in="SourceGraphic"
+						in2="warp"
+						scale="2.6"
+						xChannelSelector="R"
+						yChannelSelector="G"
+						result="wobble"
+					/>
+					<feTurbulence
+						type="fractalNoise"
+						baseFrequency="0.7"
+						numOctaves="2"
+						seed="4"
+						result="grain"
+					/>
+					<feColorMatrix
+						in="grain"
+						type="matrix"
+						values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.8 1.18"
+						result="grainMask"
+					/>
+					<feComposite in="wobble" in2="grainMask" operator="in" />
+				</filter>
+			</defs>
+		</svg>
+
 		<a class="skip-link" href="#main">Skip to content</a>
 		<Nav />
 		<main id="main">

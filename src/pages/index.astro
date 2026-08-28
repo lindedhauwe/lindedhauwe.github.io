@@ -117,14 +117,44 @@ import '../styles/home.css';
 			</p>
 
 			<div class="contact__lines">
-				<a class="contact__link" href={`mailto:${site.email}`}>{site.email}</a>
+				<a class="contact__link" href={`mailto:${site.email}`}>
+					<span>{site.email}</span>
+					<svg
+						class="contact__scribble"
+						viewBox="0 0 300 10"
+						preserveAspectRatio="none"
+						aria-hidden="true"
+					>
+						<path
+							d="M2 6C55 2 95 9 150 5C205 1 250 9 298 4"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="3"
+							stroke-linecap="round"
+						/>
+					</svg>
+				</a>
 				{
 					site.phone && (
 						<a
 							class="contact__link"
 							href={`sms:${site.phone.replace(/\s+/g, '')}`}
 						>
-							{site.phone}
+							<span>{site.phone}</span>
+							<svg
+								class="contact__scribble"
+								viewBox="0 0 300 10"
+								preserveAspectRatio="none"
+								aria-hidden="true"
+							>
+								<path
+									d="M2 5C50 9 100 2 150 6C205 10 255 3 298 6"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="3"
+									stroke-linecap="round"
+								/>
+							</svg>
 						</a>
 					)
 				}
