@@ -18,7 +18,7 @@
 .hero__brand {
 	margin: 0;
 	font-family: var(--font-display);
-	font-size: var(--step-4);
+	font-size: var(--step-5);
 	line-height: 0.9;
 	color: var(--color-paper);
 	text-shadow: 0.04em 0.04em 0 var(--color-ink);
@@ -54,7 +54,7 @@
 @media (min-width: 40rem) {
 	.hero {
 		gap: 0;
-		min-height: 100svh;
+		min-height: 150svh;
 		padding: 0;
 		background: linear-gradient(
 			var(--color-green) 0 50%,
@@ -66,19 +66,19 @@
 		position: absolute;
 		top: 19%;
 		left: 4%;
-		font-size: clamp(2.5rem, 6.5vw, 5.5rem);
+		font-size: clamp(3rem, 8vw, 7rem);
 		text-align: left;
 	}
 
 	.hero__art {
 		position: absolute;
-		top: 37%;
+		top: 48.5%;
 		right: -1%;
-		width: min(56vw, 44rem);
+		width: min(75vw, 70rem);
 		transform: translateY(-50%);
 		z-index: 2;
 		justify-self: unset;
-		filter: drop-shadow(0.4rem 0.5rem 0 rgba(14, 13, 8, 0.12));
+		
 	}
 
 	.hero__statement {
