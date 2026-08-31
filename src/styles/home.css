@@ -97,7 +97,7 @@
 
 	.hero__art {
 		position: absolute;
-		top: 48.5%;
+		top: 53%;
 		right: -1%;
 		width: min(75vw, 70rem);
 		transform: translateY(-50%);
