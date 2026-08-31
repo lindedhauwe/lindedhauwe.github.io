@@ -4,7 +4,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import EraWord from '../components/EraWord.astro';
 import { site, socials } from '../config/site';
 import { featuredWork } from '../data/featured-work';
-import headerImg from '../assets/illustrations/header-img.png';
 import profilePic from '../assets/illustrations/profile-pic.png';
 import '../styles/home.css';
 ---
@@ -16,15 +15,23 @@ import '../styles/home.css';
 			<span class="hero__year">2026</span>
 		</p>
 
-		<Image
-			class="hero__art"
-			src={headerImg}
-			alt="Illustration of Linde lying on her back, scrolling on her phone"
-			widths={[480, 800, 1200, 1800]}
-			sizes="(min-width: 60rem) 55rem, 90vw"
-			loading="eager"
-			fetchpriority="high"
-		/>
+		<picture>
+			<source
+				srcset="/hero-poster.webp"
+				media="(prefers-reduced-motion: reduce)"
+			/>
+			<img
+				class="hero__art"
+				src="/hero-anim-1200.webp"
+				srcset="/hero-anim-760.webp 760w, /hero-anim-1200.webp 1200w"
+				sizes="(min-width: 40rem) 66vw, 90vw"
+				width="1200"
+				height="888"
+				alt="Animated illustration of Linde lying on her back, scrolling on her phone"
+				fetchpriority="high"
+				decoding="async"
+			/>
+		</picture>
 
 		<h1 class="hero__statement">
 			<span class="hero__word hero__word--im">I'm</span>

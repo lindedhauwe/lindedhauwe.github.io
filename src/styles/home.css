@@ -39,6 +39,11 @@
 	color: var(--color-pink);
 }
 
+/* <picture> wraps the hero animation — let the <img> keep its grid placement */
+.hero picture {
+	display: contents;
+}
+
 .hero__art {
 	width: min(78%, 24rem);
 	height: auto;

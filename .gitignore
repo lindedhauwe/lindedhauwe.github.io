@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# raw animation exports (huge APNGs) — the optimised .webp in /public is what ships.
+# regenerate with scripts/build-hero-anim.mjs
+src/assets/animations/
