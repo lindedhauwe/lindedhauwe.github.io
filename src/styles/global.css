@@ -14,7 +14,6 @@
 @import './base.css';
 @import './button.css';
 @import './wavy-edge.css';
-@import './texture.css';
 
 /* Components (rendered on every page via BaseLayout) */
 @import './nav.css';
