@@ -15,12 +15,41 @@ const interests = [
 	{ label: 'reading', x: 20, y: 74, rot: -4, color: 'var(--color-pink)' },
 ];
 
-// Placeholder — real logos + a proper bag illustration are on the way.
-const toolGroups = [
-	{ label: 'Design', tools: ['Figma', 'Photoshop', 'Illustrator'] },
-	{ label: '3D & drawing', tools: ['Blender', 'Procreate'] },
-	{ label: 'Code', tools: ['HTML', 'CSS', 'JavaScript', 'PHP'] },
+/* Tools that "spill out" of the bag. Order roughly = the arc they fan into. */
+const toolNames = [
+	['figma', 'Figma'],
+	['figjam', 'FigJam'],
+	['miro', 'Miro'],
+	['photoshop', 'Photoshop'],
+	['illustrator', 'Illustrator'],
+	['aftereffects', 'After Effects'],
+	['procreate', 'Procreate'],
+	['sketchbook', 'Sketchbook'],
+	['blender', 'Blender'],
+	['flippaclip', 'FlippaClip'],
+	['html', 'HTML'],
+	['css', 'CSS'],
+	['javascript', 'JavaScript'],
+	['php', 'PHP'],
+	['p5', 'p5.js'],
+	['vscode', 'VS Code'],
+	['github', 'GitHub'],
+	['behance', 'Behance'],
 ];
+
+/* Where each icon lands once it's tipped out — a hand-scattered spill that
+   fans from the bag (upper-left) toward the bottom-right. [x%, y%, rotate°] */
+const spots = [
+	[39, 33, -11], [53, 24, 7], [65, 31, -5], [77, 19, 13],
+	[37, 50, 9], [51, 58, -8], [66, 45, 12], [82, 52, -4], [93, 34, 8],
+	[43, 73, 6], [58, 63, -11], [72, 76, 10], [86, 64, -6], [95, 79, 9],
+	[48, 88, -8], [63, 85, 11], [79, 89, -5], [91, 90, 7],
+];
+
+const tools = toolNames.map(([slug, name], i) => {
+	const [x, y, rot] = spots[i % spots.length];
+	return { slug, name, x, y, rot };
+});
 ---
 
 <BaseLayout
@@ -138,25 +167,65 @@ const toolGroups = [
 
 		<div class="bag__inner">
 			<h2 class="bag__heading">What&rsquo;s in my bag</h2>
-			<p class="bag__note">
-				The tools I actually reach for. Real logos &amp; a proper bag are being
-				packed &mdash; placeholder for now.
-			</p>
+			<p class="bag__note">The tools I actually reach for &mdash; tipped out.</p>
+		</div>
 
-			<div class="bag__groups">
+		<div class="bag-scene" data-bag-scene>
+			<img
+				class="bag-scene__handle"
+				src="/bag-handle.webp"
+				alt=""
+				aria-hidden="true"
+				width="780"
+				height="1051"
+			/>
+
+			<ul class="bag-scene__icons">
 				{
-					toolGroups.map((g) => (
-						<div class="bag__group">
-							<h3 class="bag__group-label">{g.label}</h3>
-							<ul class="tag-list">
-								{g.tools.map((t) => (
-									<li class="tag tag--light">{t}</li>
-								))}
-							</ul>
-						</div>
+					tools.map((tool, i) => (
+						<li
+							class="bag-icon"
+							style={`--x:${tool.x}%; --y:${tool.y}%; --r:${tool.rot}deg; --i:${i};`}
+						>
+							<img
+								src={`/logos/${tool.slug}.webp`}
+								alt={tool.name}
+								width="160"
+								height="160"
+								loading="lazy"
+							/>
+						</li>
 					))
 				}
-			</div>
+			</ul>
+
+			<img
+				class="bag-scene__front"
+				src="/bag.webp"
+				alt="Linde's tote bag, patches and all"
+				width="780"
+				height="1051"
+			/>
 		</div>
 	</section>
 </BaseLayout>
+
+<script>
+	function initBagScene() {
+		document
+			.querySelectorAll<HTMLElement>('[data-bag-scene]')
+			.forEach((scene) => {
+				if (!('IntersectionObserver' in window)) {
+					scene.classList.add('is-open');
+					return;
+				}
+				new IntersectionObserver(
+					([entry]) => scene.classList.toggle('is-open', entry.isIntersecting),
+					{ threshold: 0.35 },
+				).observe(scene);
+			});
+	}
+
+	initBagScene();
+	document.addEventListener('astro:page-load', initBagScene);
+</script>

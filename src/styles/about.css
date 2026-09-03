@@ -1,44 +1,9 @@
 /* ===========================================================================
    ABOUT — "The Lore"
    1. The Lore (title + intro)
-   2. My interests
-   3. What's in my bag
+   2. My interests — draggable sticker board
+   3. What's in my bag — tools spill out of a tote
 =========================================================================== */
-
-/* shared: little handwritten pill tags -------------------------------- */
-.tag-list {
-	display: flex;
-	flex-wrap: wrap;
-	gap: var(--space-2xs) var(--space-xs);
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
-.tag {
-	padding: 0.35em 1em;
-	font-family: var(--font-hand);
-	font-weight: 700;
-	font-size: var(--step-1);
-	line-height: 1;
-	color: var(--color-ink);
-	background: var(--color-paper);
-	border: 2px solid var(--color-ink);
-	border-radius: 999px;
-}
-
-.tag:nth-child(odd) {
-	transform: rotate(-2deg);
-}
-.tag:nth-child(even) {
-	transform: rotate(1.5deg);
-}
-
-.tag--light {
-	color: var(--color-paper);
-	background: transparent;
-	border-color: var(--color-paper);
-}
 
 /* ---------------------------------------------------------------------------
    1. The Lore
@@ -218,20 +183,24 @@
 }
 
 /* ---------------------------------------------------------------------------
-   3. What's in my bag
+   3. What's in my bag — tools spill out of a tote in the corner
 --------------------------------------------------------------------------- */
 .bag {
 	position: relative;
+	overflow: hidden;
+	min-height: clamp(42rem, 108vh, 58rem);
 	background: var(--color-blue);
 	color: var(--color-paper);
 }
 
 .bag__inner {
+	position: relative;
+	z-index: 4;
 	display: grid;
-	gap: var(--space-l);
+	gap: var(--space-s);
 	max-width: var(--content-width);
 	margin-inline: auto;
-	padding: var(--space-3xl) var(--space-m);
+	padding: var(--space-3xl) var(--space-m) 0;
 }
 
 .bag__heading {
@@ -243,30 +212,80 @@
 }
 
 .bag__note {
-	max-width: 44ch;
+	max-width: 40ch;
 	font-family: var(--font-hand);
 	font-weight: 700;
 	font-size: var(--step-1);
 	opacity: 0.9;
 }
 
-.bag__groups {
-	display: grid;
-	gap: var(--space-xl);
+/* --- the scene: sits below the title + text, filling the lower area --- */
+.bag-scene {
+	position: absolute;
+	inset: clamp(12rem, 27vh, 18rem) 0 0 0;
+	pointer-events: none;
 }
 
-.bag__group-label {
-	margin: 0 0 var(--space-s);
-	font-family: var(--font-hand);
-	font-weight: 700;
-	font-size: var(--step-2);
-	color: var(--color-blush);
+.bag-scene__handle,
+.bag-scene__front {
+	position: absolute;
+	left: -15%;
+	bottom: -5%;
+	width: clamp(17rem, 46vw, 32rem);
+	height: auto;
 }
 
-@media (min-width: 48rem) {
-	.bag__groups {
-		grid-template-columns: repeat(3, 1fr);
-		gap: var(--space-l);
-		align-items: start;
+.bag-scene__handle {
+	z-index: 1;
+	transform: rotate(35deg);
+    transform-origin: center bottom;
+}
+.bag-scene__front {
+	z-index: 3;
+	transform: rotate(35deg);
+    transform-origin: center bottom;
+}
+
+.bag-scene__icons {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.bag-icon {
+	position: absolute;
+	left: 15%;
+	top: 48%;
+	width: clamp(2.3rem, 6.6vw, 3.5rem);
+	opacity: 0;
+	transform: translate(-50%, -50%) rotate(0deg) scale(0.25);
+	transition:
+		left 0.7s cubic-bezier(0.18, 0.7, 0.24, 1),
+		top 0.7s cubic-bezier(0.18, 0.7, 0.24, 1),
+		transform 0.7s cubic-bezier(0.18, 0.7, 0.24, 1),
+		opacity 0.4s ease;
+	transition-delay: calc(var(--i) * 55ms);
+}
+
+.bag-icon img {
+	width: 100%;
+	height: auto;
+	filter: drop-shadow(0.15rem 0.25rem 0.2rem rgba(14, 13, 8, 0.22));
+}
+
+.bag-scene.is-open .bag-icon {
+	left: var(--x);
+	top: var(--y);
+	opacity: 1;
+	transform: translate(-50%, -50%) rotate(var(--r)) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.bag-icon {
+		transition-duration: 0.001ms;
+		transition-delay: 0ms;
 	}
 }
