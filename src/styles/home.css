@@ -407,8 +407,6 @@
 	display: block;
 	padding: 0.65rem 0.65rem 0;
 	background: var(--color-paper);
-	box-shadow: 0 0.7rem 1.6rem rgba(14, 13, 8, 0.22);
-	transition: box-shadow 0.2s ease;
 }
 
 .work-card__frame {
@@ -502,11 +500,6 @@
 .work-card:hover,
 .work-card:focus-within {
 	transform: rotate(0) translateY(-6px);
-}
-
-.work-card:hover .work-card__photo,
-.work-card:focus-within .work-card__photo {
-	box-shadow: 0 1rem 2.2rem rgba(14, 13, 8, 0.3);
 }
 
 @media (min-width: 48rem) {

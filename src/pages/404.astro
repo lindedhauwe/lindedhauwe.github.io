@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/notfound.css';
+---
+
+<BaseLayout
+	title="Page not found"
+	description="This page wandered off. Head back to the start."
+>
+	<section class="notfound">
+		<p class="notfound__code" aria-hidden="true">404</p>
+		<h1 class="notfound__title">This page wandered off</h1>
+		<p class="notfound__text">
+			The link is broken or the page moved. Let&rsquo;s get you back on track.
+		</p>
+		<div class="notfound__links">
+			<a class="btn" href="/">Back to the start</a>
+			<a class="notfound__link" href="/projects/">or see the projects</a>
+		</div>
+	</section>
+</BaseLayout>
