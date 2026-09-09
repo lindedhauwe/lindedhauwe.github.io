@@ -1,6 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WavyEdge from '../components/WavyEdge.astro';
+import selfPortrait from '../assets/illustrations/selfportrait.png';
 import '../styles/about.css';
 
 /* Interests as draggable stickers — each with a scattered start spot + lean. */
@@ -54,25 +56,27 @@ const tools = toolNames.map(([slug, name], i) => {
 
 <BaseLayout
 	title="The Lore"
-	description="The lore behind Linde D'Hauwe — a Digital Design & Development student from Leuven, based in Kortrijk."
+	description="The lore behind Linde D'Hauwe, a Digital Design & Development student from Leuven, based in Kortrijk."
 >
 	<section class="lore">
 		<div class="lore__inner">
 			<h1 class="lore__title">The Lore</h1>
 
 			<p class="lore__intro">
-				Hi, my name is Linde, and I am a second-year Digital Design and
-				Development student at Howest in Kortrijk. I&rsquo;m 20 years old and I
-				was born and raised in Leuven. Currently, I live in student housing in
-				Kortrijk &mdash; but my heart and home lie in Leuven.
+				Hi, I’m Linde, a 20-year-old Digital Design and Development student at Howest in Kortrijk. Born and raised in Leuven, I now live in student housing in Kortrijk while studying, creating and figuring out where my ideas can take me. I’m a curious and creative person who enjoys combining design, technology and a little bit of experimentation.
 			</p>
 
-			<p class="lore__note">Kortrijk address, Leuven heart.</p>
-
-			<div class="lore__photo" aria-hidden="true">
-				<span>photo dropping soon</span>
-			</div>
+			<p class="lore__note">But there’s more to me than just what I study so, here’s the lore.</p>
 		</div>
+
+		<Image
+			class="lore__portrait"
+			src={selfPortrait}
+			alt="Illustrated self-portrait of Linde"
+			widths={[360, 560, 800]}
+			sizes="(min-width: 48rem) 26rem, 60vw"
+			loading="eager"
+		/>
 	</section>
 
 	<section class="interests">
@@ -84,7 +88,7 @@ const tools = toolNames.map(([slug, name], i) => {
 			<p class="interests__lead">
 				I&rsquo;m passionate about design and user experience, and I love making
 				thoughtful, imaginative things. Creative coding is a hobby I do purely
-				for fun. Outside my studies &mdash; grab one and shuffle them around:
+				for fun. Outside my studies, grab one and shuffle them around:
 			</p>
 
 			<ul
@@ -105,8 +109,8 @@ const tools = toolNames.map(([slug, name], i) => {
 			</ul>
 
 			<p class="interests__foot">
-				I come from an artistic background &mdash; a diploma in arts education
-				from SLAC academy in Leuven &mdash; and in secondary school I studied
+				I come from an artistic background, with a diploma in arts education
+				from SLAC academy in Leuven, and in secondary school I studied
 				economics and humanities.
 			</p>
 		</div>
@@ -167,7 +171,7 @@ const tools = toolNames.map(([slug, name], i) => {
 
 		<div class="bag__inner">
 			<h2 class="bag__heading">What&rsquo;s in my bag</h2>
-			<p class="bag__note">The tools I actually reach for &mdash; tipped out.</p>
+			<p class="bag__note">The tools I actually reach for, tipped out.</p>
 		</div>
 
 		<div class="bag-scene" data-bag-scene>
@@ -194,6 +198,7 @@ const tools = toolNames.map(([slug, name], i) => {
 								height="160"
 								loading="lazy"
 							/>
+							<span class="bag-icon__name">{tool.name}</span>
 						</li>
 					))
 				}

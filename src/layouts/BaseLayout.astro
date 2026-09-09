@@ -13,7 +13,7 @@ interface Props {
 }
 
 const { title, description = site.description, bubbleNav = false } = Astro.props;
-const pageTitle = title ? `${title} — ${site.name}` : `${site.name} · ${site.title}`;
+const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.title}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 

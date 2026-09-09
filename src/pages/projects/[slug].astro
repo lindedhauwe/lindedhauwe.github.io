@@ -1,0 +1,533 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { Image, getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Scribble from '../../components/Scribble.astro';
+import { projects, categoryLabel } from '../../data/projects';
+import type { ProjectSection } from '../../data/projects';
+import '../../styles/projects.css';
+
+export const getStaticPaths = (() =>
+	projects.map((project) => ({
+		params: { slug: project.slug },
+		props: { project },
+	}))) satisfies GetStaticPaths;
+
+const { project } = Astro.props;
+const { detail } = project;
+
+const poster = detail?.videoPoster
+	? (await getImage({ src: detail.videoPoster, width: 960, format: 'webp' })).src
+	: undefined;
+
+/* keep the film <video> box at the poster's real aspect ratio */
+const posterW = detail?.videoPoster?.width ?? 16;
+const posterH = detail?.videoPoster?.height ?? 9;
+const portraitFilm = posterH > posterW;
+
+const accents = ['var(--color-blue)', 'var(--color-green)'];
+const isExternal = (href: string) => /^https?:/i.test(href);
+
+const introParas = detail?.intro
+	? Array.isArray(detail.intro)
+		? detail.intro
+		: [detail.intro]
+	: [];
+
+const coverClass = {
+	'cover-bleed': 'case__figure--cover',
+	'cover-bleed-left': 'case__figure--cover-left',
+	'bleed-left': 'case__figure--bleed-left',
+	'bleed-right': 'case__figure--bleed-right',
+}[detail?.coverStyle ?? ''];
+
+/* A section with no body but a picture / video is shown big and centred. */
+const isFeature = (s: ProjectSection) =>
+	s.body.length === 0 && (!!s.image || !!s.video);
+
+/* A section that is only a list is shown as a centred card. */
+const isListCard = (s: ProjectSection) =>
+	!!s.list && s.body.length === 0 && !s.image && !s.video;
+
+/* A section built from a question / process flow / stats. */
+const isDataBlock = (s: ProjectSection) =>
+	s.body.length === 0 && (!!s.question || !!s.steps || !!s.stats);
+
+/* Group sections: a phone mock-up pulls the following text-only sections
+   alongside it (phone one side, copy stacked beside). */
+type Block =
+	| { kind: 'section'; section: ProjectSection; index: number }
+	| {
+			kind: 'showcase';
+			phone: NonNullable<ProjectSection['phone']>;
+			sections: ProjectSection[];
+	  };
+
+const blocks: Block[] = [];
+if (detail) {
+	for (let i = 0; i < detail.sections.length; i++) {
+		const section = detail.sections[i];
+		if (section.phone) {
+			const group = [section];
+			while (
+				i + 1 < detail.sections.length &&
+				!detail.sections[i + 1].phone &&
+				!detail.sections[i + 1].image &&
+				!detail.sections[i + 1].video
+			) {
+				group.push(detail.sections[++i]);
+			}
+			blocks.push({ kind: 'showcase', phone: section.phone, sections: group });
+		} else {
+			blocks.push({ kind: 'section', section, index: i });
+		}
+	}
+}
+---
+
+<BaseLayout
+	title={project.title}
+	description={`${project.title}, a ${categoryLabel(
+		project.category,
+	).toLowerCase()} project by Linde D'Hauwe.`}
+>
+	<article class="case">
+		<a class="case__back" href="/projects/">&larr; back to the wall</a>
+		<h1 class="case__title">{detail?.heading ?? project.title}</h1>
+
+		{
+			detail ? (
+				<Fragment>
+					<dl class="case__meta">
+						{detail.year && (
+							<div>
+								<dt>Year</dt>
+								<dd>{detail.year}</dd>
+							</div>
+						)}
+						{detail.duration && (
+							<div>
+								<dt>Duration</dt>
+								<dd>{detail.duration}</dd>
+							</div>
+						)}
+						<div>
+							<dt>Role</dt>
+							<dd>{detail.team}</dd>
+						</div>
+						<div>
+							<dt>Disciplines</dt>
+							<dd>{detail.disciplines.join(', ')}</dd>
+						</div>
+					</dl>
+
+					{detail.cover && introParas.length === 0 && (
+						<figure class="case__hero">
+							<Image
+								src={detail.cover}
+								alt={project.title}
+								widths={[640, 1000, 1440]}
+								sizes="(min-width: 66rem) 60rem, 94vw"
+							/>
+						</figure>
+					)}
+
+					{introParas.length > 0 && (
+						<div class="case__row">
+							<div class="case__col case__col--text">
+								{introParas.map((paragraph) => (
+									<p class="case__intro">{paragraph}</p>
+								))}
+								{detail.disclaimer && (
+									<p class="case__disclaimer">{detail.disclaimer}</p>
+								)}
+								{detail.introLink && (
+									<a
+										class="btn case__btn"
+										href={detail.introLink.href}
+										target={
+											isExternal(detail.introLink.href) ? '_blank' : undefined
+										}
+										rel={
+											isExternal(detail.introLink.href)
+												? 'noopener noreferrer'
+												: undefined
+										}
+									>
+										{detail.introLink.label}
+									</a>
+								)}
+							</div>
+							{detail.cover && (
+								<figure class:list={['case__col', 'case__figure', coverClass]}>
+									<Image
+										src={detail.cover}
+										alt={`${project.title} concept`}
+										widths={[520, 900, 1400, 1800]}
+										sizes="(min-width: 52rem) 55vw, 96vw"
+									/>
+								</figure>
+							)}
+						</div>
+					)}
+
+					{detail.goal && (
+						<div class="case__row">
+							<div class="case__col case__col--text">
+								<h2 class="case__h">Goal of the project</h2>
+								<p>{detail.goal}</p>
+							</div>
+							{detail.hmw && (
+								<div class="case__col case__banner-wrap">
+									<p class="case__banner">{detail.hmw}</p>
+								</div>
+							)}
+						</div>
+					)}
+
+					{blocks.map((block) =>
+						block.kind === 'showcase' ? (
+							<div class="case__showcase">
+								<figure
+									class="case__phone"
+									style={`aspect-ratio:${block.phone.frame.width} / ${block.phone.frame.height}`}
+								>
+									<div class="case__phone-screen">
+										<Image
+											src={block.phone.screenshot}
+											alt={`${project.title} — scrollable preview`}
+											widths={[520, 820]}
+											sizes="18rem"
+										/>
+									</div>
+									<Image
+										class="case__phone-frame"
+										src={block.phone.frame}
+										alt=""
+										widths={[380, 620]}
+										sizes="18rem"
+									/>
+								</figure>
+
+								<div class="case__showcase-text">
+									{block.sections.map((section) => (
+										<section class="case__showcase-section">
+											<h2 class="case__h">{section.heading}</h2>
+											{section.body.map((paragraph) => (
+												<p>{paragraph}</p>
+											))}
+											{section.link && (
+												<a
+													class="btn case__btn"
+													href={section.link.href}
+													target={
+														isExternal(section.link.href) ? '_blank' : undefined
+													}
+													rel={
+														isExternal(section.link.href)
+															? 'noopener noreferrer'
+															: undefined
+													}
+												>
+													{section.link.label}
+												</a>
+											)}
+										</section>
+									))}
+								</div>
+							</div>
+						) : isListCard(block.section) ? (
+							<section class="case__rolecard">
+								<h2 class="case__h">{block.section.heading}</h2>
+								<aside class="case__spec">
+									{block.section.listTitle && (
+										<h3 class="case__spec-title">{block.section.listTitle}</h3>
+									)}
+									<ul>
+										{block.section.list!.map((item) => (
+											<li>{item}</li>
+										))}
+									</ul>
+								</aside>
+							</section>
+						) : isDataBlock(block.section) ? (
+							<section class="case__block">
+								<h2 class="case__h">{block.section.heading}</h2>
+								{block.section.question && (
+									<p class="case__banner case__banner--wide">
+										{block.section.question}
+									</p>
+								)}
+								{block.section.steps && (
+									<div class="case__flow">
+										{block.section.steps.map((step, si) => (
+											<Fragment>
+												{si > 0 && (
+													<span class="case__flow__sep" aria-hidden="true">
+														→
+													</span>
+												)}
+												<span class="case__flow__step">{step}</span>
+											</Fragment>
+										))}
+									</div>
+								)}
+								{block.section.stats && (
+									<div class="case__stats">
+										{block.section.stats.map((stat) => (
+											<div>
+												<strong>{stat.value}</strong>
+												<span>{stat.label}</span>
+											</div>
+										))}
+									</div>
+								)}
+							</section>
+						) : isFeature(block.section) ? (
+							<section
+								class:list={[
+									'case__feature',
+									{ 'case__feature--image': !block.section.video },
+								]}
+							>
+								<h2 class="case__feature-title">{block.section.heading}</h2>
+								<div class="case__feature-media">
+									<Scribble class="case__scribble case__scribble--left" />
+									<Scribble class="case__scribble case__scribble--right" />
+									{block.section.video ? (
+										<video
+											class="case__video"
+											controls
+											preload="none"
+											style="aspect-ratio: 16 / 9"
+										>
+											<source src={block.section.video} type="video/mp4" />
+										</video>
+									) : (
+										<Image
+											class="case__feature-img"
+											src={block.section.image!}
+											alt={`${project.title} — ${block.section.heading}`}
+											widths={[760, 1200, 1800, 2400]}
+											sizes="(min-width: 78rem) 78rem, 96vw"
+										/>
+									)}
+								</div>
+							</section>
+						) : (
+							<Fragment>
+								<div
+									class:list={[
+										'case__row',
+										{
+											'case__row--text':
+												!block.section.image &&
+												!block.section.phone &&
+												!block.section.list,
+											'case__row--center': block.section.align === 'center',
+										},
+									]}
+								>
+									<div class="case__col case__col--text">
+										<h2 class="case__h">{block.section.heading}</h2>
+										{block.section.body.map((paragraph) => (
+											<p>{paragraph}</p>
+										))}
+										{block.section.steps && (
+											<div class="case__flow case__flow--inline">
+												{block.section.steps.map((step, si) => (
+													<Fragment>
+														{si > 0 && (
+															<span class="case__flow__sep" aria-hidden="true">
+																→
+															</span>
+														)}
+														<span class="case__flow__step">{step}</span>
+													</Fragment>
+												))}
+											</div>
+										)}
+										{block.section.link && (
+											<a
+												class="btn case__btn"
+												href={block.section.link.href}
+												target={
+													isExternal(block.section.link.href)
+														? '_blank'
+														: undefined
+												}
+												rel={
+													isExternal(block.section.link.href)
+														? 'noopener noreferrer'
+														: undefined
+												}
+											>
+												{block.section.link.label}
+											</a>
+										)}
+									</div>
+
+									{block.section.list && (
+										<aside class="case__spec">
+											{block.section.listImage && (
+												<Image
+													class="case__spec-logo"
+													src={block.section.listImage}
+													alt={block.section.listTitle ?? ''}
+													widths={[260, 420]}
+													sizes="14rem"
+												/>
+											)}
+											{block.section.listTitle && (
+												<h3 class="case__spec-title">
+													{block.section.listTitle}
+												</h3>
+											)}
+											<ul>
+												{block.section.list.map((item) => (
+													<li>{item}</li>
+												))}
+											</ul>
+										</aside>
+									)}
+
+									{block.section.image && (
+										<figure
+											class:list={[
+												'case__col',
+												'case__figure',
+												block.section.bleed &&
+													`case__figure--bleed-${block.section.bleed}`,
+												block.section.imageNarrow && 'case__figure--narrow',
+												block.section.imageSide === 'left' &&
+													'case__figure--left',
+											]}
+										>
+											<Scribble
+												class="case__scribble"
+												color={accents[block.index % accents.length]}
+											/>
+											<Image
+												src={block.section.image}
+												alt={`${project.title} — ${block.section.heading}`}
+												widths={[420, 700, 1100, 1500]}
+												sizes="(min-width: 52rem) 42vw, 92vw"
+											/>
+										</figure>
+									)}
+								</div>
+
+								{block.section.wide && (
+									<div class="case__wide">
+										{block.section.wideScribble === 'bottom-right' ? (
+											<Scribble class="case__scribble case__scribble--br" />
+										) : (
+											<Fragment>
+												<Scribble class="case__scribble case__scribble--left" />
+												<Scribble class="case__scribble case__scribble--right" />
+											</Fragment>
+										)}
+										<Image
+											src={block.section.wide}
+											alt={`${project.title} — ${block.section.heading}`}
+											widths={[760, 1200, 1800, 2400]}
+											sizes="(min-width: 78rem) 78rem, 96vw"
+										/>
+									</div>
+								)}
+
+								{block.section.subsections?.map((sub, si) => (
+									<div
+										class:list={[
+											'case__sub',
+											{
+												'case__sub--text': !sub.image && !sub.animation,
+												'case__sub--flip': si % 2 === 1,
+											},
+										]}
+									>
+										<div class="case__col case__col--text">
+											<h3 class="case__sub-h">{sub.heading}</h3>
+											{sub.body.map((paragraph) => (
+												<p>{paragraph}</p>
+											))}
+										</div>
+										{(sub.image || sub.animation) && (
+											<figure
+												class:list={[
+													'case__col',
+													'case__figure',
+													sub.imageNarrow && 'case__figure--narrow',
+												]}
+											>
+												<Scribble
+													class="case__scribble"
+													color={accents[si % accents.length]}
+												/>
+												{sub.animation ? (
+													<picture>
+														<source
+															srcset={sub.animation.poster}
+															media="(prefers-reduced-motion: reduce)"
+														/>
+														<img
+															src={sub.animation.src}
+															alt={`${project.title} — ${sub.heading}`}
+															width={sub.animation.width}
+															height={sub.animation.height}
+															loading="lazy"
+															decoding="async"
+														/>
+													</picture>
+												) : (
+													<Image
+														src={sub.image!}
+														alt={`${project.title} — ${sub.heading}`}
+														widths={[420, 700, 1100]}
+														sizes="(min-width: 52rem) 30vw, 92vw"
+													/>
+												)}
+											</figure>
+										)}
+									</div>
+								))}
+							</Fragment>
+						),
+					)}
+
+					{detail.video && (
+						<section class="case__film">
+							<h2 class="case__film-title">Case movie</h2>
+							<div
+								class:list={[
+									'case__film-media',
+									{ 'case__film-media--portrait': portraitFilm },
+								]}
+							>
+								<Scribble
+									class="case__scribble case__scribble--left"
+									color="var(--color-pink)"
+								/>
+								<Scribble
+									class="case__scribble case__scribble--right"
+									color="var(--color-pink)"
+								/>
+								<video
+									class="case__video"
+									controls
+									preload="none"
+									poster={poster}
+									style={`aspect-ratio:${posterW} / ${posterH}`}
+								>
+									<source src={detail.video} type="video/mp4" />
+								</video>
+							</div>
+						</section>
+					)}
+				</Fragment>
+			) : (
+				<p class="case__note">Full case study coming soon.</p>
+			)
+		}
+	</article>
+</BaseLayout>

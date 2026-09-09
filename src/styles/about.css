@@ -15,11 +15,13 @@
 }
 
 .lore__inner {
+	position: relative;
+	z-index: 1;
 	display: grid;
-	gap: var(--space-l);
+	gap: var(--space-s);
 	max-width: var(--content-width);
 	margin-inline: auto;
-	padding: var(--space-2xl) var(--space-m) var(--space-3xl);
+	padding: var(--space-2xl) var(--space-m) clamp(9rem, 24vw, 15rem);
 }
 
 .lore__title {
@@ -28,63 +30,39 @@
 	font-size: clamp(2.75rem, 9.5vw, 6.5rem);
 	line-height: 0.9;
 	color: var(--color-paper);
-	transform: rotate(-2deg);
 }
 
 .lore__intro {
 	max-width: 46ch;
-	font-size: var(--step-2);
-	line-height: 1.5;
+	font-size: var(--step-0);
+	line-height: 1.6;
 }
 
 .lore__note {
 	margin: 0;
 	font-family: var(--font-hand);
 	font-weight: 700;
-	font-size: var(--step-2);
+	font-size: var(--step-1);
 	color: var(--color-blush);
-	transform: rotate(-1.5deg);
 }
 
-.lore__photo {
-	justify-self: start;
-	display: grid;
-	place-items: center;
-	width: clamp(11rem, 42vw, 16rem);
-	aspect-ratio: 3 / 4;
-	padding: 0.7rem;
-	color: var(--color-ink);
-	font-family: var(--font-hand);
-	font-weight: 700;
-	text-align: center;
-	background: var(--color-paper);
-	box-shadow: 0 0.7rem 1.6rem rgba(14, 13, 8, 0.28);
-	transform: rotate(3deg);
+/* Self-portrait: stands at the bottom of the section and is cropped off by
+   the next section, so she looks like she's popping up from underneath it. */
+.lore__portrait {
+	position: absolute;
+	right: clamp(2rem, 12vw, 12rem);
+	bottom: clamp(-4rem, -6vw, -1.5rem);
+	z-index: 0;
+	width: clamp(12rem, 42vw, 22rem);
+	height: auto;
+	transform: rotate(-2deg);
+	filter: drop-shadow(0 0.7rem 1.4rem rgba(14, 13, 8, 0.3));
+	pointer-events: none;
 }
 
 @media (min-width: 48rem) {
 	.lore__inner {
-		grid-template-columns: 1fr auto;
-		grid-template-areas:
-			'title  photo'
-			'intro  photo'
-			'note   photo';
-		align-items: start;
-		column-gap: var(--space-3xl);
 		padding-top: var(--space-3xl);
-	}
-	.lore__title {
-		grid-area: title;
-	}
-	.lore__intro {
-		grid-area: intro;
-	}
-	.lore__note {
-		grid-area: note;
-	}
-	.lore__photo {
-		grid-area: photo;
-		align-self: center;
 	}
 }
 
@@ -93,13 +71,14 @@
 --------------------------------------------------------------------------- */
 .interests {
 	position: relative;
+	z-index: 2;
 	background: var(--color-blush);
 	color: var(--color-ink);
 }
 
 .interests__inner {
 	display: grid;
-	gap: var(--space-l);
+	gap: var(--space-m);
 	max-width: var(--content-width);
 	margin-inline: auto;
 	padding: var(--space-3xl) var(--space-m);
@@ -108,22 +87,22 @@
 .interests__heading {
 	margin: 0;
 	font-family: var(--font-display);
-	font-size: var(--step-5);
+	font-size: var(--step-4);
 	color: var(--color-orange);
-	transform: rotate(-1.5deg);
 }
 
 .interests__lead,
 .interests__foot {
 	max-width: 58ch;
 	margin: 0;
-	font-size: var(--step-1);
+	font-size: var(--step-0);
+	line-height: 1.6;
 }
 
 .interests__foot {
 	font-family: var(--font-hand);
 	font-weight: 700;
-	font-size: var(--step-1);
+	font-size: var(--step-0);
 	color: var(--color-blue);
 }
 
@@ -157,7 +136,7 @@
 	cursor: grab;
 	user-select: none;
 	touch-action: none;
-	transform: translate(var(--dx, 0), var(--dy, 0)) rotate(var(--rot));
+	transform: translate(var(--dx, 0), var(--dy, 0));
 	transition:
 		box-shadow 0.15s ease,
 		scale 0.15s ease;
@@ -206,23 +185,22 @@
 .bag__heading {
 	margin: 0;
 	font-family: var(--font-display);
-	font-size: var(--step-5);
+	font-size: var(--step-4);
 	color: var(--color-paper);
-	transform: rotate(-1.5deg);
 }
 
 .bag__note {
 	max-width: 40ch;
 	font-family: var(--font-hand);
 	font-weight: 700;
-	font-size: var(--step-1);
+	font-size: var(--step-0);
 	opacity: 0.9;
 }
 
 /* --- the scene: sits below the title + text, filling the lower area --- */
 .bag-scene {
 	position: absolute;
-	inset: clamp(12rem, 27vh, 18rem) 0 0 0;
+	inset: clamp(8rem, 14vh, 13rem) 0 0 0;
 	pointer-events: none;
 }
 
@@ -274,6 +252,41 @@
 	width: 100%;
 	height: auto;
 	filter: drop-shadow(0.15rem 0.25rem 0.2rem rgba(14, 13, 8, 0.22));
+}
+
+/* --- name tooltip on hover --------------------------------------- */
+.bag-icon__name {
+	position: absolute;
+	left: 50%;
+	bottom: 100%;
+	margin-bottom: 0.4rem;
+	padding: 0.15em 0.7em;
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step--1);
+	line-height: 1.25;
+	white-space: nowrap;
+	color: var(--color-ink);
+	background: var(--color-paper);
+	border-radius: 999px;
+	box-shadow: 0.15rem 0.2rem 0 rgba(14, 13, 8, 0.18);
+	opacity: 0;
+	transform-origin: bottom center;
+	transform: translateX(-50%) translateY(0.2rem) rotate(calc(-1 * var(--r, 0deg)));
+	transition:
+		opacity 0.15s ease,
+		transform 0.15s ease;
+	pointer-events: none;
+}
+
+.bag-scene.is-open .bag-icon {
+	pointer-events: auto;
+}
+
+.bag-icon:hover .bag-icon__name,
+.bag-icon:focus-visible .bag-icon__name {
+	opacity: 1;
+	transform: translateX(-50%) translateY(0) rotate(calc(-1 * var(--r, 0deg)));
 }
 
 .bag-scene.is-open .bag-icon {

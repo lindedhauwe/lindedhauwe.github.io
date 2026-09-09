@@ -1,0 +1,831 @@
+/* ===========================================================================
+   PROJECTS
+   1. The project wall (overview)
+   2. Project detail ("case")
+=========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   1. The project wall — a blue wall with taped-up, scattered polaroids
+--------------------------------------------------------------------------- */
+.wall {
+	padding: var(--space-3xl) 0 var(--space-2xl);
+	background: var(--color-blue);
+	color: var(--color-paper);
+}
+
+.wall__intro,
+.wall__group {
+	margin-inline: auto;
+	padding-inline: var(--space-m);
+}
+
+.wall__intro {
+	display: grid;
+	gap: var(--space-s);
+	max-width: var(--content-width);
+	text-align: center;
+}
+
+.wall__group {
+	max-width: 80rem;
+}
+
+.wall__title {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(2.75rem, 9.5vw, 6.5rem);
+	line-height: 0.9;
+	color: var(--color-blush);
+}
+
+/* a Mexican wave that ripples through the letters once every 20s */
+.wall__title-letter {
+	display: inline-block;
+	animation: wall-wave 20s cubic-bezier(0.2, 1.3, 0.4, 1) infinite;
+	animation-delay: calc(var(--i) * 55ms);
+}
+
+@keyframes wall-wave {
+	0%,
+	88%,
+	100% {
+		transform: translateY(0);
+	}
+	90% {
+		transform: translateY(-0.55em);
+	}
+	92% {
+		transform: translateY(0);
+	}
+}
+
+.wall__lead {
+	max-width: 46ch;
+	margin-inline: auto;
+	font-size: var(--step-0);
+	color: var(--color-blush);
+}
+
+.wall__group {
+	margin-top: var(--space-3xl);
+}
+
+.wall__group-label {
+	margin: 0 0 var(--space-xl);
+	font-family: var(--font-display);
+	font-size: var(--step-4);
+	color: var(--color-paper);
+}
+
+/* the heading wanders per section — left, right, centre, left … */
+.wall__group:nth-of-type(2) .wall__group-label {
+	text-align: right;
+}
+.wall__group:nth-of-type(3) .wall__group-label {
+	text-align: center;
+}
+
+.wall__grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--space-2xl);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	justify-items: center;
+}
+
+@media (min-width: 46rem) {
+	.wall__grid {
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-l);
+		align-items: start;
+	}
+}
+
+/* --- the polaroids ---------------------------------------------------------
+   Same print treatment as the home "selected work" cards. Heights are NOT
+   normalised — each photo keeps its own aspect ratio, and the prints are
+   scattered at different sizes / angles / heights, like a real photo wall.
+------------------------------------------------------------------------- */
+.polaroid {
+	width: 100%;
+	max-width: 19rem;
+	transition: transform 0.18s ease;
+}
+
+.polaroid:nth-child(3n + 1) {
+	transform: rotate(-5deg);
+}
+.polaroid:nth-child(3n + 2) {
+	transform: rotate(3deg);
+}
+.polaroid:nth-child(3n) {
+	transform: rotate(-2deg);
+}
+
+@media (min-width: 46rem) {
+	/* all prints the same width; only their heights differ with the photo.
+	   scatter the three columns vertically — left mid, middle low, right high */
+	.polaroid:nth-child(3n + 1) {
+		margin-top: var(--space-xl);
+	}
+	.polaroid:nth-child(3n + 2) {
+		margin-top: calc(var(--space-3xl) * 1.6);
+	}
+	.polaroid:nth-child(3n) {
+		margin-top: 0;
+	}
+}
+
+.polaroid:hover,
+.polaroid:focus-within {
+	transform: rotate(0) scale(1.03);
+	z-index: 2;
+}
+
+.polaroid__link {
+	display: block;
+	color: inherit;
+	text-decoration: none;
+}
+
+.polaroid__link:focus-visible {
+	outline: 3px solid var(--color-orange);
+	outline-offset: 4px;
+}
+
+/* the print — thin margin on 3 sides, fat white strip at the bottom */
+.polaroid__photo {
+	position: relative;
+	display: block;
+	padding: 0.6rem 0.6rem 0;
+	background: var(--color-paper);
+	transition: box-shadow 0.18s ease;
+}
+
+.polaroid:hover .polaroid__photo,
+.polaroid:focus-within .polaroid__photo {
+	box-shadow: 0 1rem 2.2rem rgba(14, 13, 8, 0.28);
+}
+
+.polaroid__frame {
+	display: block;
+	overflow: hidden;
+	background: var(--color-ink);
+}
+
+.polaroid__img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.polaroid__caption {
+	display: block;
+	padding: 0.9rem 0.4rem 1.2rem;
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-1);
+	line-height: 1.1;
+	text-align: center;
+	color: var(--color-ink);
+}
+
+/* a flat matte ribbon of washi tape with fish-tailed ends */
+.polaroid__tape {
+	position: absolute;
+	z-index: 2;
+	width: 8rem;
+	height: 1.9rem;
+	filter: drop-shadow(0 0.15rem 0.3rem rgba(14, 13, 8, 0.2));
+	clip-path: polygon(0% 0%, 100% 0%, 87% 50%, 100% 100%, 0% 100%, 13% 50%);
+}
+
+/* left print — dusty rose ribbon across the top-left corner */
+.polaroid:nth-child(3n + 1) .polaroid__tape {
+	top: 0.6rem;
+	left: -2.6rem;
+	transform: rotate(-45deg);
+	background: color-mix(in srgb, var(--color-pink) 85%, var(--color-ink));
+}
+/* middle print — tan ribbon across the top-right corner */
+.polaroid:nth-child(3n + 2) .polaroid__tape {
+	top: 0.6rem;
+	right: -2.6rem;
+	transform: rotate(45deg);
+	background: color-mix(in srgb, var(--color-blush) 88%, var(--color-ink));
+}
+/* right print — green ribbon straight across the top */
+.polaroid:nth-child(3n) .polaroid__tape {
+	width: 6rem;
+	top: -0.9rem;
+	left: 50%;
+	transform: translateX(-50%) rotate(-3deg);
+	background: color-mix(in srgb, var(--color-green) 82%, var(--color-paper));
+}
+
+/* ---------------------------------------------------------------------------
+   2. Project detail
+--------------------------------------------------------------------------- */
+.case {
+	max-width: var(--content-width);
+	margin-inline: auto;
+	padding: var(--space-2xl) var(--space-m) var(--space-3xl);
+}
+
+.case__back {
+	display: inline-block;
+	margin-bottom: var(--space-l);
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-0);
+	color: var(--color-blue);
+	text-decoration: none;
+}
+
+.case__back:hover,
+.case__back:focus-visible {
+	color: var(--color-orange);
+}
+
+.case__title {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: clamp(2.5rem, 8vw, 4.5rem);
+	line-height: 0.95;
+	text-align: center;
+	color: var(--color-ink);
+}
+
+.case__cat {
+	margin: var(--space-s) 0 0;
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-0);
+	text-align: center;
+	color: var(--color-orange);
+}
+
+/* meta strip — Year / Duration / Role / Disciplines */
+.case__meta {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: var(--space-s) var(--space-xl);
+	margin: var(--space-l) 0 0;
+	padding: var(--space-s) 0;
+	border-block: 2px solid color-mix(in srgb, var(--color-ink) 15%, transparent);
+	text-align: center;
+}
+
+.case__meta div {
+	display: grid;
+	gap: 0.15rem;
+}
+
+.case__meta dt {
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step--1);
+	color: var(--color-orange);
+}
+
+.case__meta dd {
+	margin: 0;
+	font-size: var(--step-0);
+}
+
+/* --- alternating text / media rows --- */
+.case__row {
+	display: grid;
+	gap: var(--space-l);
+	align-items: center;
+	margin-top: var(--space-3xl);
+}
+
+/* text-only sections read left-aligned; only a deliberately centred one
+   (case__row--center) sits in the middle */
+.case__row--text {
+	max-width: 46rem;
+}
+
+.case__row--text.case__row--center {
+	margin-inline: auto;
+	text-align: center;
+}
+
+.case__row--text.case__row--center .case__col--text {
+	justify-items: center;
+}
+
+@media (min-width: 52rem) {
+	.case__row {
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-2xl);
+	}
+	.case__row--text {
+		grid-template-columns: 1fr;
+	}
+	/* rows (as <div>s): 1 intro · 2 goal · 3 research · 4 ux · 5 visual · 6 dev · 7 final.
+	   Put the media on the left for research and visual design; the rest sit right. */
+	.case__row:nth-of-type(3) .case__figure,
+	.case__row:nth-of-type(5) .case__figure {
+		order: -1;
+	}
+
+	/* let a figure run right up to the edge of the screen */
+	.case__figure--bleed-right {
+		margin-right: calc(min(var(--content-width), 100vw) / 2 - 50vw - var(--space-m));
+	}
+	.case__figure--bleed-left,
+	.case__figure--left {
+		order: -1;
+	}
+	.case__figure--bleed-left {
+		margin-left: calc(min(var(--content-width), 100vw) / 2 - 50vw - var(--space-m));
+	}
+
+	/* the intro cover: much bigger, shoved well past the right edge of the screen */
+	.case__figure--cover {
+		width: calc(100% + 18vw);
+		max-width: none;
+		transform: translateX(8vw);
+	}
+
+	/* same idea, mirrored to the left and a touch larger */
+	.case__figure--cover-left {
+		order: -1;
+		width: calc(100% + 24vw);
+		max-width: none;
+		transform: translateX(-36vw);
+	}
+}
+
+.case__col--text {
+	display: grid;
+	gap: var(--space-s);
+	justify-items: start;
+}
+
+.case__row--text .case__col--text {
+	justify-items: center;
+}
+
+.case__col--text p {
+	margin: 0;
+}
+
+.case__h {
+	margin: 0;
+	font-family: var(--font-display);
+	font-size: var(--step-3);
+	color: var(--color-ink);
+}
+
+.case__intro {
+	font-size: var(--step-0);
+	font-weight: 600;
+	line-height: 1.6;
+}
+
+.case__disclaimer {
+	max-width: 40ch;
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-0);
+	line-height: 1.4;
+	color: var(--color-blue);
+}
+
+.case__btn {
+	margin-top: var(--space-2xs);
+}
+
+/* --- figures: bare image with a hand-drawn scribble behind it --- */
+.case__figure {
+	position: relative;
+	margin: 0;
+}
+
+.case__figure picture {
+	display: contents;
+}
+
+.case__figure img {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	height: auto;
+}
+
+.case__row:nth-of-type(odd) .case__figure img {
+	transform: rotate(1.2deg);
+}
+.case__row:nth-of-type(even) .case__figure img {
+	transform: rotate(-1.2deg);
+}
+
+.scribble-line {
+	filter: url(#pencil);
+}
+
+.case__scribble {
+	position: absolute;
+	z-index: 0;
+	width: 60%;
+	height: auto;
+	filter: url(#pencil);
+}
+
+.case__figure .case__scribble {
+	left: -6%;
+	bottom: -15%;
+}
+
+/* single scribble tucked under the bottom-right of a wide image */
+.case__scribble--br {
+	width: 34%;
+	right: 8%;
+	bottom: -10%;
+	transform: rotate(-3deg);
+}
+
+.case__figure--narrow {
+	justify-self: center;
+	max-width: 22rem;
+}
+
+/* --- wide lead image (when there's no intro paragraph beside it) --- */
+.case__hero {
+	max-width: 60rem;
+	margin: var(--space-xl) auto 0;
+}
+
+.case__hero img {
+	width: 100%;
+	height: auto;
+}
+
+/* --- full-width image with a scribble either side --- */
+.case__wide {
+	position: relative;
+	max-width: min(78rem, 96vw);
+	margin: var(--space-2xl) auto 0;
+}
+
+.case__wide img {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	height: auto;
+}
+
+/* --- feature block: a centred heading + one big image or video --- */
+.case__feature {
+	margin-top: calc(var(--space-3xl) * 1.1);
+	text-align: center;
+}
+
+.case__feature-title {
+	margin: 0 0 var(--space-l);
+	font-family: var(--font-display);
+	font-size: var(--step-4);
+	color: var(--color-ink);
+}
+
+.case__feature-media {
+	position: relative;
+	max-width: min(78rem, 96vw);
+	margin-inline: auto;
+}
+
+.case__feature--image .case__feature-media {
+	max-width: min(52rem, 92vw);
+}
+
+.case__feature-img {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	height: auto;
+}
+
+/* --- spec / feature list card beside the text --- */
+.case__spec {
+	align-self: start;
+	justify-self: end;
+	width: fit-content;
+	max-width: 100%;
+	padding: var(--space-m) var(--space-l);
+	background: var(--color-blush);
+	border-radius: var(--radius);
+	color: var(--color-ink);
+}
+
+.case__spec-logo {
+	width: auto;
+	max-width: 14rem;
+	height: auto;
+	margin-bottom: var(--space-s);
+}
+
+.case__spec-title {
+	margin: 0 0 var(--space-xs);
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-1);
+	color: var(--color-orange);
+}
+
+.case__spec ul {
+	display: grid;
+	gap: var(--space-2xs);
+	margin: 0;
+	padding-left: 1.1em;
+	font-size: var(--step-0);
+}
+
+/* --- a section that is only a list — a small aside, off to the side --- */
+.case__rolecard {
+	max-width: 22rem;
+	margin: var(--space-xl) 0 0 auto;
+}
+
+.case__rolecard .case__h {
+	margin-bottom: var(--space-2xs);
+	font-size: var(--step-1);
+}
+
+/* --- named sub-blocks within a section --- */
+.case__sub {
+	display: grid;
+	gap: var(--space-l);
+	align-items: center;
+	margin-top: var(--space-2xl);
+}
+
+.case__sub--text {
+	max-width: 46rem;
+}
+
+.case__sub-h {
+	margin: 0 0 var(--space-xs);
+	font-family: var(--font-display);
+	font-size: var(--step-2);
+	color: var(--color-ink);
+}
+
+@media (min-width: 52rem) {
+	.case__sub {
+		grid-template-columns: 1fr 1fr;
+		gap: var(--space-2xl);
+	}
+	.case__sub--text {
+		grid-template-columns: 1fr;
+	}
+	.case__sub--flip .case__figure {
+		order: -1;
+	}
+}
+
+/* --- scrollable phone mock-up --- */
+.case__phone {
+	position: relative;
+	width: 100%;
+	max-width: 17rem;
+	margin: 0 auto;
+}
+
+.case__phone-frame {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+
+.case__phone-screen {
+	position: absolute;
+	/* transparent window measured from immo-phonecase.png's alpha channel */
+	top: 8.9%;
+	left: 6%;
+	width: 88.3%;
+	height: 87.1%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	border-radius: 9% / 4%;
+	background: var(--color-paper);
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none;
+}
+
+.case__phone-screen::-webkit-scrollbar {
+	display: none;
+}
+
+.case__phone-screen img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/* phone on one side, the copy that goes with it stacked on the other */
+.case__showcase {
+	display: grid;
+	gap: var(--space-l);
+	margin-top: var(--space-3xl);
+}
+
+.case__showcase-text {
+	display: grid;
+	gap: var(--space-3xl);
+	align-content: center;
+}
+
+.case__showcase-section {
+	display: grid;
+	gap: var(--space-s);
+	justify-items: start;
+}
+
+.case__showcase-section p {
+	margin: 0;
+}
+
+@media (min-width: 52rem) {
+	.case__showcase {
+		grid-template-columns: 20rem 1fr;
+		gap: var(--space-3xl);
+		align-items: start;
+	}
+	.case__showcase .case__phone {
+		max-width: 20rem;
+		margin-left: calc(min(var(--content-width), 100vw) / 2 - 50vw + 2 * var(--space-m));
+	}
+	.case__showcase-text {
+		margin-top: var(--space-3xl);
+	}
+}
+
+/* --- "how might we" banner --- */
+.case__banner-wrap {
+	display: flex;
+	justify-content: center;
+}
+
+.case__banner {
+	position: relative;
+	max-width: 32rem;
+	margin: 0;
+	padding: var(--space-l) var(--space-xl);
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-1);
+	line-height: 1.4;
+	color: var(--color-paper);
+	background: var(--color-blue);
+	clip-path: polygon(0 0, 100% 0, 92% 50%, 100% 100%, 0 100%, 8% 50%);
+	transform: rotate(-1.5deg);
+}
+
+.case__banner--wide {
+	max-width: 52rem;
+	margin-inline: auto;
+	font-size: var(--step-2);
+	text-align: left;
+}
+
+/* --- question / process / stats block --- */
+.case__block {
+	display: grid;
+	gap: var(--space-xl);
+	justify-items: center;
+	margin-top: var(--space-3xl);
+	text-align: center;
+}
+
+/* left-to-right process flow */
+.case__flow {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: var(--space-2xs) var(--space-s);
+}
+
+.case__flow__step {
+	padding: 0.35em 1em;
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-0);
+	color: var(--color-ink);
+	background: var(--color-blush);
+	border-radius: 999px;
+}
+
+.case__flow__sep {
+	font-weight: 700;
+	color: var(--color-orange);
+}
+
+/* when the flow sits inside a section's text column */
+.case__flow--inline {
+	justify-content: flex-start;
+	margin-top: var(--space-2xs);
+}
+
+.case__row--center .case__flow--inline {
+	justify-content: center;
+}
+
+/* big-number stat callouts */
+.case__stats {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: var(--space-xl) var(--space-2xl);
+}
+
+.case__stats div {
+	display: grid;
+	gap: 0.15rem;
+}
+
+.case__stats strong {
+	font-family: var(--font-display);
+	font-size: var(--step-5);
+	line-height: 1;
+	color: var(--color-orange);
+}
+
+.case__stats span {
+	font-size: var(--step-0);
+}
+
+/* --- case movie --- */
+.case__film {
+	margin-top: calc(var(--space-3xl) * 1.3);
+	text-align: center;
+}
+
+.case__film-title {
+	margin: 0 0 var(--space-l);
+	font-family: var(--font-display);
+	font-size: var(--step-5);
+	color: var(--color-blue);
+}
+
+.case__film-media {
+	position: relative;
+	max-width: 46rem;
+	margin-inline: auto;
+}
+
+.case__film-media--portrait {
+	max-width: 24rem;
+}
+
+.case__video {
+	position: relative;
+	z-index: 1;
+	display: block;
+	width: 100%;
+	height: auto;
+	object-fit: contain;
+	border-radius: var(--radius);
+	background: var(--color-ink);
+	box-shadow: 0 0.9rem 2.4rem rgba(14, 13, 8, 0.2);
+}
+
+.case__scribble--left,
+.case__scribble--right {
+	width: 20%;
+	top: 50%;
+}
+.case__scribble--left {
+	left: -15%;
+	transform: translateY(-50%) rotate(-12deg);
+}
+.case__scribble--right {
+	right: -15%;
+	transform: translateY(-50%) rotate(12deg);
+}
+
+@media (max-width: 47rem) {
+	.case__scribble--left,
+	.case__scribble--right {
+		display: none;
+	}
+}
+
+.case__note {
+	margin: var(--space-2xl) 0 0;
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-1);
+	text-align: center;
+	color: var(--color-ink);
+	opacity: 0.75;
+}

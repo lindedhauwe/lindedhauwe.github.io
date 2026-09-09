@@ -1,0 +1,24 @@
+---
+/* A loose hand-drawn scribble line, roughened by the shared #pencil filter.
+   Decorative only. */
+interface Props {
+	color?: string;
+	class?: string;
+}
+const { color = 'var(--color-blue)', class: className } = Astro.props;
+---
+
+<svg
+	class:list={['scribble-line', className]}
+	viewBox="0 0 220 44"
+	fill="none"
+	preserveAspectRatio="none"
+	aria-hidden="true"
+	style={`color:${color}`}
+>
+	<path
+		d="M4 26C20 6 30 6 40 22C50 38 62 40 74 24C86 8 98 6 110 22C122 38 134 40 146 24C158 8 170 6 182 22C192 34 204 34 216 22"
+		stroke="currentColor"
+		stroke-width="6"
+		stroke-linecap="round"></path>
+</svg>

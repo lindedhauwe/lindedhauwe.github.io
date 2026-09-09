@@ -1,11 +1,65 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import '../../styles/page.css';
+import { categories, projectsIn } from '../../data/projects';
+import '../../styles/projects.css';
 ---
 
-<BaseLayout title="Projects">
-	<section class="page-stub">
-		<h1>Projects</h1>
-		<p>Coming next.</p>
+<BaseLayout
+	title="Projects"
+	description="The project wall: everything Linde D'Hauwe has built, pinned up by discipline across visual design, motion design, user experience and development."
+>
+	<section class="wall">
+		<header class="wall__intro">
+			<h1 class="wall__title" aria-label="The project wall">
+				{
+					[...'The project wall'].map((ch, i) => (
+						<span
+							class="wall__title-letter"
+							style={`--i:${i}`}
+							aria-hidden="true"
+						>
+							{ch === ' ' ? ' ' : ch}
+						</span>
+					))
+				}
+			</h1>
+			<p class="wall__lead">
+				Everything I&rsquo;ve built so far, pinned up by discipline. Tap a photo
+				for the full story.
+			</p>
+		</header>
+
+		{
+			categories.map((cat) => (
+				<section class="wall__group" aria-labelledby={`cat-${cat.id}`}>
+					<h2 class="wall__group-label" id={`cat-${cat.id}`}>
+						{cat.label}
+					</h2>
+
+					<ul class="wall__grid">
+						{projectsIn(cat.id).map((project) => (
+							<li class="polaroid">
+								<a class="polaroid__link" href={`/projects/${project.slug}/`}>
+									<span class="polaroid__photo">
+										<span class="polaroid__tape" aria-hidden="true" />
+										<span class="polaroid__frame">
+											<Image
+												class="polaroid__img"
+												src={project.image}
+												alt={project.title}
+												widths={[300, 480, 720]}
+												sizes="(min-width: 48rem) 15rem, 44vw"
+											/>
+										</span>
+										<span class="polaroid__caption">{project.title}</span>
+									</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+			))
+		}
 	</section>
 </BaseLayout>

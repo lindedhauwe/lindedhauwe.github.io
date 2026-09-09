@@ -36,7 +36,15 @@
 }
 
 .hero__year {
-	color: var(--color-pink);
+	color: var(--color-blush);
+}
+
+.hero__name {
+	margin-top: 0.35em;
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-1);
+	color: var(--color-paper);
 }
 
 /* <picture> wraps the hero animation — let the <img> keep its grid placement */
@@ -159,7 +167,6 @@
 	justify-self: start;
 	white-space: nowrap;
 	visibility: hidden;
-	transform: rotate(-2deg);
 }
 
 .era-word__slot.is-active {
@@ -232,21 +239,20 @@
 .about-teaser__heading {
 	margin: 0 0 var(--space-s);
 	font-family: var(--font-display);
-	font-size: var(--step-5);
+	font-size: var(--step-4);
 	color: var(--color-orange);
-	transform: rotate(-1.5deg);
 }
 
 .about-teaser__body {
 	max-width: 46ch;
-	font-size: var(--step-1);
+	font-size: var(--step-0);
 }
 
 .about-teaser__prompt {
 	margin: var(--space-m) 0 var(--space-s);
 	font-family: var(--font-hand);
 	font-weight: 700;
-	font-size: var(--step-2);
+	font-size: var(--step-0);
 	color: var(--color-blue);
 }
 
@@ -296,7 +302,7 @@
 .story__name {
 	font-family: var(--font-hand);
 	font-weight: 700;
-	font-size: var(--step-2);
+	font-size: var(--step-1);
 	color: var(--color-ink);
 }
 
@@ -344,9 +350,8 @@
 .work__heading {
 	margin: 0;
 	font-family: var(--font-display);
-	font-size: var(--step-5);
+	font-size: var(--step-4);
 	color: var(--color-paper);
-	transform: rotate(-1.5deg);
 }
 
 /* scribbled-in Gen-Z aside, top-right of the section */
@@ -360,7 +365,6 @@
 	font-size: clamp(1.75rem, 5vw, 3rem);
 	line-height: 1;
 	color: var(--color-paper);
-	transform: rotate(7deg);
 }
 
 .work__slay-line {
@@ -425,7 +429,7 @@
 	padding: 1.4rem 0.5rem 1.7rem;
 	font-family: var(--font-hand);
 	font-weight: 700;
-	font-size: var(--step-2);
+	font-size: var(--step-1);
 	line-height: 1;
 	text-align: center;
 	color: var(--color-ink);
@@ -566,14 +570,13 @@
 .contact__heading {
 	margin: 0;
 	font-family: var(--font-display);
-	font-size: var(--step-6);
+	font-size: var(--step-4);
 	color: var(--color-paper);
-	transform: rotate(-2deg);
 }
 
 .contact__lead {
 	max-width: 34ch;
-	font-size: var(--step-1);
+	font-size: var(--step-0);
 	opacity: 0.9;
 }
 
@@ -589,7 +592,7 @@
 	padding-bottom: 0.16em;
 	font-family: var(--font-hand);
 	font-weight: 700;
-	font-size: clamp(1.75rem, 6vw, 3.25rem);
+	font-size: clamp(1.5rem, 4.5vw, 2.25rem);
 	line-height: 1.1;
 	word-break: break-word;
 	text-decoration: none;

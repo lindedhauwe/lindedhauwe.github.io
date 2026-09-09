@@ -1,11 +1,69 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import '../styles/page.css';
+import { site, socials } from '../config/site';
+import selfPortrait from '../assets/illustrations/selfportrait.png';
+import '../styles/contact.css';
+
+const phoneHref = site.phone
+	? `sms:${site.phone.replace(/\s+/g, '')}`
+	: null;
 ---
 
-<BaseLayout title="Contact">
-	<section class="page-stub">
-		<h1>Contact</h1>
-		<p>Coming next.</p>
+<BaseLayout
+	title="Contact"
+	description={`Get in touch with ${site.name}: email, text and socials.`}
+>
+	<section class="contact-page">
+		<div class="contact-page__inner">
+			<div class="contact-page__content">
+				<h1 class="contact-page__title">
+					Let&rsquo;s <span class="contact-page__mark">talk</span>!
+				</h1>
+
+				<p class="contact-page__lead">
+					Whether it&rsquo;s a project, a question, or just a hello, I&rsquo;d
+					love to hear from you.
+				</p>
+
+				<div class="contact-page__methods">
+					<a class="contact-page__method" href={`mailto:${site.email}`}>
+						<span class="contact-page__method-label">Email me</span>
+						<span class="contact-page__method-value">{site.email}</span>
+					</a>
+					{
+						phoneHref && (
+							<a class="contact-page__method" href={phoneHref}>
+								<span class="contact-page__method-label">Text me</span>
+								<span class="contact-page__method-value">{site.phone}</span>
+							</a>
+						)
+					}
+					<div class="contact-page__socials-wrap">
+						<span class="contact-page__method-label">Find me elsewhere</span>
+						<ul class="contact-page__socials">
+							{
+								socials.map((s) => (
+									<li>
+										<a href={s.href} target="_blank" rel="noopener noreferrer">
+											{s.label}
+										</a>
+									</li>
+								))
+							}
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="contact-page__art" aria-hidden="true">
+				<Image
+					src={selfPortrait}
+					alt=""
+					widths={[280, 460, 660]}
+					sizes="(min-width: 56rem) 26rem, 60vw"
+				/>
+			</div>
+		</div>
 	</section>
 </BaseLayout>

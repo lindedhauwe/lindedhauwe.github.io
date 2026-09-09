@@ -7,7 +7,7 @@ export const site = {
 	name: "Linde D'Hauwe",
 	title: 'Portfolio 2026',
 	description:
-		"Portfolio of Linde D'Hauwe — Digital Design & Development student. Projects across UX, illustration, graphic design and front-end development.",
+		"Portfolio of Linde D'Hauwe, Digital Design & Development student. Projects across UX, illustration, graphic design and front-end development.",
 	email: 'linde.dhauwe@outlook.com',
 	/** International format. Empty = hidden. */
 	phone: '+32 470 75 47 12',

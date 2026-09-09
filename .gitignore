@@ -24,5 +24,11 @@ pnpm-debug.log*
 .idea/
 
 # raw animation exports (huge APNGs) — the optimised .webp in /public is what ships.
-# regenerate with scripts/build-hero-anim.mjs
+# regenerate hero: scripts/build-hero-anim.mjs · regenerate clips: npm run build:anim
 src/assets/animations/
+src/assets/detailPages/makingthingsmove-butterfly.png
+src/assets/detailPages/makingthingsmove-walkcycle.png
+src/assets/detailPages/makingthingsmove-spaceship.png
+
+# source case-study videos — too big for git; host externally / compress before deploy
+src/assets/detailPages/*.mp4

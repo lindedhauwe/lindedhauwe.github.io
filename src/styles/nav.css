@@ -111,13 +111,13 @@
 
 	/* Scattered heights + slight lean, like hand-placed stickers. */
 	.site-nav li:nth-child(1) {
-		transform: translateY(0.25rem) rotate(-4deg);
+		transform: translateY(0.25rem);
 	}
 	.site-nav li:nth-child(2) {
-		transform: translateY(-5rem) rotate(3deg);
+		transform: translateY(-5rem);
 	}
 	.site-nav li:nth-child(3) {
-		transform: translateY(0.9rem) rotate(-2deg);
+		transform: translateY(0.9rem);
 	}
 
 	.scribble {
@@ -159,11 +159,11 @@
 	height: 3.5rem;
 	list-style: none;
 	border-radius: 50%;
-	background: var(--color-ink);
+	background: var(--color-orange);
 	color: var(--color-paper);
 	cursor: pointer;
 	transform: rotate(-4deg);
-	box-shadow: 0.3rem 0.35rem 0 rgba(14, 13, 8, 0.22);
+	box-shadow: 0.3rem 0.35rem 0 rgba(14, 13, 8, 0.18);
 	transition: background-color 0.16s ease;
 }
 
@@ -171,15 +171,12 @@
 	display: none;
 }
 
-.float-nav__wrap[open] .float-nav__btn {
-	background: var(--color-orange);
-}
-
 .float-nav__icon {
 	width: 1.4rem;
 	height: auto;
 	color: currentColor;
 	filter: url(#pencil);
+	overflow: visible;
 }
 
 .float-nav__icon path {
@@ -187,6 +184,23 @@
 	stroke: currentColor;
 	stroke-width: 2.6;
 	stroke-linecap: round;
+	transform-box: view-box;
+	transform-origin: 16px 12px;
+	transition:
+		transform 0.22s ease,
+		opacity 0.12s ease;
+}
+
+/* hamburger → cross when the menu is open
+   (rotate then translate, so each line lands on the view-box centre first) */
+.float-nav__wrap[open] .float-nav__icon path:nth-child(1) {
+	transform: rotate(45deg) translateY(7px);
+}
+.float-nav__wrap[open] .float-nav__icon path:nth-child(2) {
+	opacity: 0;
+}
+.float-nav__wrap[open] .float-nav__icon path:nth-child(3) {
+	transform: rotate(-45deg) translateY(-7px);
 }
 
 .float-nav__list {
@@ -211,15 +225,8 @@
 	text-decoration: none;
 	color: var(--color-ink);
 	background: var(--color-paper);
-	border: 2px solid var(--color-ink);
+	border: 2px solid var(--color-orange);
 	border-radius: 999px;
-}
-
-.float-nav__list li:nth-child(odd) a {
-	transform: rotate(-2deg);
-}
-.float-nav__list li:nth-child(even) a {
-	transform: rotate(1.5deg);
 }
 
 .float-nav__list a:hover,
