@@ -74,6 +74,19 @@ if (detail) {
 		}
 	}
 }
+
+/* Which side each 2-column image row sits on: bleed / imageSide win,
+   otherwise plain image rows just alternate (starting on the right). */
+const figureSide = new Map<ProjectSection, 'left' | 'right'>();
+let autoRow = 0;
+for (const b of blocks) {
+	if (b.kind !== 'section') continue;
+	const s = b.section;
+	if (!s.image || isFeature(s) || s.phone) continue;
+	if (s.bleed) figureSide.set(s, s.bleed);
+	else if (s.imageSide) figureSide.set(s, s.imageSide);
+	else figureSide.set(s, autoRow++ % 2 === 0 ? 'right' : 'left');
+}
 ---
 
 <BaseLayout
@@ -393,7 +406,8 @@ if (detail) {
 												block.section.bleed &&
 													`case__figure--bleed-${block.section.bleed}`,
 												block.section.imageNarrow && 'case__figure--narrow',
-												block.section.imageSide === 'left' &&
+												!block.section.bleed &&
+													figureSide.get(block.section) === 'left' &&
 													'case__figure--left',
 											]}
 										>

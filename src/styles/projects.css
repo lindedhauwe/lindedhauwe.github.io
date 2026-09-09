@@ -327,12 +327,9 @@
 	.case__row--text {
 		grid-template-columns: 1fr;
 	}
-	/* rows (as <div>s): 1 intro · 2 goal · 3 research · 4 ux · 5 visual · 6 dev · 7 final.
-	   Put the media on the left for research and visual design; the rest sit right. */
-	.case__row:nth-of-type(3) .case__figure,
-	.case__row:nth-of-type(5) .case__figure {
-		order: -1;
-	}
+
+	/* section images sit right by default; a section opts left with
+	   imageSide: 'left' (or bleed: 'left') → .case__figure--left */
 
 	/* let a figure run right up to the edge of the screen */
 	.case__figure--bleed-right {
@@ -419,10 +416,14 @@
 	height: auto;
 }
 
-.case__row:nth-of-type(odd) .case__figure img {
+/* a barely-there tilt, leaning away from whichever side the image is on */
+.case__figure img {
 	transform: rotate(1.2deg);
 }
-.case__row:nth-of-type(even) .case__figure img {
+.case__figure--left img,
+.case__figure--bleed-left img,
+.case__figure--cover-left img,
+.case__sub--flip .case__figure img {
 	transform: rotate(-1.2deg);
 }
 

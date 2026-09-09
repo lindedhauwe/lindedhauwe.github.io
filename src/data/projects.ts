@@ -197,6 +197,7 @@ export const projects: Project[] = [
 						'The project started with an international exchange in Rotterdam. Together with Dutch students, we explored the project theme, target audience and possible concepts. Through interviews and research, we investigated what city explorers look for during a city trip and how we could encourage them to visit Antwerp. At the end of the week, we pitched our concept to the City of Antwerp.',
 					],
 					image: aotResearch,
+					imageSide: 'left',
 				},
 				{
 					heading: 'UX Process',
@@ -217,6 +218,7 @@ export const projects: Project[] = [
 						'After completing the UX process, we developed the visual identity of Antwerp on Tap. Through style boards, branding and UI design, we created a playful and recognisable experience that connects with our target audience of city explorers.',
 					],
 					image: aotStyleboard,
+					imageSide: 'left',
 					link: {
 						label: 'Figma design',
 						href: 'https://www.figma.com/design/gLKnuFX44auxOuCanFXvfu/INT4--Visit-Antwerpen?node-id=2300-20146&t=PjBGfHBz4ub5OaI4-1',
@@ -608,6 +610,7 @@ export const projects: Project[] = [
 						'By visualising the complete experience, we identified several pain points and opportunities for improvement. For example, we noticed that the communication around blood donation is not equally convincing to everyone, while the lengthy questionnaire can also create confusion and uncertainty.',
 					],
 					image: rcCross,
+					imageSide: 'left',
 					imageNarrow: true,
 				},
 				{
