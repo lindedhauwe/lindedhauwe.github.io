@@ -1,6 +1,6 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import { Image, getImage } from 'astro:assets';
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Scribble from '../../components/Scribble.astro';
 import { projects, categoryLabel } from '../../data/projects';
@@ -15,15 +15,6 @@ export const getStaticPaths = (() =>
 
 const { project } = Astro.props;
 const { detail } = project;
-
-const poster = detail?.videoPoster
-	? (await getImage({ src: detail.videoPoster, width: 960, format: 'webp' })).src
-	: undefined;
-
-/* keep the film <video> box at the poster's real aspect ratio */
-const posterW = detail?.videoPoster?.width ?? 16;
-const posterH = detail?.videoPoster?.height ?? 9;
-const portraitFilm = posterH > posterW;
 
 const accents = ['var(--color-blue)', 'var(--color-green)'];
 const isExternal = (href: string) => /^https?:/i.test(href);
@@ -296,10 +287,13 @@ if (detail) {
 									<Scribble class="case__scribble case__scribble--right" />
 									{block.section.video ? (
 										<video
-											class="case__video"
+											class:list={[
+												'case__video',
+												{ 'case__video--portrait': block.section.videoPortrait },
+											]}
 											controls
 											preload="none"
-											style="aspect-ratio: 16 / 9"
+											poster={block.section.videoPoster}
 										>
 											<source src={block.section.video} type="video/mp4" />
 										</video>
@@ -501,7 +495,7 @@ if (detail) {
 							<div
 								class:list={[
 									'case__film-media',
-									{ 'case__film-media--portrait': portraitFilm },
+									{ 'case__film-media--portrait': detail.videoPortrait },
 								]}
 							>
 								<Scribble
@@ -513,11 +507,13 @@ if (detail) {
 									color="var(--color-pink)"
 								/>
 								<video
-									class="case__video"
+									class:list={[
+										'case__video',
+										{ 'case__video--portrait': detail.videoPortrait },
+									]}
 									controls
 									preload="none"
-									poster={poster}
-									style={`aspect-ratio:${posterW} / ${posterH}`}
+									poster={detail.videoPoster}
 								>
 									<source src={detail.video} type="video/mp4" />
 								</video>

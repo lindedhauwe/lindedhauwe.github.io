@@ -6,7 +6,6 @@ import aotResearch from '../assets/detailPages/antwerpOnTab-research.png';
 import aotUx from '../assets/detailPages/antwerpOnTab-ux.png';
 import aotStyleboard from '../assets/detailPages/antwerpOnTab-styleboard.png';
 import aotPoster from '../assets/detailPages/antwerpOnTab-poster.png';
-import aotCaseMovie from '../assets/detailPages/antwerpOnTab-caseMovie.mp4';
 import immo from '../assets/projects/VD-immo.png';
 import immoIntro from '../assets/detailPages/immo-intro.png';
 import immoPhonecase from '../assets/detailPages/immo-phonecase.png';
@@ -16,22 +15,12 @@ import mmIntro from '../assets/detailPages/milesandmeals-intro.png';
 import mmBrandboard from '../assets/detailPages/milesandmeals-brandboard.png';
 import mmApp from '../assets/detailPages/milesandmeals-app.png';
 import animationJourneyCover from '../assets/detailPages/animation-journey.png';
-
-const mtmAnim = (name: string, width: number, height: number) => ({
-	src: `/animations/${name}.webp`,
-	poster: `/animations/${name}-poster.webp`,
-	width,
-	height,
-});
 import kickstarter from '../assets/projects/Motion-kickstarter.png';
 import ksLogo from '../assets/detailPages/kickstarter-logo.png';
 import ksStyleboard from '../assets/detailPages/kickstarter-styleboard.png';
 import ksStyleframe from '../assets/detailPages/kickstarter-styleframe.png';
-import ksAnimatic from '../assets/detailPages/kickstarter-animatic.mp4';
-import ksFinal from '../assets/detailPages/kickstarter-final.mp4';
 import nmbs from '../assets/projects/Motion-nmbs.png';
 import nmbsLogo from '../assets/detailPages/nmbs-logo.jpg';
-import nmbsVideo from '../assets/detailPages/nmbs-video.mp4';
 import tableTalk from '../assets/projects/UX-ProjectTableTalk.png';
 import ttIntro from '../assets/detailPages/tabletalk-intro.png';
 import ttUxProcess from '../assets/detailPages/tabletalk-uxproces.png';
@@ -97,8 +86,11 @@ export interface ProjectSection {
 	wide?: ImageMetadata;
 	/** Where the scribble(s) sit on the wide image. Default: both sides. */
 	wideScribble?: 'both' | 'bottom-right';
-	/** A video (mp4 url) — shown big and centred, like the image feature. */
+	/** A video (public/videos url) — shown big and centred, like the image feature. */
 	video?: string;
+	videoPoster?: string;
+	/** Portrait (9:16) video, e.g. a phone-format motion graphic. */
+	videoPortrait?: boolean;
 	/** A scrollable screenshot shown inside a phone mock-up. */
 	phone?: { frame: ImageMetadata; screenshot: ImageMetadata };
 	/** A spec / feature list, shown as a card beside the text. */
@@ -140,7 +132,8 @@ export interface ProjectDetail {
 	sections: ProjectSection[];
 	/** Case film, shown at the end. */
 	video?: string;
-	videoPoster?: ImageMetadata;
+	videoPoster?: string;
+	videoPortrait?: boolean;
 }
 
 export interface Project {
@@ -163,6 +156,14 @@ export const categories: { id: CategoryId; label: string }[] = [
 
 export const categoryLabel = (id: CategoryId) =>
 	categories.find((c) => c.id === id)?.label ?? id;
+
+/** A looping animated WebP clip (built by scripts/build-animations.mjs). */
+const mtmAnim = (name: string, width: number, height: number) => ({
+	src: `/animations/${name}.webp`,
+	poster: `/animations/${name}-poster.webp`,
+	width,
+	height,
+});
 
 export const projects: Project[] = [
 	// Visual design
@@ -239,7 +240,8 @@ export const projects: Project[] = [
 					},
 				},
 			],
-			video: aotCaseMovie,
+			video: '/videos/antwerp-case-movie.mp4',
+			videoPoster: '/videos/antwerp-case-movie-poster.jpg',
 		},
 	},
 	{
@@ -411,10 +413,20 @@ export const projects: Project[] = [
 						'The process started with finding a suitable Kickstarter project and developing a concept. Once I had a concept, I pitched it to receive initial feedback. I then created a storyboard, style frames and an animatic to test the story and timing. After that, I designed all the illustrations myself in Procreate and brought them to life in After Effects using animation, transitions and sound design.',
 					],
 				},
-				{ heading: 'The animatic', body: [], video: ksAnimatic },
+				{
+					heading: 'The animatic',
+					body: [],
+					video: '/videos/kickstarter-animatic.mp4',
+					videoPoster: '/videos/kickstarter-animatic-poster.jpg',
+				},
 				{ heading: 'Styleboard', body: [], image: ksStyleboard },
 				{ heading: 'Style frame', body: [], image: ksStyleframe },
-				{ heading: 'The big result', body: [], video: ksFinal },
+				{
+					heading: 'The big result',
+					body: [],
+					video: '/videos/kickstarter-final.mp4',
+					videoPoster: '/videos/kickstarter-final-poster.jpg',
+				},
 				{
 					heading: 'Reflection',
 					body: [
@@ -450,7 +462,13 @@ export const projects: Project[] = [
 						'I started by developing a concept and then designed all the graphic assets that I later animated in After Effects. Throughout the process, I learned new techniques such as working with shape layers, typography, easing, expressions and more complex animations. By bringing these different elements together, I created a smooth motion graphic with a clear rhythm and narrative.',
 					],
 				},
-				{ heading: 'The motion graphic', body: [], video: nmbsVideo },
+				{
+					heading: 'The motion graphic',
+					body: [],
+					video: '/videos/nmbs.mp4',
+					videoPoster: '/videos/nmbs-poster.jpg',
+					videoPortrait: true,
+				},
 				{
 					heading: 'Reflection',
 					body: [

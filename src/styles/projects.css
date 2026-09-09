@@ -793,10 +793,17 @@
 	display: block;
 	width: 100%;
 	height: auto;
+	aspect-ratio: 16 / 9;
 	object-fit: contain;
 	border-radius: var(--radius);
 	background: var(--color-ink);
 	box-shadow: 0 0.9rem 2.4rem rgba(14, 13, 8, 0.2);
+}
+
+.case__video--portrait {
+	aspect-ratio: 9 / 16;
+	max-width: 24rem;
+	margin-inline: auto;
 }
 
 .case__scribble--left,
