@@ -909,3 +909,14 @@ export const projects: Project[] = [
 
 export const projectsIn = (id: CategoryId) =>
 	projects.filter((p) => p.category === id);
+
+/** Projects shown in the home-page "Selected work" teaser. */
+export const featuredWork = ['table-talk', 'kickstarter', 'antwerp-on-tap']
+	.map((slug) => projects.find((p) => p.slug === slug))
+	.filter((p): p is Project => Boolean(p))
+	.map((p) => ({
+		title: p.title,
+		image: p.image,
+		alt: `${p.title} project`,
+		href: `/projects/${p.slug}/`,
+	}));
