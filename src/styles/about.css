@@ -114,7 +114,9 @@
 .interest-board {
 	position: relative;
 	justify-self: center;
-	width: min(100vw, 84rem);
+	/* fill the section (minus its padding) up to 84rem — never wider than
+	   the viewport, so it can't create a sideways scroll on mobile */
+	width: min(100vw - var(--space-m) * 2, 84rem);
 	aspect-ratio: 3 / 2;
 	margin: 0 auto var(--space-m);
 	padding: 0;
