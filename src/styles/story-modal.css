@@ -135,6 +135,8 @@
 	height: 1.5rem;
 }
 
+/* Focusable for keyboard/AT, but pointer taps fall through to the card
+   (which decides prev/next from where you tapped). */
 .story-modal__zone {
 	position: absolute;
 	top: 0;
@@ -143,7 +145,7 @@
 	padding: 0;
 	border: 0;
 	background: none;
-	cursor: pointer;
+	pointer-events: none;
 }
 
 .story-modal__zone--prev {

@@ -13,12 +13,12 @@
 .hero {
 	position: relative;
 	display: grid;
-	gap: var(--space-m);
-	padding: var(--space-3xl) var(--space-m) var(--space-xl);
+	gap: var(--space-s);
+	padding: var(--space-2xl) var(--space-m) var(--space-xl);
 	overflow: hidden;
 	background: linear-gradient(
-		var(--color-green) 0 42%,
-		var(--color-blush) 42% 100%
+		var(--color-green) 0 45%,
+		var(--color-blush) 45% 100%
 	);
 }
 
@@ -53,16 +53,18 @@
 }
 
 .hero__art {
-	width: min(78%, 24rem);
+	width: min(96%, 26rem);
 	height: auto;
+	margin-block: var(--space-2xs) var(--space-s);
 	justify-self: center;
 }
 
 .hero__statement {
 	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	gap: 0.02em;
+	flex-wrap: wrap;
+	align-items: baseline;
+	column-gap: 0.28em;
+	row-gap: 0.08em;
 	margin: 0;
 	font-family: var(--font-statement);
 	font-size: clamp(2.5rem, 13vw, 4.5rem);
@@ -71,6 +73,16 @@
 	letter-spacing: -0.02em;
 	text-transform: uppercase;
 	color: var(--color-ink);
+}
+
+/* "I'm in my" stays on one line; the word and "era" each get their own. */
+.hero__word--craft,
+.hero__word--era {
+	flex-basis: 100%;
+}
+
+.hero__word--era {
+	margin-top: 0.3em;
 }
 
 /* The rotating word keeps its own loose, lowercase handwriting. */
@@ -144,6 +156,7 @@
 	.hero__word--era {
 		right: 15%;
 		top: 80%;
+		margin-top: 0;
 	}
 }
 

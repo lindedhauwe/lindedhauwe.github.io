@@ -123,7 +123,6 @@ const slides = [
 		let startedAt = 0;
 		let remaining = DURATION;
 		let paused = false;
-		let pressAt = 0;
 
 		const setFill = (el: HTMLElement, pct: number, ms: number) => {
 			el.style.transition = ms ? `width ${ms}ms linear` : 'none';
@@ -213,24 +212,51 @@ const slides = [
 			.querySelectorAll('[data-story-close]')
 			.forEach((b) => b.addEventListener('click', close));
 
-		// tap zones / arrows — ignore the click if it was really a hold-to-pause
-		const tapGuard = (fn: () => void) => () => {
-			if (performance.now() - pressAt < 260) fn();
-		};
+		/* Keyboard / assistive tech: the invisible zone buttons and the arrows
+		   navigate on a real click (Enter/Space). They're pointer-transparent
+		   so pointer taps fall through to the card handler below. */
 		modal
 			.querySelectorAll('[data-story-next]')
-			.forEach((b) => b.addEventListener('click', tapGuard(next)));
+			.forEach((b) => b.addEventListener('click', next));
 		modal
 			.querySelectorAll('[data-story-prev]')
-			.forEach((b) => b.addEventListener('click', tapGuard(prev)));
+			.forEach((b) => b.addEventListener('click', prev));
 
-		card.addEventListener('pointerdown', () => {
-			pressAt = performance.now();
-			pause();
+		/* Pointer (mouse + touch): a quick tap on the left third goes back,
+		   anywhere else goes forward; press-and-hold pauses. */
+		let downX = 0;
+		let downT = 0;
+		let dragged = false;
+		let holdTimer = 0;
+
+		card.addEventListener('pointerdown', (e) => {
+			downX = e.clientX;
+			downT = performance.now();
+			dragged = false;
+			holdTimer = window.setTimeout(pause, 350);
 		});
-		card.addEventListener('pointerup', resume);
-		card.addEventListener('pointercancel', resume);
-		card.addEventListener('pointerleave', resume);
+		card.addEventListener('pointermove', (e) => {
+			if (Math.abs(e.clientX - downX) > 12) {
+				dragged = true;
+				window.clearTimeout(holdTimer);
+			}
+		});
+		const endPress = (e: PointerEvent) => {
+			window.clearTimeout(holdTimer);
+			if (paused) {
+				resume();
+				return;
+			}
+			if (dragged || performance.now() - downT > 350) return;
+			const r = card.getBoundingClientRect();
+			if (e.clientX - r.left < r.width * 0.33) prev();
+			else next();
+		};
+		card.addEventListener('pointerup', endPress);
+		card.addEventListener('pointercancel', () => {
+			window.clearTimeout(holdTimer);
+			if (paused) resume();
+		});
 
 		document.addEventListener('keydown', (e) => {
 			if (!modal.open) return;

@@ -6,7 +6,8 @@
 	position: absolute;
 	inset: var(--space-s) 0 auto 0;
 	z-index: 50;
-	display: flex;
+	/* phones use the floating hamburger only */
+	display: none;
 	justify-content: flex-end;
 	padding: var(--space-s) var(--space-m);
 }
@@ -97,6 +98,7 @@
 /* Scattered-sticker cluster: one loose row, each bubble at its own height. */
 @media (min-width: 40rem) {
 	.site-nav {
+		display: flex;
 		inset: 10rem 2rem auto 0;
 		padding: var(--space-s) var(--space-l);
 	}
