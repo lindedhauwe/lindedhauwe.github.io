@@ -509,7 +509,7 @@ const tools = toolNames.map(([slug, name], i) => {
 							style={`--x:${tool.x}%; --y:${tool.y}%; --r:${tool.rot}deg; --i:${i};`}
 						>
 							<img
-								src={`/logos/${tool.slug}.webp`}
+								src={withBase(`/logos/${tool.slug}.webp`)}
 								alt={tool.name}
 								width="160"
 								height="160"
