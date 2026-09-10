@@ -891,7 +891,7 @@ export const projects: Project[] = [
 				{
 					heading: 'Design & interaction',
 					body: [
-						'In this project design was definitely not the main focus point. The visual style is inspired by outer space, using a dark background contrasted with bright planets, stars and the glowing sun. This creates a strong visual hierarchy and makes the interactive elements stand out.',
+						'In this project, design was definitely not the main focus. The visual style is inspired by outer space, using a dark background contrasted with bright planets, stars and the glowing sun. This creates a strong visual hierarchy and makes the interactive elements stand out.',
 						'I used CSS animations and microinteractions to make the game feel more alive. The sun has a glowing hover effect, planets continuously orbit around it, and progress indicators provide visual feedback while the player saves up for new upgrades.',
 						'These small interactions were important because they turn otherwise simple actions, such as clicking a button or earning a star, into something that feels more dynamic and rewarding.',
 					],
