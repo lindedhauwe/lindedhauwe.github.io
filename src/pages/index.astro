@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import EraWord from '../components/EraWord.astro';
 import StoryModal from '../components/StoryModal.astro';
 import Sparkle from '../components/Sparkle.astro';
+import { withBase } from '../lib/paths';
 import { featuredWork } from '../data/projects';
 import profilePic from '../assets/illustrations/profile-pic.png';
 import phoneIllustration from '../assets/illustrations/phone.png';
@@ -21,13 +22,13 @@ import '../styles/home.css';
 
 			<picture>
 				<source
-					srcset="/hero-poster.webp"
+					srcset={withBase('/hero-poster.webp')}
 					media="(prefers-reduced-motion: reduce)"
 				/>
 				<img
 					class="hero__art"
-					src="/hero-anim-1200.webp"
-					srcset="/hero-anim-760.webp 760w, /hero-anim-1200.webp 1200w"
+					src={withBase('/hero-anim-1200.webp')}
+					srcset={`${withBase('/hero-anim-760.webp')} 760w, ${withBase('/hero-anim-1200.webp')} 1200w`}
 					sizes="(min-width: 40rem) 66vw, 90vw"
 					width="1200"
 					height="888"
@@ -60,7 +61,7 @@ import '../styles/home.css';
 				<p class="about-teaser__prompt">
 					Want to know more about the person behind the projects?
 				</p>
-				<a class="btn" href="/about/">More about me</a>
+				<a class="btn" href={withBase("/about/")}>More about me</a>
 			</div>
 
 			<figure class="story">
@@ -157,7 +158,7 @@ import '../styles/home.css';
 				}
 			</ul>
 
-			<a class="btn" href="/projects/">See all projects &rarr;</a>
+			<a class="btn" href={withBase("/projects/")}>See all projects &rarr;</a>
 		</div>
 	</section>
 
@@ -187,7 +188,7 @@ import '../styles/home.css';
 					Got a project, a question, or just want to say hi? My inbox is
 					always open.
 				</p>
-				<a class="btn" href="/contact/">Get in touch</a>
+				<a class="btn" href={withBase("/contact/")}>Get in touch</a>
 			</div>
 		</div>
 	</section>

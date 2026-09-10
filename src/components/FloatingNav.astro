@@ -1,8 +1,9 @@
 ---
 import { nav } from '../config/site';
+import { withBase, stripBase } from '../lib/paths';
 
 const links = [{ label: 'home', href: '/' }, ...nav];
-const current = Astro.url.pathname;
+const current = stripBase(Astro.url.pathname);
 const isActive = (href: string) =>
 	href === '/' ? current === '/' : current.startsWith(href);
 ---
@@ -24,7 +25,7 @@ const isActive = (href: string) =>
 					links.map((l) => (
 						<li>
 							<a
-								href={l.href}
+								href={withBase(l.href)}
 								aria-current={isActive(l.href) ? 'page' : undefined}
 							>
 								{l.label}

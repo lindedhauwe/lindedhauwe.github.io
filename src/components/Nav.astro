@@ -1,7 +1,8 @@
 ---
 import { nav } from '../config/site';
+import { withBase, stripBase } from '../lib/paths';
 
-const current = Astro.url.pathname;
+const current = stripBase(Astro.url.pathname);
 const isActive = (href: string) =>
 	href === '/' ? current === '/' : current.startsWith(href);
 
@@ -21,7 +22,7 @@ const scribblePaths = [
 				nav.map((item, i) => (
 					<li>
 						<a
-							href={item.href}
+							href={withBase(item.href)}
 							class:list={['scribble', { 'is-active': isActive(item.href) }]}
 							aria-current={isActive(item.href) ? 'page' : undefined}
 						>

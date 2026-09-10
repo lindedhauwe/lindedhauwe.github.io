@@ -1,4 +1,5 @@
 import type { ImageMetadata } from 'astro';
+import { withBase } from '../lib/paths';
 
 import antwerpOnTab from '../assets/projects/VD-antwerpOnTab.png';
 import aotConcept from '../assets/detailPages/antwerpOnTab-concept.png';
@@ -159,8 +160,8 @@ export const categoryLabel = (id: CategoryId) =>
 
 /** A looping animated WebP clip (built by scripts/build-animations.mjs). */
 const mtmAnim = (name: string, width: number, height: number) => ({
-	src: `/animations/${name}.webp`,
-	poster: `/animations/${name}-poster.webp`,
+	src: withBase(`/animations/${name}.webp`),
+	poster: withBase(`/animations/${name}-poster.webp`),
 	width,
 	height,
 });
@@ -242,8 +243,8 @@ export const projects: Project[] = [
 					},
 				},
 			],
-			video: '/videos/antwerp-case-movie.mp4',
-			videoPoster: '/videos/antwerp-case-movie-poster.jpg',
+			video: withBase('/videos/antwerp-case-movie.mp4'),
+			videoPoster: withBase('/videos/antwerp-case-movie-poster.jpg'),
 		},
 	},
 	{
@@ -418,16 +419,16 @@ export const projects: Project[] = [
 				{
 					heading: 'The animatic',
 					body: [],
-					video: '/videos/kickstarter-animatic.mp4',
-					videoPoster: '/videos/kickstarter-animatic-poster.jpg',
+					video: withBase('/videos/kickstarter-animatic.mp4'),
+					videoPoster: withBase('/videos/kickstarter-animatic-poster.jpg'),
 				},
 				{ heading: 'Styleboard', body: [], image: ksStyleboard },
 				{ heading: 'Style frame', body: [], image: ksStyleframe },
 				{
 					heading: 'The big result',
 					body: [],
-					video: '/videos/kickstarter-final.mp4',
-					videoPoster: '/videos/kickstarter-final-poster.jpg',
+					video: withBase('/videos/kickstarter-final.mp4'),
+					videoPoster: withBase('/videos/kickstarter-final-poster.jpg'),
 				},
 				{
 					heading: 'Reflection',
@@ -467,8 +468,8 @@ export const projects: Project[] = [
 				{
 					heading: 'The motion graphic',
 					body: [],
-					video: '/videos/nmbs.mp4',
-					videoPoster: '/videos/nmbs-poster.jpg',
+					video: withBase('/videos/nmbs.mp4'),
+					videoPoster: withBase('/videos/nmbs-poster.jpg'),
 					videoPortrait: true,
 				},
 				{
@@ -921,5 +922,5 @@ export const featuredWork = ['table-talk', 'kickstarter', 'antwerp-on-tap']
 		title: p.title,
 		image: p.image,
 		alt: `${p.title} project`,
-		href: `/projects/${p.slug}/`,
+		href: withBase(`/projects/${p.slug}/`),
 	}));

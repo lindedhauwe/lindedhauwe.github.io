@@ -2,6 +2,7 @@
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../lib/paths';
 import WavyEdge from '../components/WavyEdge.astro';
 import Sparkle from '../components/Sparkle.astro';
 import selfPortrait from '../assets/illustrations/selfportrait.png';
@@ -493,7 +494,7 @@ const tools = toolNames.map(([slug, name], i) => {
 		<div class="bag-scene" data-bag-scene>
 			<img
 				class="bag-scene__handle"
-				src="/bag-handle.webp"
+				src={withBase("/bag-handle.webp")}
 				alt=""
 				aria-hidden="true"
 				width="780"
@@ -522,7 +523,7 @@ const tools = toolNames.map(([slug, name], i) => {
 
 			<img
 				class="bag-scene__front"
-				src="/bag.webp"
+				src={withBase("/bag.webp")}
 				alt="Linde's tote bag, patches and all"
 				width="780"
 				height="1051"

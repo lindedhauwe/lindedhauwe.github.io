@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../lib/paths';
 import Sparkle from '../components/Sparkle.astro';
 import { site, socials } from '../config/site';
 import '../styles/contact.css';
@@ -71,11 +72,11 @@ const phoneHref = site.phone
 		<div class="contact-page__art" aria-hidden="true">
 			<picture>
 				<source
-					srcset="/animations/contact-poster.webp"
+					srcset={withBase("/animations/contact-poster.webp")}
 					media="(prefers-reduced-motion: reduce)"
 				/>
 				<img
-					src="/animations/contact.webp"
+					src={withBase("/animations/contact.webp")}
 					alt=""
 					width="920"
 					height="639"

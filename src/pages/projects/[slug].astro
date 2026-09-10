@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Scribble from '../../components/Scribble.astro';
+import { withBase } from '../../lib/paths';
 import { projects, categories, categoryLabel } from '../../data/projects';
 import type { ProjectSection } from '../../data/projects';
 import '../../styles/projects.css';
@@ -105,7 +106,7 @@ for (const b of blocks) {
 	).toLowerCase()} project by Linde D'Hauwe.`}
 >
 	<article class="case">
-		<a class="case__back" href="/projects/">&larr; back to the wall</a>
+		<a class="case__back" href={withBase('/projects/')}>&larr; back to the wall</a>
 		<h1 class="case__title">{detail?.heading ?? project.title}</h1>
 
 		{
@@ -552,14 +553,14 @@ for (const b of blocks) {
 		<nav class="case__pager" aria-label="More projects">
 			<a
 				class="case__pager-link case__pager-link--prev"
-				href={`/projects/${prevProject.slug}/`}
+				href={withBase(`/projects/${prevProject.slug}/`)}
 			>
 				<span class="case__pager-dir">&larr; Previous</span>
 				<span class="case__pager-name">{prevProject.title}</span>
 			</a>
 			<a
 				class="case__pager-link case__pager-link--next"
-				href={`/projects/${nextProject.slug}/`}
+				href={withBase(`/projects/${nextProject.slug}/`)}
 			>
 				<span class="case__pager-dir">Next &rarr;</span>
 				<span class="case__pager-name">{nextProject.title}</span>

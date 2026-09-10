@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../lib/paths';
 import '../styles/notfound.css';
 ---
 
@@ -14,8 +15,8 @@ import '../styles/notfound.css';
 			The link is broken or the page moved. Let&rsquo;s get you back on track.
 		</p>
 		<div class="notfound__links">
-			<a class="btn" href="/">Back to the start</a>
-			<a class="notfound__link" href="/projects/">or see the projects</a>
+			<a class="btn" href={withBase("/")}>Back to the start</a>
+			<a class="notfound__link" href={withBase("/projects/")}>or see the projects</a>
 		</div>
 	</section>
 </BaseLayout>

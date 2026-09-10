@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Sparkle from '../../components/Sparkle.astro';
+import { withBase } from '../../lib/paths';
 import { categories, projectsIn } from '../../data/projects';
 import '../../styles/projects.css';
 
@@ -75,7 +76,10 @@ const sparkleColours = [
 					<ul class="wall__grid">
 						{projectsIn(cat.id).map((project) => (
 							<li class="polaroid">
-								<a class="polaroid__link" href={`/projects/${project.slug}/`}>
+								<a
+									class="polaroid__link"
+									href={withBase(`/projects/${project.slug}/`)}
+								>
 									<span class="polaroid__photo">
 										<span class="polaroid__tape" aria-hidden="true" />
 										<span class="polaroid__frame">
@@ -100,6 +104,8 @@ const sparkleColours = [
 </BaseLayout>
 
 <script>
+	import { withBase } from '../../lib/paths';
+
 	/* Play the tape-peel recording when you hover a polaroid — like pulling
 	   a taped photo off the wall. Off on touch / reduced-motion, and silent
 	   until the visitor has interacted with the page (autoplay policy). */
@@ -120,7 +126,7 @@ const sparkleColours = [
 		let last = 0;
 
 		// decode the clip straight away so it's ready the instant sound unlocks
-		fetch('/sfx/tape.mp3')
+		fetch(withBase('/sfx/tape.mp3'))
 			.then((r) => r.arrayBuffer())
 			.then((b) => ctx.decodeAudioData(b))
 			.then((buf) => (clip = buf))
