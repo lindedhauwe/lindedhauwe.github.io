@@ -119,16 +119,10 @@
 	padding: 0;
 	list-style: none;
 	touch-action: pan-y;
-	/* piece size as a share of the board, so the finished puzzle keeps its
-	   proportions whatever the board width; narrow screens get a touch more
-	   overlap (safe) via the larger value */
-	--pw: 32%;
-}
-
-@media (min-width: 46rem) {
-	.interest-board {
-		--pw: 23.2%;
-	}
+	/* piece size as a share of the board — SOLVED positions are tuned to
+	   this, so it stays constant at every width and the finished puzzle
+	   keeps its proportions */
+	--pw: 23.2%;
 }
 
 .puzzle-piece {
