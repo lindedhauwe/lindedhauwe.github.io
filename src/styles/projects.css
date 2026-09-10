@@ -421,6 +421,25 @@
 	}
 }
 
+/* Phone + tablet: blow the intro cover up and push it off the edge, like
+   the desktop version — the arm runs off-screen. */
+@media (max-width: 51.98rem) {
+	.case__figure--cover {
+		width: calc(100% + 42vw);
+		max-width: none;
+		transform: translateX(24vw);
+	}
+	.case__figure--cover-left {
+		transform: translateX(-44%);
+	}
+}
+
+@media (max-width: 47.98rem) {
+	.case__figure--cover-left {
+		transform: translateX(-50%);
+	}
+}
+
 .case__col--text {
 	display: grid;
 	gap: var(--space-s);
