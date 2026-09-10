@@ -43,11 +43,25 @@ const words = ['design', 'development', 'motion', 'UX/UI'];
 				root.dataset.eraRunning = 'true';
 
 				let i = 0;
-				window.setInterval(() => {
+				let timer: number | null = null;
+
+				const advance = () => {
 					slots[i].classList.remove('is-active');
 					i = (i + 1) % slots.length;
 					slots[i].classList.add('is-active');
-				}, 2000);
+				};
+				const play = () => {
+					if (timer === null) timer = window.setInterval(advance, 700);
+				};
+				const pause = () => {
+					if (timer !== null) window.clearInterval(timer);
+					timer = null;
+				};
+
+				// pause on hover so you can dwell on a word
+				root.addEventListener('mouseenter', pause);
+				root.addEventListener('mouseleave', play);
+				play();
 			});
 	}
 

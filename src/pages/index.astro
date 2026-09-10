@@ -150,6 +150,7 @@ import '../styles/home.css';
 			/>
 		</svg>
 
+		<div class="contact__grid">
 		<div class="contact__inner">
 			<h2 class="contact__heading">Text, don&rsquo;t call!</h2>
 			<p class="contact__lead">
@@ -211,6 +212,24 @@ import '../styles/home.css';
 					))
 				}
 			</ul>
+		</div>
+
+		<div class="contact__art" aria-hidden="true">
+			<picture>
+				<source
+					srcset="/animations/contact-poster.webp"
+					media="(prefers-reduced-motion: reduce)"
+				/>
+				<img
+					src="/animations/contact.webp"
+					alt=""
+					width="920"
+					height="639"
+					loading="lazy"
+					decoding="async"
+				/>
+			</picture>
+		</div>
 		</div>
 	</section>
 </BaseLayout>

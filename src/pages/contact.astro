@@ -1,8 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site, socials } from '../config/site';
-import selfPortrait from '../assets/illustrations/selfportrait.png';
 import '../styles/contact.css';
 
 const phoneHref = site.phone
@@ -57,12 +55,20 @@ const phoneHref = site.phone
 			</div>
 
 			<div class="contact-page__art" aria-hidden="true">
-				<Image
-					src={selfPortrait}
-					alt=""
-					widths={[280, 460, 660]}
-					sizes="(min-width: 56rem) 26rem, 60vw"
-				/>
+				<picture>
+					<source
+						srcset="/animations/contact-poster.webp"
+						media="(prefers-reduced-motion: reduce)"
+					/>
+					<img
+						src="/animations/contact.webp"
+						alt=""
+						width="920"
+						height="639"
+						loading="lazy"
+						decoding="async"
+					/>
+				</picture>
 			</div>
 		</div>
 	</section>

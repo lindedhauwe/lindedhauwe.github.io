@@ -157,9 +157,10 @@
 	font-weight: 700;
 	color: var(--color-orange);
 	line-height: 1;
+	cursor: grab;
 }
 
-/* Each new word is "written in" left-to-right, underline drawing beneath it. */
+/* Words swap in place — each is fully there, then cuts straight to the next. */
 .era-word__slot {
 	position: relative;
 	grid-area: 1 / 1;
@@ -171,16 +172,6 @@
 
 .era-word__slot.is-active {
 	visibility: visible;
-	animation: era-write 0.42s ease both;
-}
-
-@keyframes era-write {
-	from {
-		clip-path: inset(-45% 100% -75% -6%);
-	}
-	to {
-		clip-path: inset(-45% -6% -75% -6%);
-	}
 }
 
 .era-word__underline {
@@ -193,31 +184,6 @@
 	overflow: visible;
 	color: var(--color-pink);
 	filter: url(#pencil);
-}
-
-.era-word__underline path {
-	stroke-dasharray: 100;
-	stroke-dashoffset: 100;
-}
-
-.era-word__slot.is-active .era-word__underline path {
-	animation: era-underline 0.5s ease 0.06s both;
-}
-
-@keyframes era-underline {
-	to {
-		stroke-dashoffset: 0;
-	}
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.era-word__slot.is-active,
-	.era-word__slot.is-active .era-word__underline path {
-		animation: none;
-	}
-	.era-word__underline path {
-		stroke-dashoffset: 0;
-	}
 }
 
 /* ---------------------------------------------------------------------------
@@ -551,13 +517,43 @@
 	color: var(--color-blue);
 }
 
+.contact__grid {
+	max-width: var(--content-width);
+	margin-inline: auto;
+	padding: var(--space-3xl) var(--space-m);
+}
+
 .contact__inner {
 	display: grid;
 	justify-items: start;
 	gap: var(--space-s);
-	max-width: var(--content-width);
-	margin-inline: auto;
-	padding: var(--space-3xl) var(--space-m);
+}
+
+.contact__art {
+	margin-top: var(--space-xl);
+	max-width: 26rem;
+}
+
+.contact__art picture {
+	display: contents;
+}
+
+.contact__art img {
+	width: 100%;
+	height: auto;
+}
+
+@media (min-width: 52rem) {
+	.contact__grid {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		align-items: center;
+		gap: var(--space-2xl);
+	}
+	.contact__art {
+		margin-top: 0;
+		max-width: 30rem;
+	}
 }
 
 .contact__heading {

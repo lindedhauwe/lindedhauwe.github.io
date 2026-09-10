@@ -153,9 +153,12 @@
 /* --- illustration --- */
 .contact-page__art {
 	justify-self: center;
-	align-self: end;
 	width: 100%;
-	max-width: 18rem;
+	max-width: 26rem;
+}
+
+.contact-page__art picture {
+	display: contents;
 }
 
 .contact-page__art img {
@@ -167,7 +170,6 @@
 @media (min-width: 56rem) {
 	.contact-page__art {
 		justify-self: end;
-		max-width: 24rem;
-		margin-bottom: calc(-1 * var(--space-2xl));
+		max-width: 34rem;
 	}
 }

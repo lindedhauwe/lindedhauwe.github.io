@@ -1,10 +1,9 @@
 /**
- * Convert the "Making Things Move" APNG exports (Procreate / Procreate Dreams)
- * into optimised animated WebP files that browsers can actually play.
+ * Convert APNG exports (Procreate / Procreate Dreams) into optimised animated
+ * WebP files that browsers can actually play.
  *
- *   Source:  src/assets/detailPages/makingthingsmove-*.png   (Animated PNG)
- *   Run:     node scripts/build-animations.mjs
- *   Output:  public/animations/*.webp   (referenced from projects.ts)
+ *   Run:     node scripts/build-animations.mjs   (or: npm run build:anim)
+ *   Output:  public/animations/*.webp  +  *-poster.webp
  *
  * libvips / sharp can't read APNG frames, hence upng-js + node-webpmux.
  */
@@ -14,18 +13,19 @@ import WebP from 'node-webpmux';
 import sharp from 'sharp';
 
 const OUT_DIR = 'public/animations';
-const WIDTH = 900;
 
 const clips = [
-	{ src: 'src/assets/detailPages/makingthingsmove-butterfly.png', out: 'butterfly' },
-	{ src: 'src/assets/detailPages/makingthingsmove-walkcycle.png', out: 'walk-cycle' },
-	{ src: 'src/assets/detailPages/makingthingsmove-spaceship.png', out: 'spaceship' },
+	{ src: 'src/assets/detailPages/makingthingsmove-butterfly.png', out: 'butterfly', width: 900, quality: 72 },
+	{ src: 'src/assets/detailPages/makingthingsmove-walkcycle.png', out: 'walk-cycle', width: 900, quality: 72 },
+	{ src: 'src/assets/detailPages/makingthingsmove-spaceship.png', out: 'spaceship', width: 900, quality: 72 },
+	{ src: 'src/assets/animations/contact-animation.png', out: 'contact', width: 920, quality: 60 },
 ];
 
 mkdirSync(OUT_DIR, { recursive: true });
 await WebP.Image.initLib();
 
 for (const clip of clips) {
+	const WIDTH = clip.width;
 	const png = UPNG.decode(readFileSync(clip.src));
 	const W = png.width;
 	const H = png.height;
@@ -39,7 +39,7 @@ for (const clip of clips) {
 			raw: { width: W, height: H, channels: 4 },
 		})
 			.resize({ width: WIDTH, height })
-			.webp({ quality: 72, alphaQuality: 60, effort: 6, preset: 'drawing' })
+			.webp({ quality: clip.quality, alphaQuality: 55, effort: 6, preset: 'drawing' })
 			.toBuffer();
 		frames.push(
 			await WebP.Image.generateFrame({
