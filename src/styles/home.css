@@ -224,6 +224,7 @@
 --------------------------------------------------------------------------- */
 .about-teaser {
 	position: relative;
+	overflow-x: clip;
 	background: var(--color-blush);
 }
 
@@ -354,6 +355,7 @@
 .work {
 	position: relative;
 	z-index: 2;
+	overflow-x: clip;
 	background: var(--color-green);
 	color: var(--color-paper);
 	/* smooth wavy bottom: green is cut along this curve, the blue contact
@@ -584,6 +586,7 @@
 .contact {
 	position: relative;
 	z-index: 1;
+	overflow-x: clip;
 	margin-top: -2.2rem;
 	background: var(--color-blue);
 	color: var(--color-paper);
