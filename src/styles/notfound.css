@@ -11,7 +11,7 @@
 	min-height: min(80vh, 42rem);
 	padding: var(--space-3xl) var(--space-m);
 	text-align: center;
-	background: var(--color-green);
+	background: var(--color-green-deep);
 	color: var(--color-paper);
 }
 

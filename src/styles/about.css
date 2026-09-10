@@ -10,7 +10,8 @@
 --------------------------------------------------------------------------- */
 .lore {
 	position: relative;
-	background: var(--color-green);
+	/* a touch deeper than --color-green so the body copy keeps AA contrast */
+	background: var(--color-green-deep);
 	color: var(--color-paper);
 }
 
@@ -99,7 +100,7 @@
 	margin: 0;
 	font-family: var(--font-display);
 	font-size: var(--step-4);
-	color: var(--color-orange);
+	color: var(--ink-orange);
 }
 
 .interests__lead {

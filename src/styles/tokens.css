@@ -6,7 +6,11 @@
 :root {
 	/* --- Brand palette --------------------------------------------------- */
 	--color-orange: #cd5b25;
+	/* darker orange for text on light backgrounds (AA contrast) */
+	--ink-orange: #b84d1d;
 	--color-green: #518554;
+	/* deeper green for sections that carry body copy (AA contrast) */
+	--color-green-deep: color-mix(in srgb, var(--color-green) 84%, var(--color-ink));
 	--color-ink: #0e0d08;
 	--color-blush: #eac3b2;
 	--color-pink: #dd7e8a;

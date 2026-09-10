@@ -125,7 +125,7 @@
 	max-width: 46ch;
 	margin-inline: auto;
 	font-size: var(--step-0);
-	color: var(--color-blush);
+	color: var(--color-paper);
 }
 
 .wall__group {
@@ -308,7 +308,7 @@
 
 .case__back:hover,
 .case__back:focus-visible {
-	color: var(--color-orange);
+	color: var(--ink-orange);
 }
 
 .case__title {
@@ -326,7 +326,7 @@
 	font-weight: 700;
 	font-size: var(--step-0);
 	text-align: center;
-	color: var(--color-orange);
+	color: var(--ink-orange);
 }
 
 /* meta strip — Year / Duration / Role / Disciplines */
@@ -350,7 +350,7 @@
 	font-family: var(--font-hand);
 	font-weight: 700;
 	font-size: var(--step--1);
-	color: var(--color-orange);
+	color: var(--ink-orange);
 }
 
 .case__meta dd {
@@ -617,7 +617,7 @@
 	font-family: var(--font-hand);
 	font-weight: 700;
 	font-size: var(--step-1);
-	color: var(--color-orange);
+	color: var(--ink-orange);
 }
 
 .case__spec ul {
@@ -809,7 +809,7 @@
 
 .case__flow__sep {
 	font-weight: 700;
-	color: var(--color-orange);
+	color: var(--ink-orange);
 }
 
 /* when the flow sits inside a section's text column */
@@ -839,7 +839,7 @@
 	font-family: var(--font-display);
 	font-size: var(--step-5);
 	line-height: 1;
-	color: var(--color-orange);
+	color: var(--ink-orange);
 }
 
 .case__stats span {
@@ -960,7 +960,7 @@
 
 .case__pager-link:hover .case__pager-dir,
 .case__pager-link:focus-visible .case__pager-dir {
-	color: var(--color-orange);
+	color: var(--ink-orange);
 }
 
 .case__pager-link:hover .case__pager-name,

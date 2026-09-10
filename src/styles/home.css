@@ -44,7 +44,8 @@
 }
 
 .hero__year {
-	color: var(--color-blush);
+	/* pale blush — enough contrast on the green */
+	color: #f7e4da;
 }
 
 .hero__name {
@@ -187,7 +188,7 @@
 	display: inline-grid;
 	font-family: var(--font-hand);
 	font-weight: 700;
-	color: var(--color-orange);
+	color: var(--ink-orange);
 	line-height: 1;
 	cursor: grab;
 }
@@ -239,7 +240,7 @@
 	margin: 0 0 var(--space-s);
 	font-family: var(--font-display);
 	font-size: var(--step-4);
-	color: var(--color-orange);
+	color: var(--ink-orange);
 }
 
 .about-teaser__body {
@@ -251,7 +252,7 @@
 	margin: var(--space-m) 0 var(--space-s);
 	font-family: var(--font-hand);
 	font-weight: 700;
-	font-size: var(--step-0);
+	font-size: var(--step-1);
 	color: var(--color-blue);
 }
 
