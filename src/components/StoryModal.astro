@@ -7,6 +7,7 @@ import travel from '../assets/images/travel.jpeg';
 import walk from '../assets/images/walk.jpeg';
 import cat from '../assets/images/cat.jpeg';
 import concert from '../assets/images/concert.jpeg';
+import '../styles/story-modal.css';
 
 const slides = [
 	{ img: travel, alt: 'On a jetty over a turquoise lake in Austria' },
@@ -106,9 +107,10 @@ const slides = [
 
 <script>
 	function initStoryModal() {
-		const modal = document.querySelector<HTMLDialogElement>('[data-story-modal]');
-		if (!modal || modal.dataset.bound) return;
-		modal.dataset.bound = 'true';
+		const el = document.querySelector<HTMLDialogElement>('[data-story-modal]');
+		if (!el || el.dataset.bound) return;
+		el.dataset.bound = 'true';
+		const modal: HTMLDialogElement = el;
 
 		const card = modal.querySelector<HTMLElement>('[data-story-card]')!;
 		const fills = [...modal.querySelectorAll<HTMLElement>('.story-modal__bar i')];

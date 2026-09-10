@@ -77,6 +77,8 @@
 }
 
 .interests__inner {
+	position: relative;
+	z-index: 1;
 	display: grid;
 	gap: var(--space-m);
 	max-width: var(--content-width);
@@ -373,11 +375,6 @@
 .about-sparkle {
 	position: absolute;
 	z-index: 0;
-}
-
-.interests__inner {
-	position: relative;
-	z-index: 1;
 }
 
 .about-sparkle--lore-1 {

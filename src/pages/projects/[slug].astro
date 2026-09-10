@@ -33,12 +33,13 @@ const introParas = detail?.intro
 		: [detail.intro]
 	: [];
 
-const coverClass = {
+const coverClasses: Record<string, string | undefined> = {
 	'cover-bleed': 'case__figure--cover',
 	'cover-bleed-left': 'case__figure--cover-left',
 	'bleed-left': 'case__figure--bleed-left',
 	'bleed-right': 'case__figure--bleed-right',
-}[detail?.coverStyle ?? ''];
+};
+const coverClass = coverClasses[detail?.coverStyle ?? ''];
 
 /* A section with no body but a picture / video is shown big and centred. */
 const isFeature = (s: ProjectSection) =>
