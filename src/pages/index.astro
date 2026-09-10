@@ -12,29 +12,31 @@ import '../styles/home.css';
 
 <BaseLayout bubbleNav>
 	<section class="hero">
-		<p class="hero__brand">
-			<span>Portfolio</span>
-			<span class="hero__year">2026</span>
-			<span class="hero__name">Linde D&rsquo;Hauwe</span>
-		</p>
+		<div class="hero__top">
+			<p class="hero__brand">
+				<span>Portfolio</span>
+				<span class="hero__year">2026</span>
+				<span class="hero__name">Linde D&rsquo;Hauwe</span>
+			</p>
 
-		<picture>
-			<source
-				srcset="/hero-poster.webp"
-				media="(prefers-reduced-motion: reduce)"
-			/>
-			<img
-				class="hero__art"
-				src="/hero-anim-1200.webp"
-				srcset="/hero-anim-760.webp 760w, /hero-anim-1200.webp 1200w"
-				sizes="(min-width: 40rem) 66vw, 90vw"
-				width="1200"
-				height="888"
-				alt="Animated illustration of Linde lying on her back, scrolling on her phone"
-				fetchpriority="high"
-				decoding="async"
-			/>
-		</picture>
+			<picture>
+				<source
+					srcset="/hero-poster.webp"
+					media="(prefers-reduced-motion: reduce)"
+				/>
+				<img
+					class="hero__art"
+					src="/hero-anim-1200.webp"
+					srcset="/hero-anim-760.webp 760w, /hero-anim-1200.webp 1200w"
+					sizes="(min-width: 40rem) 66vw, 90vw"
+					width="1200"
+					height="888"
+					alt="Animated illustration of Linde lying on her back, scrolling on her phone"
+					fetchpriority="high"
+					decoding="async"
+				/>
+			</picture>
+		</div>
 
 		<h1 class="hero__statement">
 			<span class="hero__word hero__word--im">I'm</span>

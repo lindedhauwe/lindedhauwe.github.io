@@ -13,13 +13,21 @@
 .hero {
 	position: relative;
 	display: grid;
-	gap: var(--space-s);
-	padding: var(--space-2xl) var(--space-m) var(--space-xl);
 	overflow: hidden;
-	background: linear-gradient(
-		var(--color-green) 0 45%,
-		var(--color-blush) 45% 100%
-	);
+	background: var(--color-blush);
+	/* how far the illustration's lower part hangs past the green onto the
+	   pink — a share of viewport width, so the split lands at the same
+	   point on the illustration at every screen size (no breakpoints).
+	   Negative = green extends *below* the art. */
+	--hero-art-drop: 33vw;
+}
+
+/* Mobile: the green block wraps the brand + illustration. */
+.hero__top {
+	display: grid;
+	gap: var(--space-s);
+	padding: var(--space-2xl) var(--space-m) 0;
+	background: var(--color-green);
 }
 
 .hero__brand {
@@ -53,9 +61,12 @@
 }
 
 .hero__art {
-	width: min(96%, 26rem);
+	width: min(96%, 30rem);
 	height: auto;
-	margin-block: var(--space-2xs) var(--space-s);
+	/* space below the brand; +ve --hero-art-drop hangs the art past the
+	   green, -ve extends the green below the art */
+	margin-block: clamp(var(--space-m), 12vw, var(--space-2xl))
+		calc(-1 * var(--hero-art-drop, 0px));
 	justify-self: center;
 }
 
@@ -66,6 +77,8 @@
 	column-gap: 0.28em;
 	row-gap: 0.08em;
 	margin: 0;
+	padding: max(var(--space-m), calc(var(--hero-art-drop, 0px) + var(--space-m)))
+		var(--space-m) var(--space-2xl);
 	font-family: var(--font-statement);
 	font-size: clamp(2.5rem, 13vw, 4.5rem);
 	font-weight: 800;
@@ -100,11 +113,15 @@
 	.hero {
 		gap: 0;
 		min-height: 150svh;
-		padding: 0;
 		background: linear-gradient(
 			var(--color-green) 0 50%,
 			var(--color-blush) 50% 100%
 		);
+	}
+
+	/* brand + art rejoin the absolute layout */
+	.hero__top {
+		display: contents;
 	}
 
 	.hero__brand {
@@ -120,6 +137,7 @@
 		top: 53%;
 		right: -1%;
 		width: min(75vw, 70rem);
+		margin: 0;
 		transform: translateY(-50%);
 		z-index: 2;
 		justify-self: unset;
@@ -127,6 +145,7 @@
 
 	.hero__statement {
 		position: absolute;
+		padding: 0;
 		inset: 0;
 		display: block;
 		font-size: clamp(4.5rem, 14vw, 11rem);
