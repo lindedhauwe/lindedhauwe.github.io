@@ -1,21 +1,70 @@
 ---
+import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WavyEdge from '../components/WavyEdge.astro';
+import Sparkle from '../components/Sparkle.astro';
 import selfPortrait from '../assets/illustrations/selfportrait.png';
+import puzzleComplete from '../assets/illustrations/puzzle-complete.png';
 import '../styles/about.css';
 
-/* Interests as draggable stickers — each with a scattered start spot + lean. */
-const interests = [
-	{ label: 'creative coding', x: 3, y: 6, rot: -7, color: 'var(--color-blue)' },
-	{ label: 'badminton', x: 55, y: 3, rot: 6, color: 'var(--color-green)' },
-	{ label: 'painting', x: 30, y: 24, rot: -3, color: 'var(--color-orange)' },
-	{ label: 'music', x: 66, y: 30, rot: 8, color: 'var(--color-pink)' },
-	{ label: 'walks', x: 8, y: 44, rot: 4, color: 'var(--color-green)' },
-	{ label: 'films', x: 44, y: 56, rot: -6, color: 'var(--color-blue)' },
-	{ label: 'puzzles', x: 70, y: 62, rot: 5, color: 'var(--color-orange)' },
-	{ label: 'reading', x: 20, y: 74, rot: -4, color: 'var(--color-pink)' },
+/* Hand-drawn jigsaw pieces (puzzle-1.png … puzzle-12.png) */
+const puzzleArt = Object.entries(
+	import.meta.glob<{ default: ImageMetadata }>(
+		'../assets/illustrations/puzzle-*.png',
+		{ eager: true },
+	),
+).reduce<Record<number, ImageMetadata>>((acc, [path, mod]) => {
+	const n = path.match(/puzzle-(\d+)\.png$/);
+	if (n) acc[Number(n[1])] = mod.default;
+	return acc;
+}, {});
+
+/* Assembled 4×3 solution, captured by dragging the pieces into place.
+   x / y are each piece's position as a % of the board. The pieces start
+   scattered and snap back together when the right ones meet (see script). */
+const SOLVED = [
+	{ label: 'creative coding', x: 2, y: 3 },
+	{ label: 'badminton', x: 15.6, y: 2.6 },
+	{ label: 'painting', x: 29.3, y: 2.4 },
+	{ label: 'music', x: 43.3, y: 1.7 },
+	{ label: 'walks', x: 1.9, y: 23.5 },
+	{ label: 'films', x: 15.5, y: 23.3 },
+	{ label: 'puzzles', x: 29.7, y: 22.2 },
+	{ label: 'reading', x: 43.5, y: 21.2 },
+	{ label: 'baking', x: 1.8, y: 44.1 },
+	{ label: 'ukulele', x: 15.9, y: 42.9 },
+	{ label: 'animals', x: 29.8, y: 42.3 },
+	{ label: 'animation', x: 43.5, y: 42 },
 ];
+
+/* art N = puzzle-N.png (reading order matches the solution order).
+   --wr normalises each piece so its shorter side renders the same width. */
+/* puzzle-N.png that are drawn in dark blue — their labels go white */
+const BLUE_PIECES = new Set([2, 8, 10]);
+
+/* per-piece label nudge (% of the piece) to centre the word on the body */
+const LABEL_NUDGE: Record<number, [number, number]> = {
+	2: [-6, 0],
+	11: [0, 11],
+};
+
+const interests = SOLVED.map((it, i) => {
+	const art = puzzleArt[i + 1];
+	/* longer words get a smaller label so they still sit inside the piece */
+	const longest = Math.max(...it.label.split(' ').map((w) => w.length));
+	const fs = longest <= 5 ? 1 : longest <= 7 ? 0.9 : longest <= 8 ? 0.85 : 0.8;
+	const [lx, ly] = LABEL_NUDGE[i + 1] ?? [0, 0];
+	return {
+		...it,
+		art: i + 1,
+		wr: Math.max(art.width / art.height, 1),
+		fs,
+		lx,
+		ly,
+		light: BLUE_PIECES.has(i + 1),
+	};
+});
 
 /* Tools that "spill out" of the bag. Order roughly = the arc they fan into. */
 const toolNames = [
@@ -59,6 +108,27 @@ const tools = toolNames.map(([slug, name], i) => {
 	description="The lore behind Linde D'Hauwe, a Digital Design & Development student from Leuven, based in Kortrijk."
 >
 	<section class="lore">
+		<Sparkle
+			class="about-sparkle about-sparkle--lore-1"
+			color="var(--color-blush)"
+		/>
+		<Sparkle
+			class="about-sparkle about-sparkle--lore-2 sparkle--lg"
+			color="var(--color-orange)"
+		/>
+		<Sparkle
+			class="about-sparkle about-sparkle--lore-3"
+			color="var(--color-pink)"
+		/>
+		<Sparkle
+			class="about-sparkle about-sparkle--lore-4 sparkle--lg"
+			color="var(--color-blush)"
+		/>
+		<Sparkle
+			class="about-sparkle about-sparkle--lore-5"
+			color="var(--color-orange)"
+		/>
+
 		<div class="lore__inner">
 			<h1 class="lore__title">The Lore</h1>
 
@@ -82,84 +152,321 @@ const tools = toolNames.map(([slug, name], i) => {
 	<section class="interests">
 		<WavyEdge color="var(--color-blush)" variant={2} />
 
+		<Sparkle
+			class="about-sparkle about-sparkle--int-1 sparkle--lg"
+			color="var(--color-green)"
+		/>
+		<Sparkle
+			class="about-sparkle about-sparkle--int-2"
+			color="var(--color-blue)"
+		/>
+
 		<div class="interests__inner">
 			<h2 class="interests__heading">My interests</h2>
 
 			<p class="interests__lead">
-				I&rsquo;m passionate about design and user experience, and I love making
-				thoughtful, imaginative things. Creative coding is a hobby I do purely
-				for fun. Outside my studies, grab one and shuffle them around:
+				There&rsquo;s more to me than deadlines and design files. All the little
+				things I love doing are scattered below, one per puzzle piece. Drag them
+				together and see what they add up to.
 			</p>
 
 			<ul
 				class="interest-board"
 				data-interest-board
-				aria-label="Interests: creative coding, badminton, painting, music, walks, films, puzzles, reading"
+				aria-label={`Interests: ${interests.map((it) => it.label).join(', ')}`}
 			>
+				<li class="interest-board__photo" aria-hidden="true" data-puzzle-photo>
+					<Image
+						src={puzzleComplete}
+						alt=""
+						widths={[600, 900, 1242]}
+						sizes="(min-width: 46rem) 60vw, 90vw"
+					/>
+				</li>
 				{
 					interests.map((it) => (
 						<li
-							class="sticker"
-							style={`--x:${it.x}%; --y:${it.y}%; --rot:${it.rot}deg; --accent:${it.color};`}
+							class:list={['puzzle-piece', it.light && 'puzzle-piece--light']}
+							data-sx={it.x}
+							data-sy={it.y}
+							style={`--x:${it.x}%; --y:${it.y}%; --wr:${it.wr.toFixed(3)}; --fs:${it.fs}; --lx:${it.lx}%; --ly:${it.ly}%;`}
 						>
-							{it.label}
+							<Image
+								src={puzzleArt[it.art]}
+								alt=""
+								draggable={false}
+								widths={[220, 400, 620]}
+								sizes="(min-width: 40rem) 13rem, 30vw"
+							/>
+							<span set:html={it.label.split(' ').join('<br>')} />
 						</li>
 					))
 				}
 			</ul>
-
-			<p class="interests__foot">
-				I come from an artistic background, with a diploma in arts education
-				from SLAC academy in Leuven, and in secondary school I studied
-				economics and humanities.
-			</p>
 		</div>
 	</section>
 
 	<script>
+		/* Jigsaw: pieces start scattered, you drag them together, and when the
+		   right pieces meet they snap into one group. Finish all 12 and the
+		   picture locks in. Positions are kept as % of the board so it stays
+		   responsive; snapping compares the offset *between* two pieces to the
+		   offset they have in the finished picture. */
+		interface Piece {
+			el: HTMLElement;
+			gi: number; // grid index 0-11 (reading order = solved order)
+			sx: number;
+			sy: number; // solved position, % of board
+			x: number;
+			y: number; // live position, % of board
+			ox: number;
+			oy: number; // position at drag start
+			group: Piece[];
+		}
+
+		const COLS = 4;
+		const SNAP = 8; // how close (% of board) two pieces must be dropped to click together
+		const DRAG_MIN = 5; // px of movement before a release counts as a real drag
+
+		/* the two pieces sit edge-to-edge in the finished 4×3 grid */
+		const areNeighbours = (a: Piece, b: Piece) => {
+			const ca = a.gi % COLS;
+			const ra = (a.gi / COLS) | 0;
+			const cb = b.gi % COLS;
+			const rb = (b.gi / COLS) | 0;
+			return (
+				(ra === rb && Math.abs(ca - cb) === 1) ||
+				(ca === cb && Math.abs(ra - rb) === 1)
+			);
+		};
+
+		/* how far piece `a` is from sitting where it belongs next to piece `b` */
+		const bondError = (a: Piece, b: Piece) =>
+			Math.max(
+				Math.abs(b.sx - a.sx - (b.x - a.x)),
+				Math.abs(b.sy - a.sy - (b.y - a.y)),
+			);
+
 		function initInterestBoard() {
-			document
-				.querySelectorAll<HTMLElement>('[data-interest-board]')
-				.forEach((board) => {
-					if (board.dataset.bound) return;
-					board.dataset.bound = 'true';
-					let z = 10;
+			const board = document.querySelector<HTMLElement>('[data-interest-board]');
+			if (!board || board.dataset.bound) return;
+			board.dataset.bound = 'true';
 
-					board.querySelectorAll<HTMLElement>('.sticker').forEach((s) => {
-						let dragging = false;
-						let px = 0;
-						let py = 0;
-						let dx = 0;
-						let dy = 0;
+			const reduce = window.matchMedia(
+				'(prefers-reduced-motion: reduce)',
+			).matches;
 
-						s.addEventListener('pointerdown', (e) => {
-							dragging = true;
-							px = e.clientX;
-							py = e.clientY;
-							dx = parseFloat(s.style.getPropertyValue('--dx')) || 0;
-							dy = parseFloat(s.style.getPropertyValue('--dy')) || 0;
-							s.style.zIndex = String(++z);
-							s.classList.add('is-held');
-							s.setPointerCapture(e.pointerId);
-						});
+			const pieces: Piece[] = [
+				...board.querySelectorAll<HTMLElement>('.puzzle-piece'),
+			].map((el, gi) => ({
+				el,
+				gi,
+				sx: parseFloat(el.dataset.sx || '0'),
+				sy: parseFloat(el.dataset.sy || '0'),
+				x: parseFloat(el.dataset.sx || '0'),
+				y: parseFloat(el.dataset.sy || '0'),
+				ox: 0,
+				oy: 0,
+				group: [],
+			}));
+			pieces.forEach((p) => (p.group = [p]));
 
-						s.addEventListener('pointermove', (e) => {
-							if (!dragging) return;
-							s.style.setProperty('--dx', dx + (e.clientX - px) + 'px');
-							s.style.setProperty('--dy', dy + (e.clientY - py) + 'px');
-						});
+			const bw = () => board.getBoundingClientRect().width || 1;
+			const bh = () => board.getBoundingClientRect().height || 1;
+			const place = (p: Piece) => {
+				p.el.style.setProperty('--x', p.x.toFixed(2) + '%');
+				p.el.style.setProperty('--y', p.y.toFixed(2) + '%');
+			};
 
-						const end = (e: PointerEvent) => {
-							dragging = false;
-							s.classList.remove('is-held');
-							try {
-								s.releasePointerCapture(e.pointerId);
-							} catch {}
-						};
-						s.addEventListener('pointerup', end);
-						s.addEventListener('pointercancel', end);
-					});
+			const bounds = (g: Piece[]) => {
+				let minX = Infinity,
+					minY = Infinity,
+					maxX = -Infinity,
+					maxY = -Infinity;
+				for (const q of g) {
+					const r = q.el.getBoundingClientRect();
+					minX = Math.min(minX, q.x);
+					minY = Math.min(minY, q.y);
+					maxX = Math.max(maxX, q.x + (r.width / bw()) * 100);
+					maxY = Math.max(maxY, q.y + (r.height / bh()) * 100);
+				}
+				return { minX, minY, maxX, maxY };
+			};
+
+			/* Drop the finished photo over the completed puzzle's footprint. */
+			const photo = board.querySelector<HTMLElement>('[data-puzzle-photo]');
+			const revealPhoto = (g: Piece[]) => {
+				if (photo) {
+					const b = bounds(g);
+					// sit a little inside the puzzle's footprint, same proportions
+					const ix = (b.maxX - b.minX) * 0.09;
+					const iy = (b.maxY - b.minY) * 0.09;
+					photo.style.left = b.minX + ix + '%';
+					photo.style.top = b.minY + iy + '%';
+					photo.style.width = b.maxX - b.minX - ix * 2 + '%';
+					photo.style.height = b.maxY - b.minY - iy * 2 + '%';
+				}
+				board.classList.add('is-solved');
+			};
+
+			/* Reduced motion (or no pointer): just show the finished picture. */
+			if (reduce) {
+				pieces.forEach(place);
+				revealPhoto(pieces);
+				return;
+			}
+
+			/* Scatter: shuffled jittered grid so pieces spread out, not pile up. */
+			const anchors: [number, number][] = [];
+			for (let r = 0; r < 3; r++)
+				for (let c = 0; c < 4; c++) anchors.push([3 + c * 23, 2 + r * 20]);
+			for (let i = anchors.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				[anchors[i], anchors[j]] = [anchors[j], anchors[i]];
+			}
+			const size = new Map<Piece, [number, number]>();
+			pieces.forEach((p, i) => {
+				const r = p.el.getBoundingClientRect();
+				const wpct = (r.width / bw()) * 100;
+				const hpct = (r.height / bh()) * 100;
+				size.set(p, [wpct, hpct]);
+				const [ax, ay] = anchors[i];
+				const done = pieces.slice(0, i);
+				let tries = 0;
+				do {
+					p.x = Math.max(0, Math.min(100 - wpct, ax + (Math.random() * 14 - 7)));
+					p.y = Math.max(0, Math.min(100 - hpct, ay + (Math.random() * 12 - 6)));
+					tries++;
+				} while (
+					tries < 40 &&
+					done.some((q) => areNeighbours(p, q) && bondError(p, q) < 14)
+				);
+				p.el.style.setProperty('--rot', (Math.random() * 10 - 5).toFixed(1) + 'deg');
+				place(p);
+			});
+
+			let z = 10;
+			const raise = (g: Piece[]) => {
+				z += 1;
+				for (const q of g) q.el.style.zIndex = String(z);
+			};
+
+			const settle = (g: Piece[]) => {
+				for (const q of g) {
+					q.el.style.setProperty('--rot', '0deg');
+					place(q);
+				}
+			};
+
+			/* two pieces' rendered boxes overlap (or nearly touch) on screen —
+			   stops far-apart pieces "snapping" just because their maths lines up */
+			const touching = (a: Piece, b: Piece) => {
+				const [wa, ha] = size.get(a) ?? [0, 0];
+				const [wb, hb] = size.get(b) ?? [0, 0];
+				const gapX = Math.max(a.x - (b.x + wb), b.x - (a.x + wa));
+				const gapY = Math.max(a.y - (b.y + hb), b.y - (a.y + ha));
+				return gapX < 5 && gapY < 5;
+			};
+
+			/* After a real drag: find the closest fitting pair between the moved
+			   group and any other group, snap to it, absorb that group, repeat
+			   while anything still lines up. */
+			const trySnap = (group: Piece[]) => {
+				for (;;) {
+					let best: { a: Piece; b: Piece; err: number } | null = null;
+					for (const a of group) {
+						for (const b of pieces) {
+							if (b.group === group) continue;
+							if (!areNeighbours(a, b)) continue;
+							if (!touching(a, b)) continue;
+							const err = bondError(a, b);
+							if (err <= SNAP && (!best || err < best.err))
+								best = { a, b, err };
+						}
+					}
+					if (!best) break;
+
+					const { a, b } = best;
+					// shift the moved group so `a` ends up exactly where it
+					// belongs relative to the piece it snapped onto
+					const dx = b.x - a.x - (b.sx - a.sx);
+					const dy = b.y - a.y - (b.sy - a.sy);
+					for (const q of group) {
+						q.x += dx;
+						q.y += dy;
+					}
+					for (const q of b.group) {
+						q.group = group;
+						group.push(q);
+					}
+					settle(group);
+				}
+
+				if (group.length === pieces.length) {
+					// pin to the upper-left, just under the text
+					const e = bounds(group);
+					const shx = -7 - e.minX;
+					const shy = 3 - e.minY;
+					for (const q of group) {
+						q.x += shx;
+						q.y += shy;
+					}
+					settle(group);
+					revealPhoto(group);
+				}
+			};
+
+			for (const p of pieces) {
+				let dragId: number | null = null;
+				let startX = 0;
+				let startY = 0;
+				let moved = false;
+
+				p.el.addEventListener('pointerdown', (e) => {
+					if (board.classList.contains('is-solved')) return;
+					e.preventDefault();
+					dragId = e.pointerId;
+					startX = e.clientX;
+					startY = e.clientY;
+					moved = false;
+					for (const q of p.group) {
+						q.ox = q.x;
+						q.oy = q.y;
+						q.el.classList.add('is-held');
+					}
+					raise(p.group);
+					p.el.setPointerCapture(e.pointerId);
 				});
+
+				p.el.addEventListener('pointermove', (e) => {
+					if (dragId !== e.pointerId) return;
+					if (!moved && Math.hypot(e.clientX - startX, e.clientY - startY) > DRAG_MIN)
+						moved = true;
+					const ddx = ((e.clientX - startX) / bw()) * 100;
+					const ddy = ((e.clientY - startY) / bh()) * 100;
+					// keep the dragged piece on the board (a little slack at edges)
+					const [w, h] = size.get(p) ?? [0, 0];
+					const cdx = Math.max(-p.ox - 4, Math.min(100 - w - p.ox + 4, ddx));
+					const cdy = Math.max(-p.oy - 4, Math.min(100 - h - p.oy + 4, ddy));
+					for (const q of p.group) {
+						q.x = q.ox + cdx;
+						q.y = q.oy + cdy;
+						place(q);
+					}
+				});
+
+				const end = (e: PointerEvent) => {
+					if (dragId !== e.pointerId) return;
+					dragId = null;
+					for (const q of p.group) q.el.classList.remove('is-held');
+					try {
+						p.el.releasePointerCapture(e.pointerId);
+					} catch {}
+					if (moved) trySnap(p.group);
+				};
+				p.el.addEventListener('pointerup', end);
+				p.el.addEventListener('pointercancel', end);
+			}
 		}
 
 		initInterestBoard();
@@ -168,6 +475,15 @@ const tools = toolNames.map(([slug, name], i) => {
 
 	<section class="bag">
 		<WavyEdge color="var(--color-blue)" variant={3} />
+
+		<Sparkle
+			class="about-sparkle about-sparkle--bag-1"
+			color="var(--color-blush)"
+		/>
+		<Sparkle
+			class="about-sparkle about-sparkle--bag-2 sparkle--lg"
+			color="var(--color-orange)"
+		/>
 
 		<div class="bag__inner">
 			<h2 class="bag__heading">What&rsquo;s in my bag</h2>

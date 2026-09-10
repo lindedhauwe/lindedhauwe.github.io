@@ -12,7 +12,8 @@
     "astro": "astro",
     "build:anim": "node scripts/build-animations.mjs",
     "build:vid": "node scripts/build-videos.mjs",
-    "build:icons": "node scripts/build-icons.mjs"
+    "build:icons": "node scripts/build-icons.mjs",
+    "build:sfx": "node scripts/build-sfx.mjs"
   },
   "dependencies": {
     "@fontsource-variable/hanken-grotesk": "^5.3.0",

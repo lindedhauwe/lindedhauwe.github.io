@@ -1,0 +1,242 @@
+---
+/* Fake Instagram-style story viewer. Opens from the profile ring in the
+   "Who am I???" section (any element with [data-story-open]). */
+import { Image } from 'astro:assets';
+import profilePic from '../assets/illustrations/profile-pic.png';
+import travel from '../assets/images/travel.jpeg';
+import walk from '../assets/images/walk.jpeg';
+import cat from '../assets/images/cat.jpeg';
+import concert from '../assets/images/concert.jpeg';
+
+const slides = [
+	{ img: travel, alt: 'On a jetty over a turquoise lake in Austria' },
+	{ img: walk, alt: 'Out on a walk in the woods' },
+	{ img: cat, alt: 'Hanging out with my cat' },
+	{ img: concert, alt: 'At a concert' },
+];
+---
+
+<dialog class="story-modal" data-story-modal aria-label="Linde&rsquo;s story">
+	<article class="story-modal__card" data-story-card>
+		<div class="story-modal__bars">
+			{
+				slides.map((_, i) => (
+					<span class="story-modal__bar" data-bar={i}>
+						<i />
+					</span>
+				))
+			}
+		</div>
+
+		<header class="story-modal__head">
+			<Image
+				class="story-modal__avatar"
+				src={profilePic}
+				alt=""
+				width={72}
+				height={72}
+			/>
+			<span class="story-modal__user">lindedhauwe</span>
+			<span class="story-modal__time">5h</span>
+			<button
+				class="story-modal__close"
+				type="button"
+				data-story-close
+				aria-label="Close story"
+			>
+				<svg viewBox="0 0 24 24" aria-hidden="true">
+					<path
+						d="M6 6l12 12M18 6L6 18"
+						stroke="currentColor"
+						stroke-width="2.4"
+						stroke-linecap="round"
+					/>
+				</svg>
+			</button>
+		</header>
+
+		<div class="story-modal__slides">
+			{
+				slides.map((s, i) => (
+					<figure class="story-modal__slide" data-slide={i}>
+						<Image
+							src={s.img}
+							alt={s.alt}
+							widths={[420, 640, 900]}
+							sizes="(min-width: 30rem) 24rem, 100vw"
+						/>
+					</figure>
+				))
+			}
+		</div>
+
+		<button
+			class="story-modal__zone story-modal__zone--prev"
+			type="button"
+			data-story-prev
+			aria-label="Previous"
+		/>
+		<button
+			class="story-modal__zone story-modal__zone--next"
+			type="button"
+			data-story-next
+			aria-label="Next"
+		/>
+
+		<button
+			class="story-modal__arrow story-modal__arrow--prev"
+			type="button"
+			data-story-prev
+			aria-hidden="true"
+			tabindex="-1"
+		>
+			<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none" /></svg>
+		</button>
+		<button
+			class="story-modal__arrow story-modal__arrow--next"
+			type="button"
+			data-story-next
+			aria-hidden="true"
+			tabindex="-1"
+		>
+			<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none" /></svg>
+		</button>
+	</article>
+</dialog>
+
+<script>
+	function initStoryModal() {
+		const modal = document.querySelector<HTMLDialogElement>('[data-story-modal]');
+		if (!modal || modal.dataset.bound) return;
+		modal.dataset.bound = 'true';
+
+		const card = modal.querySelector<HTMLElement>('[data-story-card]')!;
+		const fills = [...modal.querySelectorAll<HTMLElement>('.story-modal__bar i')];
+		const slides = [...modal.querySelectorAll<HTMLElement>('[data-slide]')];
+		const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const DURATION = 5000;
+
+		let idx = 0;
+		let timer = 0;
+		let startedAt = 0;
+		let remaining = DURATION;
+		let paused = false;
+		let pressAt = 0;
+
+		const setFill = (el: HTMLElement, pct: number, ms: number) => {
+			el.style.transition = ms ? `width ${ms}ms linear` : 'none';
+			el.style.width = pct + '%';
+		};
+
+		function paint() {
+			slides.forEach((s, i) => s.classList.toggle('is-active', i === idx));
+			fills.forEach((f, i) => {
+				if (i < idx) setFill(f, 100, 0);
+				else if (i > idx) setFill(f, 0, 0);
+				else {
+					setFill(f, 0, 0);
+					void f.offsetWidth; // reflow so the next transition runs
+					if (!reduce) setFill(f, 100, remaining);
+				}
+			});
+		}
+
+		function schedule() {
+			window.clearTimeout(timer);
+			startedAt = performance.now();
+			timer = window.setTimeout(next, remaining);
+		}
+
+		function go(to: number) {
+			if (to < 0) to = 0;
+			if (to >= slides.length) {
+				close();
+				return;
+			}
+			idx = to;
+			remaining = DURATION;
+			paused = false;
+			paint();
+			schedule();
+		}
+		const next = () => go(idx + 1);
+		const prev = () => go(idx - 1);
+
+		function pause() {
+			if (paused) return;
+			paused = true;
+			window.clearTimeout(timer);
+			remaining = Math.max(400, remaining - (performance.now() - startedAt));
+			const f = fills[idx];
+			setFill(f, parseFloat(getComputedStyle(f).width) / f.parentElement!.offsetWidth * 100, 0);
+		}
+		function resume() {
+			if (!paused) return;
+			paused = false;
+			if (!reduce) setFill(fills[idx], 100, remaining);
+			schedule();
+		}
+
+		function open() {
+			idx = 0;
+			remaining = DURATION;
+			paused = false;
+			modal.showModal();
+			document.documentElement.style.overflow = 'hidden';
+			paint();
+			schedule();
+		}
+		function close() {
+			window.clearTimeout(timer);
+			if (modal.open) modal.close();
+		}
+
+		modal.addEventListener('close', () => {
+			window.clearTimeout(timer);
+			fills.forEach((f) => setFill(f, 0, 0));
+			document.documentElement.style.overflow = '';
+		});
+		modal.addEventListener('cancel', (e) => {
+			e.preventDefault();
+			close();
+		});
+		modal.addEventListener('click', (e) => {
+			if (e.target === modal) close();
+		});
+
+		document.querySelectorAll('[data-story-open]').forEach((el) =>
+			el.addEventListener('click', open),
+		);
+		modal
+			.querySelectorAll('[data-story-close]')
+			.forEach((b) => b.addEventListener('click', close));
+
+		// tap zones / arrows — ignore the click if it was really a hold-to-pause
+		const tapGuard = (fn: () => void) => () => {
+			if (performance.now() - pressAt < 260) fn();
+		};
+		modal
+			.querySelectorAll('[data-story-next]')
+			.forEach((b) => b.addEventListener('click', tapGuard(next)));
+		modal
+			.querySelectorAll('[data-story-prev]')
+			.forEach((b) => b.addEventListener('click', tapGuard(prev)));
+
+		card.addEventListener('pointerdown', () => {
+			pressAt = performance.now();
+			pause();
+		});
+		card.addEventListener('pointerup', resume);
+		card.addEventListener('pointercancel', resume);
+		card.addEventListener('pointerleave', resume);
+
+		document.addEventListener('keydown', (e) => {
+			if (!modal.open) return;
+			if (e.key === 'ArrowRight') next();
+			else if (e.key === 'ArrowLeft') prev();
+		});
+	}
+
+	initStoryModal();
+	document.addEventListener('astro:page-load', initStoryModal);
+</script>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Sparkle from '../components/Sparkle.astro';
 import { site, socials } from '../config/site';
 import '../styles/contact.css';
 
@@ -13,6 +14,18 @@ const phoneHref = site.phone
 	description={`Get in touch with ${site.name}: email, text and socials.`}
 >
 	<section class="contact-page">
+		<Sparkle
+			class="contact-sparkle contact-sparkle--1 sparkle--lg"
+			color="var(--color-blush)"
+		/>
+		<Sparkle class="contact-sparkle contact-sparkle--2" color="var(--color-orange)" />
+		<Sparkle class="contact-sparkle contact-sparkle--3" color="var(--color-pink)" />
+		<Sparkle
+			class="contact-sparkle contact-sparkle--4 sparkle--lg"
+			color="var(--color-green)"
+		/>
+		<Sparkle class="contact-sparkle contact-sparkle--5" color="var(--color-blush)" />
+
 		<div class="contact-page__inner">
 			<div class="contact-page__content">
 				<h1 class="contact-page__title">
@@ -53,23 +66,23 @@ const phoneHref = site.phone
 					</div>
 				</div>
 			</div>
+		</div>
 
-			<div class="contact-page__art" aria-hidden="true">
-				<picture>
-					<source
-						srcset="/animations/contact-poster.webp"
-						media="(prefers-reduced-motion: reduce)"
-					/>
-					<img
-						src="/animations/contact.webp"
-						alt=""
-						width="920"
-						height="639"
-						loading="lazy"
-						decoding="async"
-					/>
-				</picture>
-			</div>
+		<div class="contact-page__art" aria-hidden="true">
+			<picture>
+				<source
+					srcset="/animations/contact-poster.webp"
+					media="(prefers-reduced-motion: reduce)"
+				/>
+				<img
+					src="/animations/contact.webp"
+					alt=""
+					width="920"
+					height="639"
+					loading="lazy"
+					decoding="async"
+				/>
+			</picture>
 		</div>
 	</section>
 </BaseLayout>

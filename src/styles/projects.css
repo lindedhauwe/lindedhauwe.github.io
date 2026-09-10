@@ -8,9 +8,71 @@
    1. The project wall — a blue wall with taped-up, scattered polaroids
 --------------------------------------------------------------------------- */
 .wall {
+	position: relative;
+	overflow-x: clip;
 	padding: var(--space-3xl) 0 var(--space-2xl);
 	background: var(--color-blue);
 	color: var(--color-paper);
+}
+
+/* --- scattered sparkle decoration --- */
+.wall__sparkle {
+	position: absolute;
+	z-index: 0;
+}
+
+.wall__sparkle--intro-a {
+	top: var(--space-l);
+	left: 6%;
+	rotate: -14deg;
+}
+.wall__sparkle--intro-b {
+	top: calc(var(--space-3xl) * 1.5);
+	right: 8%;
+	rotate: 10deg;
+}
+.wall__sparkle--intro-c {
+	top: calc(var(--space-3xl) * 2.3);
+	left: 13%;
+	rotate: 20deg;
+}
+
+.wall__group {
+	position: relative;
+}
+
+.wall__sparkle--1 {
+	top: -1rem;
+	right: 2%;
+	rotate: 12deg;
+}
+.wall__sparkle--2 {
+	bottom: 12%;
+	left: 1%;
+	rotate: -8deg;
+}
+.wall__sparkle--3 {
+	top: 38%;
+	right: 3%;
+	rotate: -11deg;
+}
+.wall__sparkle--4 {
+	bottom: 2%;
+	right: 14%;
+	rotate: 16deg;
+}
+
+@media (min-width: 46rem) {
+	.wall__sparkle--2 {
+		left: -1.5%;
+	}
+}
+
+/* the motion-design heading is right-aligned — keep the corner sparkle
+   off the words by flipping it to the left there */
+.wall__group:nth-of-type(2) .wall__sparkle--1 {
+	right: auto;
+	left: 2%;
 }
 
 .wall__intro,
@@ -836,4 +898,65 @@
 	text-align: center;
 	color: var(--color-ink);
 	opacity: 0.75;
+}
+
+/* --- prev / next project pager --- */
+.case__pager {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: var(--space-m);
+	margin-top: var(--space-3xl);
+	padding-top: var(--space-l);
+	border-top: 2px solid color-mix(in srgb, var(--color-ink) 14%, transparent);
+}
+
+.case__pager-link {
+	display: grid;
+	gap: 0.15rem;
+	max-width: 48%;
+	text-decoration: none;
+	color: var(--color-ink);
+}
+
+.case__pager-link--next {
+	text-align: right;
+	justify-items: end;
+}
+
+.case__pager-dir {
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step--1);
+	color: var(--color-blue);
+	transition: color 0.16s ease;
+}
+
+.case__pager-name {
+	font-family: var(--font-statement);
+	font-weight: 800;
+	font-size: var(--step-1);
+	line-height: 1.1;
+}
+
+.case__pager-link:hover .case__pager-dir,
+.case__pager-link:focus-visible .case__pager-dir {
+	color: var(--color-orange);
+}
+
+.case__pager-link:hover .case__pager-name,
+.case__pager-link:focus-visible .case__pager-name {
+	text-decoration: underline;
+	text-decoration-thickness: 2px;
+	text-underline-offset: 3px;
+}
+
+@media (max-width: 32rem) {
+	.case__pager-link {
+		max-width: none;
+	}
+	.case__pager-link--next {
+		text-align: left;
+		justify-items: start;
+	}
 }

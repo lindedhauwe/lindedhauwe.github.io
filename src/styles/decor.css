@@ -1,0 +1,16 @@
+/* ---------------------------------------------------------------------------
+   Decorative sparkle — hand-drawn 4-point star (see Sparkle.astro).
+   Scattered across sections to break up empty space.
+--------------------------------------------------------------------------- */
+.sparkle {
+	display: block;
+	width: 1.7rem;
+	height: auto;
+	filter: url(#pencil);
+	pointer-events: none;
+}
+
+/* two sizes: a normal accent and a really big one */
+.sparkle--lg {
+	width: clamp(2.6rem, 7vw, 4rem);
+}

@@ -190,6 +190,7 @@
    3. "Who am I???" teaser — intro copy + CTA beside an Instagram-story portrait
 --------------------------------------------------------------------------- */
 .about-teaser {
+	position: relative;
 	background: var(--color-blush);
 }
 
@@ -231,21 +232,52 @@
 	margin: 0;
 }
 
+.story__open {
+	display: block;
+	padding: 0;
+	border: 0;
+	background: none;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+@property --story-angle {
+	syntax: '<angle>';
+	initial-value: 210deg;
+	inherits: false;
+}
+
 .story__ring {
 	display: grid;
 	place-items: center;
-	width: clamp(9rem, 34vw, 15rem);
+	width: clamp(10rem, 38vw, 18rem);
 	aspect-ratio: 1;
-	padding: 5px;
+	padding: 6px;
 	border-radius: 50%;
 	background: conic-gradient(
-		from 210deg,
+		from var(--story-angle),
 		var(--color-pink),
 		var(--color-orange),
 		var(--color-blue),
 		var(--color-green),
 		var(--color-pink)
 	);
+	transition: --story-angle 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.story:hover .story__ring,
+.story:focus-within .story__ring {
+	--story-angle: 570deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.story__ring {
+		transition: none;
+	}
+	.story:hover .story__ring,
+	.story:focus-within .story__ring {
+		--story-angle: 210deg;
+	}
 }
 
 .story__inner {
@@ -288,18 +320,33 @@
 --------------------------------------------------------------------------- */
 .work {
 	position: relative;
+	z-index: 2;
 	background: var(--color-green);
 	color: var(--color-paper);
+	/* smooth wavy bottom: green is cut along this curve, the blue contact
+	   section (pulled up behind it) shows through, and the phone drops out
+	   from under the curve — over the blue, still under the green above it */
+	--wave-h: clamp(2rem, 4.5vw, 3rem);
+	-webkit-mask:
+		linear-gradient(#000 0 0) top / 100% calc(100% - var(--wave-h) + 2px)
+			no-repeat,
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 80' preserveAspectRatio='none'%3E%3Cpath d='M0,0 H1200 V40 C1110,54 1055,37 970,48 C875,60 820,24 720,42 C620,60 560,37 470,52 C385,66 345,31 250,46 C150,62 90,30 0,54 Z' fill='%23fff'/%3E%3C/svg%3E")
+			bottom / 100% var(--wave-h) no-repeat;
+	mask:
+		linear-gradient(#000 0 0) top / 100% calc(100% - var(--wave-h) + 2px)
+			no-repeat,
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 80' preserveAspectRatio='none'%3E%3Cpath d='M0,0 H1200 V40 C1110,54 1055,37 970,48 C875,60 820,24 720,42 C620,60 560,37 470,52 C385,66 345,31 250,46 C150,62 90,30 0,54 Z' fill='%23fff'/%3E%3C/svg%3E")
+			bottom / 100% var(--wave-h) no-repeat;
 }
 
-.work__edge {
+/* green wavy lip, now living at the foot of the teaser section above */
+.teaser__edge {
 	position: absolute;
-	bottom: 100%;
+	bottom: -1px;
 	left: 0;
 	display: block;
 	width: 100%;
 	height: clamp(2.5rem, 7vw, 4.5rem);
-	margin-bottom: -1px;
 	color: var(--color-green);
 }
 
@@ -498,26 +545,59 @@
 }
 
 /* ---------------------------------------------------------------------------
-   5. Contact — wavy edge peels up out of the green section above
+   5. Contact — slides up under the wavy bottom of "work" (blue fills the cut)
 --------------------------------------------------------------------------- */
 .contact {
 	position: relative;
+	z-index: 1;
+	margin-top: -2.2rem;
 	background: var(--color-blue);
 	color: var(--color-paper);
 }
 
-.contact__edge {
-	position: absolute;
-	bottom: 100%;
-	left: 0;
-	display: block;
-	width: 100%;
-	height: clamp(2.5rem, 7vw, 4.5rem);
-	margin-bottom: -1px;
-	color: var(--color-blue);
+/* Dangling phone: parked behind the green "work" section, drops straight
+   down into view while the contact section is on screen, slides back up
+   when it leaves (see index.astro script). */
+.contact__phone {
+	display: none;
+}
+
+@media (min-width: 52rem) {
+	.contact__grid {
+		min-height: 23rem;
+	}
+
+	.contact__phone {
+		display: block;
+		position: absolute;
+		top: -1rem;
+		right: clamp(5rem, 24vw, 22rem);
+		width: clamp(5.5rem, 11vw, 8rem);
+		transform: translateY(-100%);
+		transition: transform 0.9s cubic-bezier(0.33, 0.8, 0.3, 1);
+		pointer-events: none;
+	}
+
+	.contact__phone img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.contact.is-phone-in .contact__phone {
+		transform: translateY(0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.contact__phone {
+		transition: none;
+	}
 }
 
 .contact__grid {
+	position: relative;
+	z-index: 1;
 	max-width: var(--content-width);
 	margin-inline: auto;
 	padding: var(--space-3xl) var(--space-m);
@@ -526,34 +606,8 @@
 .contact__inner {
 	display: grid;
 	justify-items: start;
-	gap: var(--space-s);
-}
-
-.contact__art {
-	margin-top: var(--space-xl);
-	max-width: 26rem;
-}
-
-.contact__art picture {
-	display: contents;
-}
-
-.contact__art img {
-	width: 100%;
-	height: auto;
-}
-
-@media (min-width: 52rem) {
-	.contact__grid {
-		display: grid;
-		grid-template-columns: 1fr auto;
-		align-items: center;
-		gap: var(--space-2xl);
-	}
-	.contact__art {
-		margin-top: 0;
-		max-width: 30rem;
-	}
+	gap: var(--space-m);
+	max-width: 34rem;
 }
 
 .contact__heading {
@@ -569,73 +623,258 @@
 	opacity: 0.9;
 }
 
-.contact__lines {
-	display: grid;
-	justify-items: start;
-	gap: var(--space-s);
-	margin-top: var(--space-s);
-}
-
-.contact__link {
-	position: relative;
-	padding-bottom: 0.16em;
-	font-family: var(--font-hand);
-	font-weight: 700;
-	font-size: clamp(1.5rem, 4.5vw, 2.25rem);
-	line-height: 1.1;
-	word-break: break-word;
-	text-decoration: none;
-	color: var(--color-paper);
-	transition: color 0.16s ease;
-}
-
-.contact__scribble {
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 0;
+/* ---------------------------------------------------------------------------
+   Fake Instagram story viewer (StoryModal.astro) — opens from .story__open
+--------------------------------------------------------------------------- */
+.story-modal {
 	width: 100%;
-	height: 0.3em;
-	overflow: visible;
-	color: var(--color-orange);
-	filter: url(#pencil);
-}
-
-.contact__link:hover,
-.contact__link:focus-visible {
-	color: var(--color-orange);
-}
-
-.contact__socials {
-	display: flex;
-	flex-wrap: wrap;
-	gap: var(--space-s) var(--space-l);
-	margin: var(--space-m) 0 0;
+	max-width: 100%;
+	height: 100%;
+	max-height: 100%;
+	margin: 0;
 	padding: 0;
-	list-style: none;
-	font-family: var(--font-hand);
-	font-weight: 700;
-	font-size: var(--step-1);
+	border: 0;
+	background: transparent;
+	overflow: hidden;
 }
 
-.contact__socials a {
+.story-modal[open] {
+	display: grid;
+	place-items: center;
+}
+
+.story-modal::backdrop {
+	background: rgba(10, 10, 12, 0.92);
+	backdrop-filter: blur(4px);
+}
+
+.story-modal__card {
+	--sans: 'Hanken Grotesk Variable', system-ui, sans-serif;
 	position: relative;
-	text-decoration: none;
+	width: min(25rem, 100vw);
+	aspect-ratio: 9 / 16;
+	max-height: 100dvh;
+	background: #000;
+	border-radius: 0.9rem;
+	animation: story-pop 0.24s ease;
 }
 
-.contact__socials a::after {
-	content: '';
+@keyframes story-pop {
+	from {
+		opacity: 0;
+		transform: scale(0.92);
+	}
+}
+
+.story-modal__slides {
 	position: absolute;
-	left: -0.1em;
-	right: -0.1em;
-	bottom: -0.18em;
-	border-bottom: 3px solid var(--color-orange);
-	opacity: 0;
-	filter: url(#pencil);
-	transition: opacity 0.16s ease;
+	inset: 0;
+	border-radius: inherit;
+	overflow: hidden;
 }
 
-.contact__socials a:hover::after,
-.contact__socials a:focus-visible::after {
+.story-modal__slide {
+	position: absolute;
+	inset: 0;
+	margin: 0;
+	opacity: 0;
+	transition: opacity 0.2s ease;
+}
+
+.story-modal__slide.is-active {
 	opacity: 1;
+}
+
+.story-modal__slide img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.story-modal__bars {
+	position: absolute;
+	inset: 0 0 auto 0;
+	z-index: 3;
+	display: flex;
+	gap: 3px;
+	padding: 0.55rem 0.6rem 0;
+}
+
+.story-modal__bar {
+	flex: 1;
+	height: 2.5px;
+	border-radius: 2px;
+	background: rgba(255, 255, 255, 0.34);
+	overflow: hidden;
+}
+
+.story-modal__bar i {
+	display: block;
+	width: 0;
+	height: 100%;
+	background: #fff;
+}
+
+.story-modal__head {
+	position: absolute;
+	inset: 1.35rem 0 auto 0;
+	z-index: 3;
+	display: flex;
+	align-items: center;
+	gap: 0.55rem;
+	padding: 0 0.85rem;
+	color: #fff;
+	font-family: var(--sans);
+}
+
+.story-modal__avatar {
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.story-modal__user {
+	font-weight: 700;
+	font-size: 0.9rem;
+}
+
+.story-modal__time {
+	font-size: 0.85rem;
+	opacity: 0.7;
+}
+
+.story-modal__close {
+	margin-left: auto;
+	display: grid;
+	padding: 0.3rem;
+	border: 0;
+	background: none;
+	color: #fff;
+	cursor: pointer;
+}
+
+.story-modal__close svg {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+.story-modal__zone {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	z-index: 2;
+	padding: 0;
+	border: 0;
+	background: none;
+	cursor: pointer;
+}
+
+.story-modal__zone--prev {
+	left: 0;
+	width: 32%;
+}
+
+.story-modal__zone--next {
+	right: 0;
+	width: 68%;
+}
+
+.story-modal__arrow {
+	display: none;
+}
+
+@media (min-width: 46rem) and (hover: hover) {
+	.story-modal__arrow {
+		position: absolute;
+		top: 50%;
+		z-index: 4;
+		display: grid;
+		place-items: center;
+		width: 2.4rem;
+		height: 2.4rem;
+		transform: translateY(-50%);
+		border: 0;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.14);
+		color: #fff;
+		cursor: pointer;
+		transition: background 0.15s ease;
+	}
+
+	.story-modal__arrow:hover {
+		background: rgba(255, 255, 255, 0.28);
+	}
+
+	.story-modal__arrow svg {
+		width: 1.4rem;
+		height: 1.4rem;
+	}
+
+	.story-modal__arrow--prev {
+		left: -3.4rem;
+	}
+
+	.story-modal__arrow--next {
+		right: -3.4rem;
+	}
+}
+
+@media (max-width: 32rem) {
+	.story-modal__card {
+		width: 100vw;
+		height: 100dvh;
+		max-height: none;
+		aspect-ratio: auto;
+		border-radius: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.story-modal__card {
+		animation: none;
+	}
+	.story-modal__slide {
+		transition: none;
+	}
+}
+
+/* ---------------------------------------------------------------------------
+   Decorative sparkles in the "Selected work" section
+--------------------------------------------------------------------------- */
+.home-sparkle {
+	position: absolute;
+	z-index: 0;
+}
+
+.work__inner {
+	position: relative;
+	z-index: 1;
+}
+
+.home-sparkle--work-1 {
+	top: 7%;
+	left: 3%;
+	rotate: -9deg;
+}
+.home-sparkle--work-2 {
+	bottom: 13%;
+	right: 4%;
+	rotate: 13deg;
+}
+.home-sparkle--work-3 {
+	top: 46%;
+	right: 6%;
+	rotate: -18deg;
+}
+.home-sparkle--contact-1 {
+	top: 20%;
+	left: 6%;
+	rotate: 12deg;
+}
+.home-sparkle--contact-2 {
+	bottom: 24%;
+	right: 12%;
+	rotate: -10deg;
 }

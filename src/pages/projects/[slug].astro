@@ -3,7 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Scribble from '../../components/Scribble.astro';
-import { projects, categoryLabel } from '../../data/projects';
+import { projects, categories, categoryLabel } from '../../data/projects';
 import type { ProjectSection } from '../../data/projects';
 import '../../styles/projects.css';
 
@@ -15,6 +15,14 @@ export const getStaticPaths = (() =>
 
 const { project } = Astro.props;
 const { detail } = project;
+
+/* prev / next follow the wall order (grouped by category), wrapping around */
+const ordered = categories.flatMap((c) =>
+	projects.filter((p) => p.category === c.id),
+);
+const pos = ordered.findIndex((p) => p.slug === project.slug);
+const prevProject = ordered[(pos - 1 + ordered.length) % ordered.length];
+const nextProject = ordered[(pos + 1) % ordered.length];
 
 const accents = ['var(--color-blue)', 'var(--color-green)'];
 const isExternal = (href: string) => /^https?:/i.test(href);
@@ -539,5 +547,22 @@ for (const b of blocks) {
 				<p class="case__note">Full case study coming soon.</p>
 			)
 		}
+
+		<nav class="case__pager" aria-label="More projects">
+			<a
+				class="case__pager-link case__pager-link--prev"
+				href={`/projects/${prevProject.slug}/`}
+			>
+				<span class="case__pager-dir">&larr; Previous</span>
+				<span class="case__pager-name">{prevProject.title}</span>
+			</a>
+			<a
+				class="case__pager-link case__pager-link--next"
+				href={`/projects/${nextProject.slug}/`}
+			>
+				<span class="case__pager-dir">Next &rarr;</span>
+				<span class="case__pager-name">{nextProject.title}</span>
+			</a>
+		</nav>
 	</article>
 </BaseLayout>

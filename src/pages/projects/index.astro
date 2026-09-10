@@ -1,8 +1,16 @@
 ---
 import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Sparkle from '../../components/Sparkle.astro';
 import { categories, projectsIn } from '../../data/projects';
 import '../../styles/projects.css';
+
+const sparkleColours = [
+	'var(--color-blush)',
+	'var(--color-orange)',
+	'var(--color-pink)',
+	'var(--color-green)',
+];
 ---
 
 <BaseLayout
@@ -10,6 +18,16 @@ import '../../styles/projects.css';
 	description="The project wall: everything Linde D'Hauwe has built, pinned up by discipline across visual design, motion design, user experience and development."
 >
 	<section class="wall">
+		<Sparkle
+			class="wall__sparkle wall__sparkle--intro-a sparkle--lg"
+			color="var(--color-orange)"
+		/>
+		<Sparkle class="wall__sparkle wall__sparkle--intro-b" color="var(--color-pink)" />
+		<Sparkle
+			class="wall__sparkle wall__sparkle--intro-c"
+			color="var(--color-blush)"
+		/>
+
 		<header class="wall__intro">
 			<h1 class="wall__title" aria-label="The project wall">
 				{
@@ -31,8 +49,25 @@ import '../../styles/projects.css';
 		</header>
 
 		{
-			categories.map((cat) => (
+			categories.map((cat, i) => (
 				<section class="wall__group" aria-labelledby={`cat-${cat.id}`}>
+					<Sparkle
+						class="wall__sparkle wall__sparkle--1 sparkle--lg"
+						color={sparkleColours[i % sparkleColours.length]}
+					/>
+					<Sparkle
+						class="wall__sparkle wall__sparkle--2"
+						color={sparkleColours[(i + 2) % sparkleColours.length]}
+					/>
+					<Sparkle
+						class="wall__sparkle wall__sparkle--3"
+						color={sparkleColours[(i + 1) % sparkleColours.length]}
+					/>
+					<Sparkle
+						class="wall__sparkle wall__sparkle--4 sparkle--lg"
+						color={sparkleColours[(i + 3) % sparkleColours.length]}
+					/>
+
 					<h2 class="wall__group-label" id={`cat-${cat.id}`}>
 						{cat.label}
 					</h2>
@@ -63,3 +98,80 @@ import '../../styles/projects.css';
 		}
 	</section>
 </BaseLayout>
+
+<script>
+	/* Play the tape-peel recording when you hover a polaroid — like pulling
+	   a taped photo off the wall. Off on touch / reduced-motion, and silent
+	   until the visitor has interacted with the page (autoplay policy). */
+	function initPolaroidPeel() {
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		if (!window.matchMedia('(hover: hover)').matches) return;
+
+		const cards = document.querySelectorAll<HTMLElement>('.polaroid');
+		if (!cards.length) return;
+
+		type Ctx = AudioContext & { state: string };
+		const AC =
+			window.AudioContext ||
+			(window as unknown as { webkitAudioContext: typeof AudioContext })
+				.webkitAudioContext;
+		const ctx = new AC() as Ctx;
+		let clip: AudioBuffer | null = null;
+		let last = 0;
+
+		// decode the clip straight away so it's ready the instant sound unlocks
+		fetch('/sfx/tape.mp3')
+			.then((r) => r.arrayBuffer())
+			.then((b) => ctx.decodeAudioData(b))
+			.then((buf) => (clip = buf))
+			.catch(() => {});
+
+		// browsers keep audio muted until *some* interaction — resume on the
+		// first of pretty much anything the visitor does (move, scroll, key…)
+		const unlock = () => {
+			if (ctx.state !== 'running') ctx.resume();
+			if (ctx.state === 'running') {
+				for (const ev of unlockEvents)
+					window.removeEventListener(ev, unlock, true);
+			}
+		};
+		const unlockEvents = [
+			'pointerdown',
+			'pointermove',
+			'pointerup',
+			'keydown',
+			'wheel',
+			'scroll',
+			'touchstart',
+		];
+		for (const ev of unlockEvents)
+			window.addEventListener(ev, unlock, { capture: true, passive: true });
+
+		const play = () => {
+			if (ctx.state !== 'running') ctx.resume();
+			if (!clip || ctx.state !== 'running') return;
+			const src = ctx.createBufferSource();
+			src.buffer = clip;
+			src.playbackRate.value = 0.9 + Math.random() * 0.2;
+			const gain = ctx.createGain();
+			gain.gain.value = 0.85;
+			src.connect(gain);
+			gain.connect(ctx.destination);
+			src.start();
+		};
+
+		cards.forEach((card) => {
+			if (card.dataset.peel) return;
+			card.dataset.peel = 'true';
+			card.addEventListener('pointerenter', () => {
+				const t = performance.now();
+				if (t - last < 120) return;
+				last = t;
+				play();
+			});
+		});
+	}
+
+	initPolaroidPeel();
+	document.addEventListener('astro:page-load', initPolaroidPeel);
+</script>

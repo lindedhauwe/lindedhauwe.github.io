@@ -2,9 +2,11 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import EraWord from '../components/EraWord.astro';
-import { site, socials } from '../config/site';
+import StoryModal from '../components/StoryModal.astro';
+import Sparkle from '../components/Sparkle.astro';
 import { featuredWork } from '../data/projects';
 import profilePic from '../assets/illustrations/profile-pic.png';
+import phoneIllustration from '../assets/illustrations/phone.png';
 import '../styles/home.css';
 ---
 
@@ -60,25 +62,30 @@ import '../styles/home.css';
 			</div>
 
 			<figure class="story">
-				<span class="story__ring">
-					<span class="story__inner">
-						<Image
-							class="story__img"
-							src={profilePic}
-							alt="Illustrated portrait of Linde D'Hauwe"
-							widths={[200, 320, 480]}
-							sizes="15rem"
-						/>
+				<button
+					class="story__open"
+					type="button"
+					data-story-open
+					aria-label="Open Linde's story"
+				>
+					<span class="story__ring">
+						<span class="story__inner">
+							<Image
+								class="story__img"
+								src={profilePic}
+								alt="Illustrated portrait of Linde D'Hauwe"
+								widths={[200, 320, 480]}
+								sizes="15rem"
+							/>
+						</span>
 					</span>
-				</span>
+				</button>
 				<figcaption class="story__name">Linde D'Hauwe</figcaption>
 			</figure>
 		</div>
-	</section>
 
-	<section class="work">
 		<svg
-			class="work__edge"
+			class="teaser__edge"
 			viewBox="0 0 1200 80"
 			preserveAspectRatio="none"
 			aria-hidden="true"
@@ -88,6 +95,21 @@ import '../styles/home.css';
 				fill="currentColor"
 			/>
 		</svg>
+	</section>
+
+	<section class="work">
+		<Sparkle
+			class="home-sparkle home-sparkle--work-1"
+			color="var(--color-blush)"
+		/>
+		<Sparkle
+			class="home-sparkle home-sparkle--work-2 sparkle--lg"
+			color="var(--color-pink)"
+		/>
+		<Sparkle
+			class="home-sparkle home-sparkle--work-3"
+			color="var(--color-orange)"
+		/>
 
 		<div class="work__inner">
 			<h2 class="work__heading">Selected work</h2>
@@ -138,98 +160,61 @@ import '../styles/home.css';
 	</section>
 
 	<section class="contact">
-		<svg
-			class="contact__edge"
-			viewBox="0 0 1200 80"
-			preserveAspectRatio="none"
-			aria-hidden="true"
-		>
-			<path
-				d="M0,80 L0,54 C90,30 150,62 250,46 C345,31 385,66 470,52 C560,37 620,60 720,42 C820,24 875,60 970,48 C1055,37 1110,54 1200,40 L1200,80 Z"
-				fill="currentColor"
+		<Sparkle
+			class="home-sparkle home-sparkle--contact-1"
+			color="var(--color-blush)"
+		/>
+		<Sparkle
+			class="home-sparkle home-sparkle--contact-2 sparkle--lg"
+			color="var(--color-pink)"
+		/>
+
+		<div class="contact__phone" aria-hidden="true" data-contact-phone>
+			<Image
+				src={phoneIllustration}
+				alt=""
+				widths={[160, 240, 340]}
+				sizes="(min-width: 52rem) 8rem, 1px"
 			/>
-		</svg>
+		</div>
 
 		<div class="contact__grid">
-		<div class="contact__inner">
-			<h2 class="contact__heading">Text, don&rsquo;t call!</h2>
-			<p class="contact__lead">
-				Got a project, a question, or just want to say hi? My inbox is always open.
-			</p>
-
-			<div class="contact__lines">
-				<a class="contact__link" href={`mailto:${site.email}`}>
-					<span>{site.email}</span>
-					<svg
-						class="contact__scribble"
-						viewBox="0 0 300 10"
-						preserveAspectRatio="none"
-						aria-hidden="true"
-					>
-						<path
-							d="M2 6C55 2 95 9 150 5C205 1 250 9 298 4"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="3"
-							stroke-linecap="round"
-						/>
-					</svg>
-				</a>
-				{
-					site.phone && (
-						<a
-							class="contact__link"
-							href={`sms:${site.phone.replace(/\s+/g, '')}`}
-						>
-							<span>{site.phone}</span>
-							<svg
-								class="contact__scribble"
-								viewBox="0 0 300 10"
-								preserveAspectRatio="none"
-								aria-hidden="true"
-							>
-								<path
-									d="M2 5C50 9 100 2 150 6C205 10 255 3 298 6"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="3"
-									stroke-linecap="round"
-								/>
-							</svg>
-						</a>
-					)
-				}
+			<div class="contact__inner">
+				<h2 class="contact__heading">Text, don&rsquo;t call!</h2>
+				<p class="contact__lead">
+					Got a project, a question, or just want to say hi? My inbox is
+					always open.
+				</p>
+				<a class="btn" href="/contact/">Get in touch</a>
 			</div>
-
-			<ul class="contact__socials">
-				{
-					socials.map((s) => (
-						<li>
-							<a href={s.href} target="_blank" rel="noopener noreferrer">
-								{s.label}
-							</a>
-						</li>
-					))
-				}
-			</ul>
-		</div>
-
-		<div class="contact__art" aria-hidden="true">
-			<picture>
-				<source
-					srcset="/animations/contact-poster.webp"
-					media="(prefers-reduced-motion: reduce)"
-				/>
-				<img
-					src="/animations/contact.webp"
-					alt=""
-					width="920"
-					height="639"
-					loading="lazy"
-					decoding="async"
-				/>
-			</picture>
-		</div>
 		</div>
 	</section>
+
+	<script>
+		function initContactPhone() {
+			const section = document.querySelector<HTMLElement>('.contact');
+			if (!section || section.dataset.phoneBound) return;
+			section.dataset.phoneBound = 'true';
+
+			if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+				section.classList.add('is-phone-in');
+				return;
+			}
+
+			const io = new IntersectionObserver(
+				(entries) => {
+					for (const e of entries) {
+						section.classList.toggle('is-phone-in', e.isIntersecting);
+					}
+				},
+				{ threshold: 0.3 },
+			);
+			io.observe(section);
+		}
+
+		initContactPhone();
+		document.addEventListener('astro:page-load', initContactPhone);
+	</script>
+
+	<StoryModal />
 </BaseLayout>

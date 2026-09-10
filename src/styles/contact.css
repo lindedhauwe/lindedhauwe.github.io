@@ -6,7 +6,7 @@
 	display: flex;
 	flex-direction: column;
 	flex: 1 0 auto;
-	overflow: hidden;
+	overflow-x: clip;
 	background: var(--color-blue);
 	color: var(--color-paper);
 }
@@ -16,7 +16,6 @@
 	z-index: 1;
 	flex: 1;
 	display: grid;
-	gap: var(--space-xl);
 	align-content: center;
 	min-height: min(82vh, 46rem);
 	max-width: var(--content-width);
@@ -25,19 +24,11 @@
 	padding: var(--space-3xl) var(--space-m);
 }
 
-@media (min-width: 56rem) {
-	.contact-page__inner {
-		grid-template-columns: 1.2fr 0.8fr;
-		align-items: center;
-		gap: var(--space-2xl);
-		padding-bottom: 0;
-	}
-}
-
 .contact-page__content {
 	display: grid;
 	justify-items: start;
 	gap: var(--space-l);
+	max-width: 34rem;
 }
 
 /* --- heading --- */
@@ -150,11 +141,11 @@
 	opacity: 1;
 }
 
-/* --- illustration --- */
+/* --- illustration: huge, anchored bottom-right, behind the text --- */
 .contact-page__art {
-	justify-self: center;
 	width: 100%;
-	max-width: 26rem;
+	max-width: 32rem;
+	margin: var(--space-l) auto 0;
 }
 
 .contact-page__art picture {
@@ -169,7 +160,46 @@
 
 @media (min-width: 56rem) {
 	.contact-page__art {
-		justify-self: end;
-		max-width: 34rem;
+		position: absolute;
+		right: -11vw;
+		bottom: -9vw;
+		z-index: 0;
+		width: min(74rem, 78vw);
+		max-width: none;
+		margin: 0;
 	}
+}
+
+/* ---------------------------------------------------------------------------
+   Decorative sparkles
+--------------------------------------------------------------------------- */
+.contact-sparkle {
+	position: absolute;
+	z-index: 0;
+}
+
+.contact-sparkle--1 {
+	top: 9%;
+	right: 9%;
+	rotate: -13deg;
+}
+.contact-sparkle--2 {
+	top: 15%;
+	left: 5%;
+	rotate: 12deg;
+}
+.contact-sparkle--3 {
+	bottom: 26%;
+	left: 8%;
+	rotate: -9deg;
+}
+.contact-sparkle--4 {
+	top: 44%;
+	right: 16%;
+	rotate: 17deg;
+}
+.contact-sparkle--5 {
+	bottom: 13%;
+	left: 42%;
+	rotate: -15deg;
 }

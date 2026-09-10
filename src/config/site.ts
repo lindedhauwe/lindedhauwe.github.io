@@ -21,7 +21,6 @@ export const nav = [
 ] as const;
 
 export const socials: { label: string; href: string }[] = [
-	{ label: 'Instagram', href: 'https://instagram.com/lindedhauwe' },
 	{ label: 'Behance', href: 'https://www.behance.net/lindedhauwe' },
 	{ label: 'GitHub', href: 'https://github.com/lindedhauwe' },
 	// { label: 'LinkedIn', href: 'https://linkedin.com/in/…' },
