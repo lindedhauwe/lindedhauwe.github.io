@@ -21,7 +21,7 @@
 	gap: var(--space-s);
 	max-width: var(--content-width);
 	margin-inline: auto;
-	padding: var(--space-2xl) var(--space-m) clamp(9rem, 24vw, 15rem);
+	padding: var(--space-2xl) var(--space-m) var(--space-l);
 }
 
 .lore__title {
@@ -46,23 +46,32 @@
 	color: var(--color-blush);
 }
 
-/* Self-portrait: stands at the bottom of the section and is cropped off by
-   the next section, so she looks like she's popping up from underneath it. */
+/* Mobile: the portrait sits in the flow below the text, dipping a little
+   into the next section. */
 .lore__portrait {
-	position: absolute;
-	right: clamp(2rem, 12vw, 12rem);
-	bottom: clamp(-4rem, -6vw, -1.5rem);
+	display: block;
 	z-index: 0;
-	width: clamp(12rem, 42vw, 22rem);
+	width: min(66%, 17rem);
 	height: auto;
+	margin: var(--space-l) auto calc(-1 * var(--space-2xl));
 	transform: rotate(-2deg);
 	filter: drop-shadow(0 0.7rem 1.4rem rgba(14, 13, 8, 0.3));
 	pointer-events: none;
 }
 
-@media (min-width: 48rem) {
+/* Desktop: she stands at the bottom-right, cropped by the next section so
+   she looks like she's popping up from underneath it. */
+@media (min-width: 64rem) {
 	.lore__inner {
-		padding-top: var(--space-3xl);
+		padding: var(--space-3xl) var(--space-m) clamp(9rem, 24vw, 15rem);
+	}
+
+	.lore__portrait {
+		position: absolute;
+		right: clamp(2rem, 12vw, 12rem);
+		bottom: clamp(-4rem, -6vw, -1.5rem);
+		width: clamp(12rem, 42vw, 22rem);
+		margin: 0;
 	}
 }
 
@@ -366,6 +375,36 @@
 	.bag-icon {
 		transition-duration: 0.001ms;
 		transition-delay: 0ms;
+	}
+}
+
+/* Phones: the tote sits top-left, just under the heading, tipped over so
+   the tools spill down the page from there. Tablet and up keep the
+   bottom-left desktop layout. */
+@media (max-width: 47.98rem) {
+	.bag-scene {
+		inset: 13rem 0 0 0;
+	}
+
+	.bag-scene__handle,
+	.bag-scene__front {
+		left: -6%;
+		top: 1%;
+		bottom: auto;
+		width: clamp(13rem, 54vw, 19rem);
+		transform-origin: center center;
+		transform: rotate(146deg);
+	}
+
+	.bag-icon {
+		left: 30%;
+		top: 20%;
+	}
+
+	/* spread the spill across the full width (spots only span the right
+	   half by default) */
+	.bag-scene.is-open .bag-icon {
+		left: calc(var(--x) * 1.45 - 47.8%);
 	}
 }
 
