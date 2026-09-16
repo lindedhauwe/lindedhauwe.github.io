@@ -250,6 +250,9 @@ const slides = [
 				return;
 			}
 			if (dragged || performance.now() - downT > 350) return;
+			// a real button (arrow / zone / close) handles navigation itself
+			// via its own click listener — don't double-fire from here too
+			if ((e.target as HTMLElement).closest('button')) return;
 			const r = card.getBoundingClientRect();
 			if (e.clientX - r.left < r.width * 0.33) prev();
 			else next();
