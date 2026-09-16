@@ -280,14 +280,16 @@
    the "slay!" note on "Selected work" */
 .story__flag {
 	position: absolute;
-	top: -0.3rem;
-	right: -1.1rem;
+	top: 0.4rem;
+	right: calc(100% + 0.4rem);
+	white-space: nowrap;
 	padding-bottom: 0.18em;
 	font-family: var(--font-hand);
 	font-weight: 700;
 	font-size: clamp(1.2rem, 2.8vw, 1.4rem);
 	line-height: 1;
 	color: var(--ink-orange);
+	rotate: -8deg;
 	pointer-events: none;
 }
 
