@@ -4,6 +4,7 @@
    happens before first paint via the blocking script in BaseLayout's
    <head> (adds .gate-skip to <html>, which this component's CSS reads);
    this component only handles the reveal → auto-dismiss for first-timers. */
+import Sparkle from './Sparkle.astro';
 ---
 
 <div
@@ -15,6 +16,12 @@
 	aria-hidden="true"
 	hidden
 >
+	<Sparkle class="intro-gate__sparkle intro-gate__sparkle--1" color="var(--color-paper)" />
+	<Sparkle class="intro-gate__sparkle intro-gate__sparkle--2" color="var(--color-blush)" />
+	<Sparkle class="intro-gate__sparkle intro-gate__sparkle--3" color="var(--color-paper)" />
+	<Sparkle class="intro-gate__sparkle intro-gate__sparkle--4" color="var(--color-blush)" />
+	<Sparkle class="intro-gate__sparkle intro-gate__sparkle--5" color="var(--color-paper)" />
+
 	<div class="intro-gate__inner">
 		<p class="intro-gate__eyebrow">⚠ warning ⚠</p>
 		<h2 id="intro-gate-heading" class="intro-gate__heading">
@@ -78,7 +85,7 @@
 			}
 		}
 
-		const timer = window.setTimeout(dismiss, 2600);
+		const timer = window.setTimeout(dismiss, 4200);
 		skipBtn.addEventListener('click', dismiss);
 		gate.addEventListener('click', (e) => {
 			if (e.target === gate) dismiss();

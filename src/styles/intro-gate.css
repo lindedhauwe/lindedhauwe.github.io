@@ -34,6 +34,46 @@
 	display: none !important;
 }
 
+/* scattered stars, kept small and faint out at the edges so the eye still
+   lands on the text first */
+.intro-gate__sparkle {
+	position: absolute;
+	opacity: 0.32;
+}
+
+.intro-gate__sparkle--1 {
+	top: 9%;
+	left: 50%;
+	width: 1.1rem;
+	translate: -50% 0;
+}
+
+.intro-gate__sparkle--2 {
+	top: 14%;
+	right: 10%;
+	width: 1.4rem;
+	opacity: 0.4;
+}
+
+.intro-gate__sparkle--3 {
+	top: 20%;
+	left: 8%;
+	width: 1rem;
+}
+
+.intro-gate__sparkle--4 {
+	bottom: 14%;
+	right: 14%;
+	width: 1rem;
+}
+
+.intro-gate__sparkle--5 {
+	bottom: 10%;
+	left: 10%;
+	width: 1.5rem;
+	opacity: 0.4;
+}
+
 .intro-gate__inner {
 	display: grid;
 	gap: var(--space-xs);
