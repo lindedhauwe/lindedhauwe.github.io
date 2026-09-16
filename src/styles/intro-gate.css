@@ -16,10 +16,7 @@
 	color: var(--color-paper);
 	cursor: pointer;
 	opacity: 0;
-	scale: 1.03;
-	transition:
-		opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-		scale 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: opacity 0.4s ease;
 }
 
 .intro-gate[hidden] {
@@ -30,16 +27,16 @@
    instead of snapping straight to visible */
 .intro-gate.is-visible {
 	opacity: 1;
-	scale: 1;
 }
 
+/* dismiss reads as a curtain lifting clean off the top of the screen —
+   a single obvious motion instead of a fade, so it's clear something
+   just happened */
 .intro-gate.is-leaving {
-	opacity: 0;
-	scale: 1.06;
+	opacity: 1;
+	translate: 0 -100%;
 	pointer-events: none;
-	transition:
-		opacity 0.55s cubic-bezier(0.4, 0, 1, 1),
-		scale 0.55s cubic-bezier(0.4, 0, 1, 1);
+	transition: translate 0.6s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 /* later page loads within the same tab session get this from the
@@ -95,16 +92,6 @@
 	justify-items: center;
 	max-width: 24rem;
 	cursor: auto;
-	transition:
-		opacity 0.35s ease,
-		translate 0.35s ease;
-}
-
-/* the text lifts and clears a touch ahead of the background behind it,
-   so the exit reads as layered rather than one flat fade */
-.intro-gate.is-leaving .intro-gate__inner {
-	opacity: 0;
-	translate: 0 -0.9rem;
 }
 
 .intro-gate__eyebrow {
@@ -132,29 +119,17 @@
 	opacity: 0.9;
 }
 
+/* re-uses the site's .btn look (orange sticker pill) — just needs a
+   little breathing room above it here */
 .intro-gate__skip {
 	margin-top: var(--space-s);
-	padding: var(--space-2xs) var(--space-m);
-	border: 2px solid var(--color-paper);
-	border-radius: 999px;
-	background: transparent;
-	color: var(--color-paper);
-	font-family: var(--font-body);
-	font-weight: 700;
-	font-size: var(--step--1);
+	border: none;
 	cursor: pointer;
-}
-
-.intro-gate__skip:hover,
-.intro-gate__skip:focus-visible {
-	background: var(--color-paper);
-	color: var(--color-green-deep);
 }
 
 @media (prefers-reduced-motion: reduce) {
 	.intro-gate,
-	.intro-gate.is-leaving,
-	.intro-gate__inner {
+	.intro-gate.is-leaving {
 		transition: none;
 	}
 }
