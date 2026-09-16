@@ -127,6 +127,17 @@
 	cursor: pointer;
 }
 
+/* it's auto-focused the moment the gate opens, so it'd otherwise sit in
+   .btn's hover/focus pink tint from the instant it appears. Pin it back
+   to the plain brand orange and use the same outline the rest of the
+   site shows on focus-visible instead (see .float-nav__btn,
+   .polaroid__link) as the only focus indicator. */
+.intro-gate__skip:focus-visible {
+	background: var(--color-orange);
+	outline: 3px solid var(--color-orange);
+	outline-offset: 3px;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.intro-gate,
 	.intro-gate.is-leaving {
