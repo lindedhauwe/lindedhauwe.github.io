@@ -62,6 +62,12 @@ import Sparkle from './Sparkle.astro';
 		rest.forEach((el) => el.setAttribute('inert', ''));
 		skipBtn.focus();
 
+		// one frame to let the browser register the "hidden" state, then flip
+		// to visible so the fade-in actually transitions instead of snapping
+		requestAnimationFrame(() => {
+			requestAnimationFrame(() => gate!.classList.add('is-visible'));
+		});
+
 		let dismissed = false;
 		function dismiss() {
 			if (dismissed) return;
