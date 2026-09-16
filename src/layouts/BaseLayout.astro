@@ -52,11 +52,11 @@ const ogImage = new URL(withBase('/og.png'), Astro.site);
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
 
-		{/* Runs before first paint: if this browser has already seen the
+		{/* Runs before first paint: if this tab session has already seen the
 		"gen-z territory" intro gate, skip straight past it — no flash. */}
 		<script is:inline>
 			try {
-				if (localStorage.getItem('gateSeen')) {
+				if (sessionStorage.getItem('gateSeen')) {
 					document.documentElement.classList.add('gate-skip');
 				}
 			} catch (e) {}

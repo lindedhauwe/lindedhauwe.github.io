@@ -1,9 +1,11 @@
 ---
-/* First-visit splash: "Warning! gen-z territory" — shown once per browser,
-   then never again. The actual show/hide decision for repeat visitors
-   happens before first paint via the blocking script in BaseLayout's
-   <head> (adds .gate-skip to <html>, which this component's CSS reads);
-   this component only handles the reveal → auto-dismiss for first-timers. */
+/* First-visit splash: "Warning! gen-z territory" — shown once per tab
+   session (sessionStorage), so it greets you again each time you open
+   the site fresh but doesn't interrupt clicking around inside it. The
+   show/hide decision for the rest of that session happens before first
+   paint via the blocking script in BaseLayout's <head> (adds .gate-skip
+   to <html>, which this component's CSS reads); this component only
+   handles the reveal → auto-dismiss for the first page load of a session. */
 import Sparkle from './Sparkle.astro';
 ---
 
@@ -42,7 +44,7 @@ import Sparkle from './Sparkle.astro';
 
 		let seen = false;
 		try {
-			seen = !!localStorage.getItem('gateSeen');
+			seen = !!sessionStorage.getItem('gateSeen');
 		} catch {
 			/* storage blocked (private mode etc.) — fall through and show it */
 		}
@@ -66,7 +68,7 @@ import Sparkle from './Sparkle.astro';
 			dismissed = true;
 			window.clearTimeout(timer);
 			try {
-				localStorage.setItem('gateSeen', '1');
+				sessionStorage.setItem('gateSeen', '1');
 			} catch {
 				/* nothing we can do — it'll just show again next visit */
 			}

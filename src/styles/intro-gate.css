@@ -1,8 +1,7 @@
 /* ---------------------------------------------------------------------------
    First-visit intro gate: "Warning! gen-z territory" splash.
-   Shown once per browser (localStorage flag "gateSeen"), then never again —
-   see the blocking script in BaseLayout's <head> and IntroGate.astro's own
-   script.
+   Shown once per tab session (sessionStorage flag "gateSeen") — see the
+   blocking script in BaseLayout's <head> and IntroGate.astro's own script.
 --------------------------------------------------------------------------- */
 
 .intro-gate {
@@ -28,8 +27,9 @@
 	opacity: 0;
 }
 
-/* repeat visitors get this from the head-blocking script before first
-   paint, so there's no flash of the gate at all */
+/* later page loads within the same tab session get this from the
+   head-blocking script before first paint, so there's no flash of the
+   gate at all */
 :root.gate-skip .intro-gate {
 	display: none !important;
 }
