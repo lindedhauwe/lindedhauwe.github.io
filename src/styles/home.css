@@ -288,7 +288,7 @@
 	font-weight: 700;
 	font-size: clamp(1.2rem, 2.8vw, 1.4rem);
 	line-height: 1;
-	color: var(--ink-orange);
+	color: var(--color-blue);
 	rotate: -8deg;
 	pointer-events: none;
 }
