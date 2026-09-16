@@ -1,0 +1,93 @@
+---
+/* First-visit splash: "Warning! gen-z territory" — shown once per browser,
+   then never again. The actual show/hide decision for repeat visitors
+   happens before first paint via the blocking script in BaseLayout's
+   <head> (adds .gate-skip to <html>, which this component's CSS reads);
+   this component only handles the reveal → auto-dismiss for first-timers. */
+---
+
+<div
+	class="intro-gate"
+	data-intro-gate
+	role="alertdialog"
+	aria-modal="true"
+	aria-labelledby="intro-gate-heading"
+	aria-hidden="true"
+	hidden
+>
+	<div class="intro-gate__inner">
+		<p class="intro-gate__eyebrow">⚠ warning ⚠</p>
+		<h2 id="intro-gate-heading" class="intro-gate__heading">
+			gen-z<br />territory
+		</h2>
+		<p class="intro-gate__sub">enter at your own risk</p>
+		<button class="intro-gate__skip" type="button" data-intro-skip>
+			tap to enter &rarr;
+		</button>
+	</div>
+</div>
+
+<script>
+	function initIntroGate() {
+		const gate = document.querySelector<HTMLElement>('[data-intro-gate]');
+		if (!gate || gate.dataset.bound) return;
+		gate.dataset.bound = 'true';
+
+		let seen = false;
+		try {
+			seen = !!localStorage.getItem('gateSeen');
+		} catch {
+			/* storage blocked (private mode etc.) — fall through and show it */
+		}
+		if (seen) return; // .gate-skip already hides it via CSS, nothing to run
+
+		const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const skipBtn = gate.querySelector<HTMLButtonElement>('[data-intro-skip]')!;
+		const rest = [...document.body.children].filter(
+			(el) => el !== gate,
+		) as HTMLElement[];
+
+		gate.hidden = false;
+		gate.removeAttribute('aria-hidden');
+		document.documentElement.style.overflow = 'hidden';
+		rest.forEach((el) => el.setAttribute('inert', ''));
+		skipBtn.focus();
+
+		let dismissed = false;
+		function dismiss() {
+			if (dismissed) return;
+			dismissed = true;
+			window.clearTimeout(timer);
+			try {
+				localStorage.setItem('gateSeen', '1');
+			} catch {
+				/* nothing we can do — it'll just show again next visit */
+			}
+			document.documentElement.style.overflow = '';
+			rest.forEach((el) => el.removeAttribute('inert'));
+
+			const finish = () => {
+				gate!.hidden = true;
+				gate!.setAttribute('aria-hidden', 'true');
+			};
+			if (reduce) {
+				finish();
+			} else {
+				gate!.classList.add('is-leaving');
+				gate!.addEventListener('transitionend', finish, { once: true });
+			}
+		}
+
+		const timer = window.setTimeout(dismiss, 2600);
+		skipBtn.addEventListener('click', dismiss);
+		gate.addEventListener('click', (e) => {
+			if (e.target === gate) dismiss();
+		});
+		document.addEventListener('keydown', (e) => {
+			if (!dismissed && (e.key === 'Escape' || e.key === 'Enter')) dismiss();
+		});
+	}
+
+	initIntroGate();
+	document.addEventListener('astro:page-load', initIntroGate);
+</script>

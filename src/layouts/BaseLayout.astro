@@ -1,10 +1,12 @@
 ---
 import '../styles/global.css';
+import '../styles/intro-gate.css';
 import { site } from '../config/site';
 import { withBase } from '../lib/paths';
 import Nav from '../components/Nav.astro';
 import FloatingNav from '../components/FloatingNav.astro';
 import Footer from '../components/Footer.astro';
+import IntroGate from '../components/IntroGate.astro';
 
 interface Props {
 	title?: string;
@@ -49,8 +51,20 @@ const ogImage = new URL(withBase('/og.png'), Astro.site);
 		<meta name="twitter:title" content={pageTitle} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
+
+		{/* Runs before first paint: if this browser has already seen the
+		"gen-z territory" intro gate, skip straight past it — no flash. */}
+		<script is:inline>
+			try {
+				if (localStorage.getItem('gateSeen')) {
+					document.documentElement.classList.add('gate-skip');
+				}
+			} catch (e) {}
+		</script>
 	</head>
 	<body>
+		<IntroGate />
+
 		{/* Shared SVG filter: roughens hand-drawn strokes so they read as pencil, not marker. */}
 		<svg class="svg-defs" aria-hidden="true" focusable="false">
 			<defs>
