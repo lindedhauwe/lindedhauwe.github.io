@@ -44,8 +44,7 @@
 }
 
 .hero__year {
-	/* pale blush — enough contrast on the green */
-	color: #f7e4da;
+	color: var(--color-blush);
 }
 
 .hero__name {
