@@ -8,17 +8,19 @@
 	display: flex;
 	flex-wrap: wrap;
 	align-items: baseline;
-	justify-content: space-between;
-	gap: var(--space-xs) var(--space-m);
+	justify-content: center;
+	gap: var(--space-2xs) var(--space-m);
 	margin-top: calc(-1 * var(--space-m));
-	padding: var(--space-xl) var(--space-l) var(--space-l);
+	padding: var(--space-s) var(--space-l);
 	/* a touch deeper than --color-green so the small print keeps AA contrast */
 	background: var(--color-green-deep);
 	color: var(--color-paper);
-	border-radius: 1.75rem 1.75rem 0 0;
+	border-radius: 1.25rem 1.25rem 0 0;
 }
 
+/* the playful tagline only shows once there's room for it */
 .site-footer__tag {
+	display: none;
 	font-family: var(--font-hand);
 	font-weight: 700;
 	font-size: var(--step-1);
@@ -27,4 +29,16 @@
 .site-footer__copy {
 	font-size: var(--step--1);
 	opacity: 0.92;
+}
+
+@media (min-width: 40rem) {
+	.site-footer {
+		justify-content: space-between;
+		padding: var(--space-xl) var(--space-l) var(--space-l);
+		border-radius: 1.75rem 1.75rem 0 0;
+	}
+
+	.site-footer__tag {
+		display: block;
+	}
 }
