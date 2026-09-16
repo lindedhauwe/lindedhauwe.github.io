@@ -6,12 +6,13 @@ const current = stripBase(Astro.url.pathname);
 const isActive = (href: string) =>
 	href === '/' ? current === '/' : current.startsWith(href);
 
-// A few loose, hand-drawn ellipse variants — each overshoots or leaves a gap so
-// no two bubbles share the same scribble and they read as actually drawn.
+// A few loose, hand-drawn ellipse variants — smooth ovals (the wobble comes
+// from the shared #pencil filter) each with its own closing overshoot, so no
+// two bubbles share the same scribble and they still read as actually drawn.
 const scribblePaths = [
-	'M22 40C6 31 6 13 30 7C60 0 112 3 136 13C151 19 147 35 121 42C91 50 39 49 16 39C9 36 8 31 13 27',
-	'M16 22C13 9 45 3 82 5C120 7 145 15 138 27C132 40 94 47 50 44C17 41 6 29 19 17C25 11 36 9 48 9',
-	'M26 11C59 2 116 4 139 14C153 22 143 36 114 42C80 49 27 47 12 35C2 27 9 14 31 8C37 7 45 7 53 8',
+	'M144,25C144,37 113,46 75,46C37,46 6,37 6,25C6,13 37,4 75,4C113,4 144,13 144,25C145,19 141,14 132,11',
+	'M75,43C37,43 7,35 7,24C7,14 37,5 75,5C113,5 143,14 143,24C143,35 113,43 75,43C64,44 55,42 50,38',
+	'M4,25C4,36 36,45 75,45C114,45 146,36 146,25C146,14 114,5 75,5C36,5 4,14 4,25C3,20 9,15 20,12',
 ];
 ---
 
