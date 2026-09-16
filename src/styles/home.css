@@ -301,7 +301,7 @@
 	width: auto;
 	height: 0.32em;
 	overflow: visible;
-	color: var(--color-pink);
+	color: var(--color-blue);
 	filter: url(#pencil);
 }
 
