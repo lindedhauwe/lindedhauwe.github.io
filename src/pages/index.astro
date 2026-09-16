@@ -210,6 +210,13 @@ import '../styles/home.css';
 	</section>
 
 	<script>
+		import { initTapePeel } from '../lib/tapePeel';
+
+		const initWorkCardPeel = () => initTapePeel('.work-card');
+
+		initWorkCardPeel();
+		document.addEventListener('astro:page-load', initWorkCardPeel);
+
 		function initContactPhone() {
 			const section = document.querySelector<HTMLElement>('.contact');
 			if (!section || section.dataset.phoneBound) return;
