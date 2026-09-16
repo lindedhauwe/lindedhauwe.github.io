@@ -267,12 +267,40 @@
 }
 
 .story__open {
+	position: relative;
 	display: block;
 	padding: 0;
 	border: 0;
 	background: none;
 	border-radius: 50%;
 	cursor: pointer;
+}
+
+/* scribbled sticky-note aside, top-right of the ring — same idea as
+   the "slay!" note on "Selected work" */
+.story__flag {
+	position: absolute;
+	top: -0.3rem;
+	right: -1.1rem;
+	padding-bottom: 0.18em;
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: clamp(1.2rem, 2.8vw, 1.4rem);
+	line-height: 1;
+	color: var(--ink-orange);
+	pointer-events: none;
+}
+
+.story__flag-line {
+	position: absolute;
+	left: -0.05em;
+	right: -0.05em;
+	bottom: 0;
+	width: auto;
+	height: 0.32em;
+	overflow: visible;
+	color: var(--color-pink);
+	filter: url(#pencil);
 }
 
 @property --story-angle {
