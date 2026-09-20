@@ -77,7 +77,7 @@
 	column-gap: 0.28em;
 	row-gap: 0.08em;
 	margin: 0;
-	padding: max(var(--space-m), calc(var(--hero-art-drop, 0px) + var(--space-m)))
+	padding: max(var(--space-m), calc(var(--hero-art-drop, 0px) + var(--space-2xs)))
 		var(--space-m) var(--space-2xl);
 	font-family: var(--font-statement);
 	font-size: clamp(2.5rem, 13vw, 4.5rem);
