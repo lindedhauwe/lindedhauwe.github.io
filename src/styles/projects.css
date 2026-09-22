@@ -83,6 +83,17 @@
 	.wall__sparkle--1 {
 		top: -2.5rem;
 	}
+
+	/* intro-b/intro-c are fixed rem offsets meant to land below the
+	   intro paragraph — but whether "The project wall" wraps to one or
+	   two lines (and so how tall the paragraph block is) flips somewhere
+	   in the middle of the phone-width range, so no single fixed value
+	   clears it at every width. Simplest robust fix: don't show them
+	   here at all. */
+	.wall__sparkle--intro-b,
+	.wall__sparkle--intro-c {
+		display: none;
+	}
 }
 
 .wall__intro,

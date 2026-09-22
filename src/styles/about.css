@@ -464,10 +464,12 @@
    top of the body text instead of beside it — nudge just those clear */
 @media (max-width: 39.99rem) {
 	/* was landing inside the intro paragraph (top:32% put it right over
-	   "bit") — the gap between the tagline and the portrait below it is
-	   clear, so drop it there instead */
+	   "bit"). 48.5% clears it at 390px, but the tagline above it wraps
+	   to a 2nd line on narrower phones (~360px) and the star lands back
+	   on top of that instead — no single value clears every width, so
+	   skip it here rather than chase it further. */
 	.about-sparkle--lore-3 {
-		top: 48.5%;
+		display: none;
 	}
 
 	.about-sparkle--bag-2 {
