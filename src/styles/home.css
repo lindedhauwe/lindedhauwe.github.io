@@ -219,7 +219,6 @@
 	font-weight: 700;
 	color: var(--ink-orange);
 	line-height: 1;
-	cursor: grab;
 }
 
 /* Words swap in place — each is fully there, then cuts straight to the next. */
