@@ -161,23 +161,25 @@
 
 	.hero__word--im {
 		left: 10%;
-		top: 60%;
+		top: 58%;
 	}
 
 	.hero__word--inmy {
 		left: 55%;
-		top: 60%;
+		top: 58%;
 	}
 
 	.hero__word--craft {
 		left: 10%;
-		top: 76%;
+		top: 70%;
 		font-size: clamp(4.5rem, 14vw, 11rem);
 	}
 
+	/* own line below the rotating word — it used to sit to the right of it
+	   on the same row, which "development" (the longest option) ran into */
 	.hero__word--era {
-		right: 15%;
-		top: 80%;
+		left: 10%;
+		top: 83%;
 		margin-top: 0;
 	}
 }
