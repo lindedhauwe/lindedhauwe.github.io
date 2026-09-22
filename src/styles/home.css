@@ -186,6 +186,11 @@
    it's the mobile stack; above 64rem there's enough room for the
    original desktop layout above. */
 @media (min-width: 40rem) and (max-width: 64rem) {
+	.hero {
+		/* less empty space below "era" before the next section starts */
+		min-height: 125svh;
+	}
+
 	.hero__brand {
 		/* the nav sits at a fixed offset, so give the brand a fixed floor
 		   too instead of a pure percentage of the hero's height */
