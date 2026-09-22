@@ -126,10 +126,7 @@
 
 	.hero__brand {
 		position: absolute;
-		/* on short/wide (tablet) viewports 19% of the hero's height doesn't
-		   clear the nav bubbles above it — the nav sits at a fixed offset,
-		   so give the brand a fixed floor too instead of a pure percentage */
-		top: max(19%, 25rem);
+		top: 19%;
 		left: 4%;
 		font-size: clamp(3rem, 8vw, 7rem);
 		text-align: left;
@@ -161,26 +158,54 @@
 
 	.hero__word--im {
 		left: 10%;
-		top: 58%;
+		top: 60%;
 	}
 
 	.hero__word--inmy {
 		left: 55%;
-		top: 58%;
+		top: 60%;
 	}
 
 	.hero__word--craft {
 		left: 10%;
-		top: 68%;
+		top: 76%;
 		font-size: clamp(4.5rem, 14vw, 11rem);
 	}
 
-	/* own line below the rotating word — it used to sit to the right of it
-	   on the same row, which "development" (the longest option) ran into */
+	.hero__word--era {
+		right: 15%;
+		top: 80%;
+		margin-top: 0;
+	}
+}
+
+/* Tablet only (40rem–64rem, roughly iPad-ish widths): the brand can
+   overlap the nav bubbles above it, and "era" (sitting beside the
+   rotating word here on desktop) can run into "development", the
+   longest option — so both get tablet-specific overrides. Below 40rem
+   it's the mobile stack; above 64rem there's enough room for the
+   original desktop layout above. */
+@media (min-width: 40rem) and (max-width: 64rem) {
+	.hero__brand {
+		/* the nav sits at a fixed offset, so give the brand a fixed floor
+		   too instead of a pure percentage of the hero's height */
+		top: max(19%, 25rem);
+	}
+
+	.hero__word--im,
+	.hero__word--inmy {
+		top: 58%;
+	}
+
+	.hero__word--craft {
+		top: 68%;
+	}
+
+	/* own line below the rotating word instead of beside it */
 	.hero__word--era {
 		left: 10%;
+		right: auto;
 		top: 82%;
-		margin-top: 0;
 	}
 }
 
