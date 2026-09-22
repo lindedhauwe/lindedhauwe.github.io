@@ -458,3 +458,20 @@
 	left: 5%;
 	rotate: -16deg;
 }
+
+/* mobile: these sections are proportionally much taller than on desktop,
+   so a couple of the percentage-positioned sparkles above land right on
+   top of the body text instead of beside it — nudge just those clear */
+@media (max-width: 39.99rem) {
+	/* was landing inside the intro paragraph (top:32% put it right over
+	   "bit") — the gap between the tagline and the portrait below it is
+	   clear, so drop it there instead */
+	.about-sparkle--lore-3 {
+		top: 48.5%;
+	}
+
+	.about-sparkle--bag-2 {
+		top: -1.5rem;
+		left: 3%;
+	}
+}

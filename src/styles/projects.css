@@ -75,6 +75,16 @@
 	left: 2%;
 }
 
+/* mobile: top:-1rem is enough clearance for a short heading like "Visual
+   design", but a longer one like "User experience" reaches far enough
+   right to run into it at this width — push it further up so it clears
+   every heading regardless of length */
+@media (max-width: 39.99rem) {
+	.wall__sparkle--1 {
+		top: -2.5rem;
+	}
+}
+
 .wall__intro,
 .wall__group {
 	margin-inline: auto;
