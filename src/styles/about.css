@@ -474,4 +474,17 @@
 		top: -1.5rem;
 		left: 3%;
 	}
+
+	/* sat right on "The" in the heading, and there's no clear spot near
+	   it at this width (the section starts right at the top, and the
+	   gap to the nav button beside it is too narrow) — skip it here */
+	.about-sparkle--lore-4 {
+		display: none;
+	}
+
+	/* sat on the last letter of "interests" — there's clear space above
+	   the heading, same idea as the other heading sparkles */
+	.about-sparkle--int-2 {
+		top: -1rem;
+	}
 }

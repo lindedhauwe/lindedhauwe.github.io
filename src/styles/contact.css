@@ -226,6 +226,14 @@
 	left: 8%;
 	rotate: -9deg;
 }
+
+/* mobile: sat right on "Behance" — the gap below the social links,
+   before the illustration/cord starts, is clear */
+@media (max-width: 39.99rem) {
+	.contact-sparkle--3 {
+		bottom: 16%;
+	}
+}
 .contact-sparkle--4 {
 	top: 44%;
 	right: 16%;

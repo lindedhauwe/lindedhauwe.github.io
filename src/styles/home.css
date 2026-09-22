@@ -770,3 +770,17 @@
 	right: 12%;
 	rotate: -10deg;
 }
+
+/* mobile: both sat right on top of their heading's first letter */
+@media (max-width: 39.99rem) {
+	.home-sparkle--work-1 {
+		top: -1.25rem;
+		left: 2%;
+	}
+
+	.home-sparkle--contact-1 {
+		top: 22%;
+		left: auto;
+		right: 8%;
+	}
+}
