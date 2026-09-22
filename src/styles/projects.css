@@ -100,6 +100,12 @@
 	color: var(--color-blush);
 }
 
+/* keeps each word's letters together as one unit, so a narrow screen
+   wraps between words, never in the middle of one */
+.wall__title-word {
+	display: inline-block;
+}
+
 /* a Mexican wave that ripples through the letters once every 20s */
 .wall__title-letter {
 	display: inline-block;

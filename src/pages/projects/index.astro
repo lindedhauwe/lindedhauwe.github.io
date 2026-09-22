@@ -12,6 +12,11 @@ const sparkleColours = [
 	'var(--color-pink)',
 	'var(--color-green)',
 ];
+
+// Split by word (not by character) so each word wraps as one unit — on a
+// narrow screen the old flat per-letter markup let the browser break
+// "project" mid-word since nothing tied its letters together.
+const wallTitleWords = 'The project wall'.split(' ');
 ---
 
 <BaseLayout
@@ -32,14 +37,21 @@ const sparkleColours = [
 		<header class="wall__intro">
 			<h1 class="wall__title" aria-label="The project wall">
 				{
-					[...'The project wall'].map((ch, i) => (
-						<span
-							class="wall__title-letter"
-							style={`--i:${i}`}
-							aria-hidden="true"
-						>
-							{ch === ' ' ? ' ' : ch}
-						</span>
+					wallTitleWords.map((word, wi) => (
+						<Fragment>
+							<span class="wall__title-word">
+								{[...word].map((ch, ci) => (
+									<span
+										class="wall__title-letter"
+										style={`--i:${wi * 5 + ci}`}
+										aria-hidden="true"
+									>
+										{ch}
+									</span>
+								))}
+							</span>
+							{wi < wallTitleWords.length - 1 && ' '}
+						</Fragment>
 					))
 				}
 			</h1>
