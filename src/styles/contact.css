@@ -80,6 +80,18 @@
 	text-decoration: none;
 }
 
+/* email: link + copy button sit side by side (see .contact-page__copy) */
+.contact-page__method-row {
+	display: flex;
+	align-items: baseline;
+	gap: 0.5em;
+}
+
+.contact-page__method-link {
+	color: inherit;
+	text-decoration: none;
+}
+
 .contact-page__method-label {
 	font-family: var(--font-hand);
 	font-weight: 700;
@@ -111,8 +123,70 @@
 }
 
 .contact-page__method:hover .contact-page__method-value::after,
-.contact-page__method:focus-visible .contact-page__method-value::after {
+.contact-page__method:focus-visible .contact-page__method-value::after,
+.contact-page__method-link:hover .contact-page__method-value::after,
+.contact-page__method-link:focus-visible .contact-page__method-value::after {
 	opacity: 1;
+}
+
+/* --- copy-to-clipboard button, next to the email link ---
+   mailto: only opens whatever mail app is set as the visitor's (or
+   your own) OS default — which isn't always the one you actually use.
+   This lets you grab the address and paste it wherever you do. */
+.contact-page__copy {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 1.7rem;
+	height: 1.7rem;
+	padding: 0;
+	border: none;
+	background: none;
+	color: var(--color-blush);
+	cursor: pointer;
+}
+
+.contact-page__copy svg {
+	width: 1.05rem;
+	height: 1.05rem;
+}
+
+.contact-page__copy:hover,
+.contact-page__copy:focus-visible {
+	color: var(--color-paper);
+}
+
+.contact-page__copy-tip {
+	position: absolute;
+	bottom: calc(100% + 0.25rem);
+	left: 50%;
+	translate: -50% 0;
+	padding: 0.2em 0.65em;
+	border-radius: 999px;
+	background: var(--color-orange);
+	color: var(--color-paper);
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step--1);
+	white-space: nowrap;
+	opacity: 0;
+	pointer-events: none;
+	transition:
+		opacity 0.16s ease,
+		translate 0.16s ease;
+}
+
+.contact-page__copy.is-copied .contact-page__copy-tip {
+	opacity: 1;
+	translate: -50% -0.2rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.contact-page__copy-tip {
+		transition: none;
+	}
 }
 
 /* --- socials --- */

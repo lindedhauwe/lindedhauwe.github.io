@@ -39,10 +39,43 @@ const phoneHref = site.phone
 				</p>
 
 				<div class="contact-page__methods">
-					<a class="contact-page__method" href={`mailto:${site.email}`}>
+					<div class="contact-page__method">
 						<span class="contact-page__method-label">Email me</span>
-						<span class="contact-page__method-value">{site.email}</span>
-					</a>
+						<span class="contact-page__method-row">
+							<a class="contact-page__method-link" href={`mailto:${site.email}`}>
+								<span class="contact-page__method-value">{site.email}</span>
+							</a>
+							<button
+								class="contact-page__copy"
+								type="button"
+								data-copy-email
+								data-value={site.email}
+								aria-label={`Copy ${site.email} to clipboard`}
+							>
+								<svg viewBox="0 0 24 24" aria-hidden="true">
+									<rect
+										x="8"
+										y="8"
+										width="13"
+										height="13"
+										rx="2"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+									/>
+									<path
+										d="M16 8V5.5A1.5 1.5 0 0 0 14.5 4H4.5A1.5 1.5 0 0 0 3 5.5v10A1.5 1.5 0 0 0 4.5 17H8"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="2"
+									/>
+								</svg>
+								<span class="contact-page__copy-tip" data-copy-tip aria-hidden="true">
+									Copied!
+								</span>
+							</button>
+						</span>
+					</div>
 					{
 						phoneHref && (
 							<a class="contact-page__method" href={phoneHref}>
@@ -86,4 +119,29 @@ const phoneHref = site.phone
 			</picture>
 		</div>
 	</section>
+
+	<script>
+		function initCopyEmail() {
+			const btn = document.querySelector<HTMLButtonElement>('[data-copy-email]');
+			if (!btn || btn.dataset.bound) return;
+			btn.dataset.bound = 'true';
+
+			const value = btn.dataset.value ?? '';
+			let resetTimer = 0;
+
+			btn.addEventListener('click', async () => {
+				try {
+					await navigator.clipboard.writeText(value);
+				} catch {
+					return; // clipboard blocked — mailto: link next to it still works
+				}
+				btn.classList.add('is-copied');
+				window.clearTimeout(resetTimer);
+				resetTimer = window.setTimeout(() => btn.classList.remove('is-copied'), 1600);
+			});
+		}
+
+		initCopyEmail();
+		document.addEventListener('astro:page-load', initCopyEmail);
+	</script>
 </BaseLayout>
