@@ -106,7 +106,9 @@ for (const b of blocks) {
 	).toLowerCase()} project by Linde D'Hauwe.`}
 >
 	<article class="case">
-		<a class="case__back" href={withBase('/projects/')}>&larr; back to the wall</a>
+		<a class="case__back" href={withBase('/projects/')} data-case-back>
+			&larr; back to the wall
+		</a>
 		<h1 class="case__title">{detail?.heading ?? project.title}</h1>
 
 		{
@@ -567,4 +569,40 @@ for (const b of blocks) {
 			</a>
 		</nav>
 	</article>
+
+	<script>
+		import { stripBase } from '../../lib/paths';
+
+		/* "back to the wall" should actually go back — landing wherever the
+		   visitor came from (the wall, home's "Selected work", a search
+		   result…) at their original scroll position, instead of always
+		   forcing a fresh /projects/ load that resets scroll to the top. */
+		function initCaseBack() {
+			const link = document.querySelector<HTMLAnchorElement>('[data-case-back]');
+			if (!link || link.dataset.bound) return;
+			link.dataset.bound = 'true';
+
+			let ref: URL | null = null;
+			try {
+				ref = document.referrer ? new URL(document.referrer) : null;
+			} catch {
+				ref = null;
+			}
+			// no same-origin page to go back to (direct link, new tab, etc.)
+			// — leave the plain href pointing at the wall as-is
+			if (!ref || ref.origin !== location.origin) return;
+
+			if (stripBase(ref.pathname) === '/') {
+				link.textContent = '← back';
+			}
+
+			link.addEventListener('click', (e) => {
+				e.preventDefault();
+				history.back();
+			});
+		}
+
+		initCaseBack();
+		document.addEventListener('astro:page-load', initCaseBack);
+	</script>
 </BaseLayout>
