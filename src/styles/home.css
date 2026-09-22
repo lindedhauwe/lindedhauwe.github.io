@@ -210,7 +210,7 @@
 
 	/* less empty space between "era" and "Who am I???" below it */
 	.about-teaser__inner {
-		padding-top: var(--space-xl);
+		padding-top: var(--space-m);
 	}
 }
 
