@@ -129,7 +129,7 @@
 		/* on short/wide (tablet) viewports 19% of the hero's height doesn't
 		   clear the nav bubbles above it — the nav sits at a fixed offset,
 		   so give the brand a fixed floor too instead of a pure percentage */
-		top: max(19%, 18rem);
+		top: max(19%, 21rem);
 		left: 4%;
 		font-size: clamp(3rem, 8vw, 7rem);
 		text-align: left;
