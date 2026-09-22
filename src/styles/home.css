@@ -266,10 +266,18 @@
 	padding: var(--space-3xl) var(--space-m);
 }
 
-/* tablet only — less empty space between "era" and "Who am I???" below
-   it. Has to come after the base rule above: same specificity, and the
-   base rule's `padding` shorthand would otherwise win and silently
-   cancel this out even while the media query matches. */
+/* Both come after the base rule above (same specificity — the base
+   rule's `padding` shorthand would otherwise win and silently cancel
+   these out even while their media query matches). */
+
+/* mobile — less empty space between "era" and "Who am I???" below it */
+@media (max-width: 39.99rem) {
+	.about-teaser__inner {
+		padding-top: var(--space-m);
+	}
+}
+
+/* tablet — same idea, see the hero era/brand tablet overrides above */
 @media (min-width: 40rem) and (max-width: 64rem) {
 	.about-teaser__inner {
 		padding-top: var(--space-m);
