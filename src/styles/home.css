@@ -114,8 +114,8 @@
 		gap: 0;
 		min-height: 95svh;
 		background: linear-gradient(
-			var(--color-green) 0 50%,
-			var(--color-blush) 50% 100%
+			var(--color-green) 0 68%,
+			var(--color-blush) 68% 100%
 		);
 	}
 
