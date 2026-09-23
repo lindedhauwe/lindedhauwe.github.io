@@ -112,7 +112,7 @@
 @media (min-width: 40rem) {
 	.hero {
 		gap: 0;
-		min-height: 150svh;
+		min-height: 95svh;
 		background: linear-gradient(
 			var(--color-green) 0 50%,
 			var(--color-blush) 50% 100%
@@ -131,7 +131,7 @@
 
 	.hero__art {
 		position: absolute;
-		top: 53%;
+		top: 68%;
 		right: -1%;
 		width: min(75vw, 70rem);
 		margin: 0;
@@ -150,12 +150,12 @@
 		left: 5%;
 		padding: 0;
 		margin: 0;
-		font-size: clamp(3.25rem, 5.5vw, 5.5rem);
+		font-size: clamp(3.75rem, 6.5vw, 6.5rem);
 		color: var(--color-paper);
 	}
 
 	.hero__word--craft {
-		font-size: clamp(3.75rem, 7.5vw, 6.75rem);
+		font-size: clamp(4.25rem, 9vw, 8rem);
 	}
 
 	.hero__statement .era-word {
