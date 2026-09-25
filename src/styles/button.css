@@ -24,3 +24,13 @@
 	transform: translateY(-2px) scale(1.04);
 	background: color-mix(in srgb, var(--color-pink) 78%, var(--color-ink));
 }
+
+/* dark variant — reads better than orange over a busy/green photo backdrop */
+.btn--dark {
+	background: var(--color-ink);
+}
+
+.btn--dark:hover,
+.btn--dark:focus-visible {
+	background: color-mix(in srgb, var(--color-ink) 82%, var(--color-pink));
+}
