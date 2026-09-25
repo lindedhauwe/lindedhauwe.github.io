@@ -505,10 +505,9 @@ export const projects: Project[] = [
 			tools: ['After Effects'],
 			leadVideo: {
 				title: 'Project presentation video',
-				// TODO: add the actual files at these paths (public/videos/) —
-				// they don't exist yet, so the video won't play until then.
 				src: withBase('/videos/antwerp-motion-presentation.mp4'),
-				poster: withBase('/videos/antwerp-motion-presentation-poster.jpg'),
+				// no poster frame available yet — shows a blank first frame
+				// until you add one and set this
 			},
 			intro:
 				'Antwerp on Tap is a group project for the City of Antwerp, combining UX & Experience Design, Motion Design, Visual Design and Development. We created a mobile experience that invites international beer enthusiasts and city explorers to discover Antwerp through local cafés, curated recommendations and hidden gems across the city. Using Antwerp beer cards as a starting point, the experience encourages users to explore the city one beer at a time.',
