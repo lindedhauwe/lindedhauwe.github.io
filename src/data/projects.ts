@@ -108,7 +108,7 @@ export interface ProjectDetail {
 	/** Overrides the (short) wall title as the detail-page h1. */
 	heading?: string;
 	/** A video shown right at the top of the page, above the intro/cover. */
-	leadVideo?: { src: string; poster?: string };
+	leadVideo?: { src: string; poster?: string; title?: string };
 	year?: string;
 	duration?: string;
 	team: string;
@@ -487,6 +487,37 @@ export const projects: Project[] = [
 					heading: 'Reflection',
 					body: [
 						'This was my first larger project in After Effects, and I really enjoyed the entire creative process. From designing the assets to bringing all the animations together, every step taught me new techniques and gave me more confidence in motion design. For my first extensive After Effects project, I am very proud of the final result and of how much I learned throughout the process.',
+					],
+				},
+			],
+		},
+	},
+	{
+		slug: 'antwerp-on-tap-motion',
+		title: 'Antwerp on Tap',
+		category: 'motion-design',
+		image: antwerpOnTab,
+		detail: {
+			year: '2026',
+			duration: '1 month',
+			team: 'Team',
+			disciplines: ['Motion Design'],
+			tools: ['After Effects'],
+			leadVideo: {
+				title: 'Project presentation video',
+				// TODO: add the actual files at these paths (public/videos/) —
+				// they don't exist yet, so the video won't play until then.
+				src: withBase('/videos/antwerp-motion-presentation.mp4'),
+				poster: withBase('/videos/antwerp-motion-presentation-poster.jpg'),
+			},
+			intro:
+				'Antwerp on Tap is a group project for the City of Antwerp, combining UX & Experience Design, Motion Design, Visual Design and Development. We created a mobile experience that invites international beer enthusiasts and city explorers to discover Antwerp through local cafés, curated recommendations and hidden gems across the city. Using Antwerp beer cards as a starting point, the experience encourages users to explore the city one beer at a time.',
+			sections: [
+				{
+					heading: 'The video',
+					body: [
+						'I created this short project presentation video to introduce Antwerp on Tap in a clear and engaging way, giving a quick overview of the concept and the experience we designed for the City of Antwerp.',
+						'The goal was to visually communicate the idea in a short, accessible format. I animated it in After Effects, combining the project’s visual identity with motion to bring the concept to life.',
 					],
 				},
 			],

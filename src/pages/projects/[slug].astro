@@ -139,7 +139,9 @@ for (const b of blocks) {
 
 					{detail.leadVideo && (
 						<section class="case__film">
-							<h2 class="case__film-title">Case movie</h2>
+							<h2 class="case__film-title">
+								{detail.leadVideo.title ?? 'Case movie'}
+							</h2>
 							<div class="case__film-media">
 								<Scribble
 									class="case__scribble case__scribble--left"
