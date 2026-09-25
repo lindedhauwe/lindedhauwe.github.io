@@ -5,7 +5,6 @@ import EraWord from '../components/EraWord.astro';
 import StoryModal from '../components/StoryModal.astro';
 import Sparkle from '../components/Sparkle.astro';
 import { withBase } from '../lib/paths';
-import { site, socials } from '../config/site';
 import { featuredWork } from '../data/projects';
 import profilePic from '../assets/illustrations/profile-pic.png';
 import phoneIllustration from '../assets/illustrations/phone.png';
@@ -226,34 +225,7 @@ import '../styles/home.css';
 					Got a project, a question, or just want to say hi? My inbox is
 					always open.
 				</p>
-
-				<div class="contact__links">
-					<a class="contact__link" href={`mailto:${site.email}`}>
-						{site.email}
-					</a>
-					{
-						site.phone && (
-							<a
-								class="contact__link"
-								href={`sms:${site.phone.replace(/\s+/g, '')}`}
-							>
-								{site.phone}
-							</a>
-						)
-					}
-				</div>
-
-				<ul class="contact__socials">
-					{
-						socials.map((s) => (
-							<li>
-								<a href={s.href} target="_blank" rel="noopener noreferrer">
-									{s.label.toLowerCase()}
-								</a>
-							</li>
-						))
-					}
-				</ul>
+				<a class="btn" href={withBase("/contact/")}>Get in touch</a>
 			</div>
 		</div>
 	</section>

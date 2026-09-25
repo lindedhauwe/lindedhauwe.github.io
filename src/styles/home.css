@@ -147,6 +147,10 @@
 		margin: 0;
 		transform: translateY(-50%);
 		z-index: 2;
+		/* spills into the next section (see .hero's z-index above) — don't
+		   let its transparent edges block clicks on what's underneath,
+		   like the story-open button */
+		pointer-events: none;
 		justify-self: unset;
 	}
 
@@ -720,53 +724,6 @@
 	max-width: 34ch;
 	font-size: var(--step-0);
 	opacity: 0.9;
-}
-
-.contact__links {
-	display: grid;
-	gap: var(--space-2xs);
-	margin-top: var(--space-2xs);
-}
-
-.contact__link {
-	width: fit-content;
-	font-family: var(--font-hand);
-	font-weight: 700;
-	font-size: clamp(1.3rem, 3vw, 1.8rem);
-	color: var(--color-paper);
-	text-decoration: underline;
-	text-decoration-color: var(--color-orange);
-	text-decoration-thickness: 2px;
-	text-underline-offset: 0.2em;
-}
-
-.contact__link:hover,
-.contact__link:focus-visible {
-	text-decoration-color: currentColor;
-}
-
-.contact__socials {
-	display: flex;
-	flex-wrap: wrap;
-	gap: var(--space-m);
-	margin: var(--space-2xs) 0 0;
-	padding: 0;
-	list-style: none;
-}
-
-.contact__socials a {
-	font-family: var(--font-hand);
-	font-weight: 700;
-	font-size: var(--step-0);
-	color: var(--color-paper);
-	text-decoration: none;
-	opacity: 0.85;
-}
-
-.contact__socials a:hover,
-.contact__socials a:focus-visible {
-	opacity: 1;
-	text-decoration: underline;
 }
 
 /* ---------------------------------------------------------------------------
