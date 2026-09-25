@@ -13,7 +13,7 @@
 .hero {
 	position: relative;
 	display: grid;
-	overflow: hidden;
+	overflow-x: clip;
 	background: var(--color-blush);
 	/* how far the illustration's lower part hangs past the green onto the
 	   pink — a share of viewport width, so the split lands at the same
@@ -108,14 +108,24 @@
 	font-size: clamp(3.25rem, 15vw, 6rem);
 }
 
+/* "Linde" + arrow pointing at the illustration — desktop/tablet only,
+   see the >=40rem block below for its actual position */
+.hero__annotation {
+	display: none;
+}
+
 /* Hero — mockup composition (desktop) */
 @media (min-width: 40rem) {
 	.hero {
 		gap: 0;
-		min-height: 150svh;
+		min-height: 85svh;
+		/* so the illustration (positioned low, near/past the hero's own
+		   bottom edge) can spill over the next section instead of being
+		   covered by it */
+		z-index: 1;
 		background: linear-gradient(
-			var(--color-green) 0 50%,
-			var(--color-blush) 50% 100%
+			var(--color-green) 0 87%,
+			var(--color-blush) 87% 100%
 		);
 	}
 
@@ -124,88 +134,68 @@
 		display: contents;
 	}
 
+	/* the statement doubles as the header now — see below */
 	.hero__brand {
-		position: absolute;
-		top: 19%;
-		left: 4%;
-		font-size: clamp(3rem, 8vw, 7rem);
-		text-align: left;
+		display: none;
 	}
 
 	.hero__art {
 		position: absolute;
-		top: 53%;
+		top: 93%;
 		right: -1%;
 		width: min(75vw, 70rem);
 		margin: 0;
 		transform: translateY(-50%);
 		z-index: 2;
+		/* spills into the next section (see .hero's z-index above) — don't
+		   let its transparent edges block clicks on what's underneath,
+		   like the story-open button */
+		pointer-events: none;
 		justify-self: unset;
 	}
 
+	/* sits where the brand used to be, top-left; everything below (the
+	   im/inmy row, then craft and era each on their own line) is still
+	   the same flex-wrap layout the mobile base rules set up above —
+	   just pinned here instead of sitting in normal document flow */
 	.hero__statement {
 		position: absolute;
+		top: 18%;
+		left: 6%;
 		padding: 0;
-		inset: 0;
-		display: block;
-		font-size: clamp(4.5rem, 14vw, 11rem);
-		line-height: 0.8;
+		margin: 0;
+		font-size: clamp(3.75rem, 6.5vw, 6.5rem);
+		color: var(--color-paper);
 	}
 
-	.hero__word {
+	.hero__word--craft {
+		font-size: clamp(4.25rem, 9vw, 8rem);
+	}
+
+	.hero__statement .era-word {
+		color: var(--color-pink);
+	}
+
+	/* "Linde" + curved arrow, pointing down at the illustration */
+	.hero__annotation {
 		position: absolute;
+		top: 30%;
+		left: 84%;
+		display: grid;
+		justify-items: end;
+		font-family: var(--font-hand);
+		font-weight: 700;
+		font-size: clamp(2.25rem, 4vw, 3.5rem);
+		color: var(--color-paper);
+		z-index: 1;
 	}
 
-	.hero__word--im {
-		left: 10%;
-		top: 60%;
-	}
-
-	.hero__word--inmy {
-		left: 55%;
-		top: 60%;
-	}
-
-	.hero__word--craft {
-		left: 10%;
-		top: 76%;
-		font-size: clamp(4.5rem, 14vw, 11rem);
-	}
-
-	.hero__word--era {
-		right: 15%;
-		top: 80%;
-		margin-top: 0;
-	}
-}
-
-/* Tablet only (40rem–64rem, roughly iPad-ish widths): the brand can
-   overlap the nav bubbles above it, and "era" (sitting beside the
-   rotating word here on desktop) can run into "development", the
-   longest option — so both get tablet-specific overrides. Below 40rem
-   it's the mobile stack; above 64rem there's enough room for the
-   original desktop layout above. */
-@media (min-width: 40rem) and (max-width: 64rem) {
-	.hero__brand {
-		/* the nav sits at a fixed offset, so give the brand a fixed floor
-		   too instead of a pure percentage of the hero's height */
-		top: max(19%, 25rem);
-	}
-
-	.hero__word--im,
-	.hero__word--inmy {
-		top: 58%;
-	}
-
-	.hero__word--craft {
-		top: 68%;
-	}
-
-	/* own line below the rotating word instead of beside it */
-	.hero__word--era {
-		left: 10%;
-		right: auto;
-		top: 82%;
+	.hero__annotation-arrow {
+		width: 3.25rem;
+		height: auto;
+		overflow: visible;
+		color: var(--color-paper);
+		filter: url(#pencil);
 	}
 }
 

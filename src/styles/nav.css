@@ -35,6 +35,7 @@
 	color: var(--nav-fg, var(--color-paper));
 }
 
+/* redesign: plain text links, no scribble circle */
 .scribble__ellipse {
 	position: absolute;
 	inset: -0.15em -0.1em;
@@ -42,7 +43,7 @@
 	height: calc(100% + 0.3em);
 	overflow: visible;
 	color: var(--nav-fg, var(--color-paper));
-	opacity: 1;
+	opacity: 0;
 	transform: rotate(-2deg) scale(0.96);
 	filter: url(#pencil);
 	transition:
@@ -95,11 +96,11 @@
 	transform: rotate(3deg) scale(1);
 }
 
-/* Scattered-sticker cluster: one loose row, each bubble at its own height. */
+/* Plain text row, top-right of the hero. */
 @media (min-width: 40rem) {
 	.site-nav {
 		display: flex;
-		inset: 10rem 2rem auto 0;
+		inset: 0.25rem 2rem auto 0;
 		padding: var(--space-s) var(--space-l);
 	}
 
@@ -111,20 +112,9 @@
 		gap: var(--space-l);
 	}
 
-	/* Scattered heights + slight lean, like hand-placed stickers. */
-	.site-nav li:nth-child(1) {
-		transform: translateY(0.25rem);
-	}
-	.site-nav li:nth-child(2) {
-		transform: translateY(-5rem);
-	}
-	.site-nav li:nth-child(3) {
-		transform: translateY(0.9rem);
-	}
-
 	.scribble {
-		font-size: var(--step-3);
-		padding: 0.4em 1.1em;
+		font-size: var(--step-2);
+		padding: 0.4em 0.6em;
 	}
 }
 
