@@ -118,14 +118,14 @@
 @media (min-width: 40rem) {
 	.hero {
 		gap: 0;
-		min-height: 95svh;
+		min-height: 85svh;
 		/* so the illustration (positioned low, near/past the hero's own
 		   bottom edge) can spill over the next section instead of being
 		   covered by it */
 		z-index: 1;
 		background: linear-gradient(
-			var(--color-green) 0 78%,
-			var(--color-blush) 78% 100%
+			var(--color-green) 0 87%,
+			var(--color-blush) 87% 100%
 		);
 	}
 
@@ -141,7 +141,7 @@
 
 	.hero__art {
 		position: absolute;
-		top: 83%;
+		top: 93%;
 		right: -1%;
 		width: min(75vw, 70rem);
 		margin: 0;
