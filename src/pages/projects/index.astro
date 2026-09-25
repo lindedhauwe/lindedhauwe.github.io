@@ -95,13 +95,24 @@ const wallTitleWords = 'The project wall'.split(' ');
 									<span class="polaroid__photo">
 										<span class="polaroid__tape" aria-hidden="true" />
 										<span class="polaroid__frame">
-											<Image
-												class="polaroid__img"
-												src={project.image}
-												alt={project.title}
-												widths={[300, 480, 720]}
-												sizes="(min-width: 48rem) 15rem, 44vw"
-											/>
+											{project.coverAnimation ? (
+												<img
+													class="polaroid__img"
+													src={project.coverAnimation}
+													alt={project.title}
+													width={project.image.width}
+													height={project.image.height}
+													loading="lazy"
+												/>
+											) : (
+												<Image
+													class="polaroid__img"
+													src={project.image}
+													alt={project.title}
+													widths={[300, 480, 720]}
+													sizes="(min-width: 48rem) 15rem, 44vw"
+												/>
+											)}
 										</span>
 										<span class="polaroid__caption">{project.title}</span>
 									</span>

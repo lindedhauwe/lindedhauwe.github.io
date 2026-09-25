@@ -142,6 +142,9 @@ export interface Project {
 	title: string;
 	category: CategoryId;
 	image: ImageMetadata;
+	/** Animated-webp url — shown instead of the static wall photo when
+	    present (e.g. the Animation Journey polaroid). */
+	coverAnimation?: string;
 	/** Present once a project has a written case study; otherwise the detail
 	    page shows a "coming soon" placeholder. */
 	detail?: ProjectDetail;
@@ -196,6 +199,12 @@ export const projects: Project[] = [
 				'HMW help Zillennials discover Antwerp in an authentic way through local flavours, entrepreneurs and stories, in a way that feels personal (rather than through traditional city marketing)?',
 			sections: [
 				{
+					heading: 'Case movie',
+					body: [],
+					video: withBase('/videos/antwerp-case-movie.mp4'),
+					videoPoster: withBase('/videos/antwerp-case-movie-poster.jpg'),
+				},
+				{
 					heading: 'Research & Concept Development',
 					body: [
 						'The project started with an international exchange in Rotterdam. Together with Dutch students, we explored the project theme, target audience and possible concepts. Through interviews and research, we investigated what city explorers look for during a city trip and how we could encourage them to visit Antwerp. At the end of the week, we pitched our concept to the City of Antwerp.',
@@ -246,8 +255,6 @@ export const projects: Project[] = [
 					},
 				},
 			],
-			video: withBase('/videos/antwerp-case-movie.mp4'),
-			videoPoster: withBase('/videos/antwerp-case-movie-poster.jpg'),
 		},
 	},
 	{
@@ -335,6 +342,7 @@ export const projects: Project[] = [
 		title: 'Animation Journey',
 		category: 'motion-design',
 		image: animationJourneyCover,
+		coverAnimation: mtmAnim('walk-cycle', 900, 625).src,
 		detail: {
 			heading: 'Making Things Move',
 			year: '2026',
@@ -398,6 +406,12 @@ export const projects: Project[] = [
 			tools: ['Procreate', 'After Effects'],
 			sections: [
 				{
+					heading: 'The big result',
+					body: [],
+					video: withBase('/videos/kickstarter-final.mp4'),
+					videoPoster: withBase('/videos/kickstarter-final-poster.jpg'),
+				},
+				{
 					heading: 'The challenge',
 					body: [
 						'For this assignment, I created a promotional video for an existing Kickstarter project that did not yet have, or did not have a strong, campaign video. The challenge was to tell a clear story and present the product in an engaging way to potential supporters.',
@@ -428,12 +442,6 @@ export const projects: Project[] = [
 				{ heading: 'Styleboard', body: [], image: ksStyleboard },
 				{ heading: 'Style frame', body: [], image: ksStyleframe },
 				{
-					heading: 'The big result',
-					body: [],
-					video: withBase('/videos/kickstarter-final.mp4'),
-					videoPoster: withBase('/videos/kickstarter-final-poster.jpg'),
-				},
-				{
 					heading: 'Reflection',
 					body: [
 						'At first, I found it challenging to choose a suitable Kickstarter project and develop a strong concept. During production, I also got stuck on one specific scene, which required me to think creatively and find an alternative solution. In the end, I am very happy with the final result, especially with the illustrations I designed myself in Procreate. This project gave me more confidence in combining illustration, storytelling and motion design into one cohesive video.',
@@ -455,6 +463,13 @@ export const projects: Project[] = [
 			tools: ['After Effects'],
 			sections: [
 				{
+					heading: 'End result',
+					body: [],
+					video: withBase('/videos/nmbs.mp4'),
+					videoPoster: withBase('/videos/nmbs-poster.jpg'),
+					videoPortrait: true,
+				},
+				{
 					heading: 'The Challenge',
 					body: [
 						'For this assignment, I created a motion graphic to celebrate the 100th anniversary of NMBS. In a video of up to 30 seconds, I brought my own interpretation of the theme “NMBS. 100 years. The journey continues.” to life. The challenge was to communicate a clear story and strong visual message without the use of audio.',
@@ -467,13 +482,6 @@ export const projects: Project[] = [
 					body: [
 						'I started by developing a concept and then designed all the graphic assets that I later animated in After Effects. Throughout the process, I learned new techniques such as working with shape layers, typography, easing, expressions and more complex animations. By bringing these different elements together, I created a smooth motion graphic with a clear rhythm and narrative.',
 					],
-				},
-				{
-					heading: 'The motion graphic',
-					body: [],
-					video: withBase('/videos/nmbs.mp4'),
-					videoPoster: withBase('/videos/nmbs-poster.jpg'),
-					videoPortrait: true,
 				},
 				{
 					heading: 'Reflection',
@@ -594,6 +602,10 @@ export const projects: Project[] = [
 					],
 					listTitle: 'My role',
 					list: ['UX Research', 'UX Design', 'User Journey Mapping'],
+					link: {
+						label: 'The project',
+						href: 'https://www.behance.net/gallery/220593137/Rode-Kruis-User-Journey-Map',
+					},
 				},
 				{
 					heading: 'Research & Process',
@@ -603,10 +615,6 @@ export const projects: Project[] = [
 					],
 					image: rcResearch,
 					imageNarrow: true,
-					link: {
-						label: 'User journey map on Behance',
-						href: 'https://www.behance.net/gallery/220593137/Rode-Kruis-User-Journey-Map',
-					},
 				},
 				{
 					heading: 'Insights',

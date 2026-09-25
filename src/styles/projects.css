@@ -658,7 +658,7 @@
 /* --- a section that is only a list — a small aside, off to the side --- */
 .case__rolecard {
 	max-width: 22rem;
-	margin: var(--space-xl) 0 0 auto;
+	margin: var(--space-xl) auto 0 0;
 }
 
 .case__rolecard .case__h {
