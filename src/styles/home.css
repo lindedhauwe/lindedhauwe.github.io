@@ -108,6 +108,12 @@
 	font-size: clamp(3.25rem, 15vw, 6rem);
 }
 
+/* "Linde" + arrow pointing at the illustration — desktop/tablet only,
+   see the >=40rem block below for its actual position */
+.hero__annotation {
+	display: none;
+}
+
 /* Hero — mockup composition (desktop) */
 @media (min-width: 40rem) {
 	.hero {
@@ -150,8 +156,8 @@
 	   just pinned here instead of sitting in normal document flow */
 	.hero__statement {
 		position: absolute;
-		top: 8%;
-		left: 5%;
+		top: 18%;
+		left: 6%;
 		padding: 0;
 		margin: 0;
 		font-size: clamp(3.75rem, 6.5vw, 6.5rem);
@@ -164,6 +170,28 @@
 
 	.hero__statement .era-word {
 		color: var(--color-pink);
+	}
+
+	/* "Linde" + curved arrow, pointing down at the illustration */
+	.hero__annotation {
+		position: absolute;
+		top: 30%;
+		left: 80%;
+		display: grid;
+		justify-items: end;
+		font-family: var(--font-hand);
+		font-weight: 700;
+		font-size: clamp(1.75rem, 3vw, 2.75rem);
+		color: var(--color-paper);
+		z-index: 1;
+	}
+
+	.hero__annotation-arrow {
+		width: 2.5rem;
+		height: auto;
+		overflow: visible;
+		color: var(--color-paper);
+		filter: url(#pencil);
 	}
 }
 
