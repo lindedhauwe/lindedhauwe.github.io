@@ -89,7 +89,7 @@
 @media (min-width: 40rem) {
 	.site-nav {
 		display: flex;
-		inset: 1.25rem 2rem auto 0;
+		inset: 0.25rem 2rem auto 0;
 		padding: var(--space-s) var(--space-l);
 	}
 
