@@ -137,6 +137,30 @@ for (const b of blocks) {
 						</div>
 					</dl>
 
+					{detail.leadVideo && (
+						<section class="case__film">
+							<h2 class="case__film-title">Case movie</h2>
+							<div class="case__film-media">
+								<Scribble
+									class="case__scribble case__scribble--left"
+									color="var(--color-pink)"
+								/>
+								<Scribble
+									class="case__scribble case__scribble--right"
+									color="var(--color-pink)"
+								/>
+								<video
+									class="case__video"
+									controls
+									preload="none"
+									poster={detail.leadVideo.poster}
+								>
+									<source src={detail.leadVideo.src} type="video/mp4" />
+								</video>
+							</div>
+						</section>
+					)}
+
 					{detail.cover && introParas.length === 0 && (
 						<figure class="case__hero">
 							<Image

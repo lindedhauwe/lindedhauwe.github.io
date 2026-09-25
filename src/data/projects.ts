@@ -107,6 +107,8 @@ export interface ProjectSection {
 export interface ProjectDetail {
 	/** Overrides the (short) wall title as the detail-page h1. */
 	heading?: string;
+	/** A video shown right at the top of the page, above the intro/cover. */
+	leadVideo?: { src: string; poster?: string };
 	year?: string;
 	duration?: string;
 	team: string;
@@ -189,6 +191,10 @@ export const projects: Project[] = [
 				'UX Design',
 				'Motion Design',
 			],
+			leadVideo: {
+				src: withBase('/videos/antwerp-case-movie.mp4'),
+				poster: withBase('/videos/antwerp-case-movie-poster.jpg'),
+			},
 			cover: aotConcept,
 			coverStyle: 'cover-bleed',
 			intro:
@@ -198,12 +204,6 @@ export const projects: Project[] = [
 			hmw:
 				'HMW help Zillennials discover Antwerp in an authentic way through local flavours, entrepreneurs and stories, in a way that feels personal (rather than through traditional city marketing)?',
 			sections: [
-				{
-					heading: 'Case movie',
-					body: [],
-					video: withBase('/videos/antwerp-case-movie.mp4'),
-					videoPoster: withBase('/videos/antwerp-case-movie-poster.jpg'),
-				},
 				{
 					heading: 'Research & Concept Development',
 					body: [
