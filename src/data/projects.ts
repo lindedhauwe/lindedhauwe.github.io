@@ -149,8 +149,8 @@ export interface Project {
 
 /** Display order of the category sections on the wall. */
 export const categories: { id: CategoryId; label: string }[] = [
-	{ id: 'visual-design', label: 'Visual design' },
 	{ id: 'motion-design', label: 'Motion design' },
+	{ id: 'visual-design', label: 'Visual design' },
 	{ id: 'user-experience', label: 'User experience' },
 	// 'development' section hidden for now (not job-hunting in that field) —
 	// the projects themselves are untouched below, just add the entry back
