@@ -176,7 +176,7 @@
 	.hero__annotation {
 		position: absolute;
 		top: 30%;
-		left: 80%;
+		left: 84%;
 		display: grid;
 		justify-items: end;
 		font-family: var(--font-hand);
