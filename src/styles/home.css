@@ -181,13 +181,13 @@
 		justify-items: end;
 		font-family: var(--font-hand);
 		font-weight: 700;
-		font-size: clamp(1.75rem, 3vw, 2.75rem);
+		font-size: clamp(2.25rem, 4vw, 3.5rem);
 		color: var(--color-paper);
 		z-index: 1;
 	}
 
 	.hero__annotation-arrow {
-		width: 2.5rem;
+		width: 3.25rem;
 		height: auto;
 		overflow: visible;
 		color: var(--color-paper);
