@@ -152,7 +152,10 @@ export const categories: { id: CategoryId; label: string }[] = [
 	{ id: 'visual-design', label: 'Visual design' },
 	{ id: 'motion-design', label: 'Motion design' },
 	{ id: 'user-experience', label: 'User experience' },
-	{ id: 'development', label: 'Development' },
+	// 'development' section hidden for now (not job-hunting in that field) —
+	// the projects themselves are untouched below, just add the entry back
+	// here to bring the section back.
+	// { id: 'development', label: 'Development' },
 ];
 
 export const categoryLabel = (id: CategoryId) =>
