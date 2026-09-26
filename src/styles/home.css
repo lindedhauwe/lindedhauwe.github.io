@@ -58,7 +58,7 @@
 
 .hero__statement {
 	position: absolute;
-	top: 8%;
+	top: 13%;
 	left: 6%;
 	display: flex;
 	flex-wrap: wrap;
@@ -100,8 +100,8 @@
 /* "Linde" + curved arrow, pointing down at the illustration */
 .hero__annotation {
 	position: absolute;
-	top: 22%;
-	left: 78%;
+	top: 28%;
+	left: 72%;
 	display: grid;
 	justify-items: end;
 	font-family: var(--font-hand);
