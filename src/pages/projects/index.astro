@@ -87,7 +87,7 @@ const wallTitleWords = 'The project wall'.split(' ');
 
 					<ul class="wall__grid">
 						{projectsIn(cat.id).map((project) => (
-							<li class="polaroid">
+							<li class:list={['polaroid', `polaroid--${project.slug}`]}>
 								<a
 									class="polaroid__link"
 									href={withBase(`/projects/${project.slug}/`)}

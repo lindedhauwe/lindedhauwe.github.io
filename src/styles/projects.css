@@ -230,6 +230,21 @@
 	.polaroid:nth-child(3n) {
 		margin-top: 0;
 	}
+
+	/* motion-design row: Animation Journey + NMBS sit lower, Antwerp on Tap
+	   + Kickstarter sit higher — overrides the column-based scatter above.
+	   (:nth-child counts as a class for specificity, so these need the
+	   compound .polaroid.polaroid--x form to actually win.) */
+	.polaroid.polaroid--animation-journey {
+		margin-top: calc(var(--space-3xl) * 1.6);
+	}
+	.polaroid.polaroid--nmbs {
+		margin-top: var(--space-xl);
+	}
+	.polaroid.polaroid--antwerp-on-tap-motion,
+	.polaroid.polaroid--kickstarter {
+		margin-top: 0;
+	}
 }
 
 .polaroid:hover,
