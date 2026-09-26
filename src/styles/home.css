@@ -525,6 +525,7 @@
 }
 
 .work-card__frame {
+	position: relative;
 	display: block;
 	overflow: hidden;
 	background: var(--color-blush);
@@ -535,6 +536,32 @@
 	width: 100%;
 	aspect-ratio: 4 / 3;
 	object-fit: cover;
+	transition: filter 0.25s ease;
+}
+
+.work-card__field {
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-items: center;
+	padding: 1rem;
+	font-family: var(--font-hand);
+	font-weight: 700;
+	font-size: var(--step-3);
+	text-align: center;
+	color: var(--color-paper);
+	opacity: 0;
+	transition: opacity 0.25s ease;
+}
+
+.work-card:hover .work-card__img,
+.work-card:focus-within .work-card__img {
+	filter: blur(4px);
+}
+
+.work-card:hover .work-card__field,
+.work-card:focus-within .work-card__field {
+	opacity: 1;
 }
 
 .work-card__caption {
