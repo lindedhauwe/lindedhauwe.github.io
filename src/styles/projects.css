@@ -190,6 +190,11 @@
 		gap: var(--space-l);
 		align-items: start;
 	}
+
+	/* a lone 4th item on its own row sits centred instead of left-aligned */
+	.wall__grid li:nth-child(4):last-child {
+		grid-column: 2;
+	}
 }
 
 /* --- the polaroids ---------------------------------------------------------

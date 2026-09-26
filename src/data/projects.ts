@@ -394,6 +394,80 @@ export const projects: Project[] = [
 		},
 	},
 	{
+		slug: 'antwerp-on-tap-motion',
+		title: 'Antwerp on Tap',
+		category: 'motion-design',
+		image: antwerpOnTab,
+		detail: {
+			year: '2026',
+			duration: '1 month',
+			team: 'Team',
+			disciplines: ['Motion Design'],
+			tools: ['After Effects'],
+			leadVideo: {
+				title: 'Project presentation video',
+				src: withBase('/videos/antwerp-motion-presentation.mp4'),
+				// no poster frame available yet — shows a blank first frame
+				// until you add one and set this
+			},
+			cover: aotConcept,
+			coverStyle: 'cover-bleed',
+			intro:
+				'Antwerp on Tap is a group project for the City of Antwerp, combining UX & Experience Design, Motion Design, Visual Design and Development. We created a mobile experience that invites international beer enthusiasts and city explorers to discover Antwerp through local cafés, curated recommendations and hidden gems across the city. Using Antwerp beer cards as a starting point, the experience encourages users to explore the city one beer at a time.',
+			sections: [
+				{
+					heading: 'The video',
+					body: [
+						'I created this short project presentation video to introduce Antwerp on Tap in a clear and engaging way, giving a quick overview of the concept and the experience we designed for the City of Antwerp.',
+						'The goal was to visually communicate the idea in a short, accessible format. I animated it in After Effects, combining the project’s visual identity with motion to bring the concept to life.',
+					],
+				},
+			],
+		},
+	},
+	{
+		slug: 'nmbs',
+		title: 'NMBS',
+		category: 'motion-design',
+		image: nmbs,
+		detail: {
+			year: '2025',
+			duration: '4 months',
+			team: 'Solo',
+			disciplines: ['Motion Design'],
+			tools: ['After Effects'],
+			sections: [
+				{
+					heading: 'End result',
+					body: [],
+					video: withBase('/videos/nmbs.mp4'),
+					videoPoster: withBase('/videos/nmbs-poster.jpg'),
+					videoPortrait: true,
+				},
+				{
+					heading: 'The Challenge',
+					body: [
+						'For this assignment, I created a motion graphic to celebrate the 100th anniversary of NMBS. In a video of up to 30 seconds, I brought my own interpretation of the theme “NMBS. 100 years. The journey continues.” to life. The challenge was to communicate a clear story and strong visual message without the use of audio.',
+					],
+					image: nmbsLogo,
+					imageNarrow: true,
+				},
+				{
+					heading: 'The Process',
+					body: [
+						'I started by developing a concept and then designed all the graphic assets that I later animated in After Effects. Throughout the process, I learned new techniques such as working with shape layers, typography, easing, expressions and more complex animations. By bringing these different elements together, I created a smooth motion graphic with a clear rhythm and narrative.',
+					],
+				},
+				{
+					heading: 'Reflection',
+					body: [
+						'This was my first larger project in After Effects, and I really enjoyed the entire creative process. From designing the assets to bringing all the animations together, every step taught me new techniques and gave me more confidence in motion design. For my first extensive After Effects project, I am very proud of the final result and of how much I learned throughout the process.',
+					],
+				},
+			],
+		},
+	},
+	{
 		slug: 'kickstarter',
 		title: 'Kickstarter',
 		category: 'motion-design',
@@ -445,78 +519,6 @@ export const projects: Project[] = [
 					heading: 'Reflection',
 					body: [
 						'At first, I found it challenging to choose a suitable Kickstarter project and develop a strong concept. During production, I also got stuck on one specific scene, which required me to think creatively and find an alternative solution. In the end, I am very happy with the final result, especially with the illustrations I designed myself in Procreate. This project gave me more confidence in combining illustration, storytelling and motion design into one cohesive video.',
-					],
-				},
-			],
-		},
-	},
-	{
-		slug: 'nmbs',
-		title: 'NMBS',
-		category: 'motion-design',
-		image: nmbs,
-		detail: {
-			year: '2025',
-			duration: '4 months',
-			team: 'Solo',
-			disciplines: ['Motion Design'],
-			tools: ['After Effects'],
-			sections: [
-				{
-					heading: 'End result',
-					body: [],
-					video: withBase('/videos/nmbs.mp4'),
-					videoPoster: withBase('/videos/nmbs-poster.jpg'),
-					videoPortrait: true,
-				},
-				{
-					heading: 'The Challenge',
-					body: [
-						'For this assignment, I created a motion graphic to celebrate the 100th anniversary of NMBS. In a video of up to 30 seconds, I brought my own interpretation of the theme “NMBS. 100 years. The journey continues.” to life. The challenge was to communicate a clear story and strong visual message without the use of audio.',
-					],
-					image: nmbsLogo,
-					imageNarrow: true,
-				},
-				{
-					heading: 'The Process',
-					body: [
-						'I started by developing a concept and then designed all the graphic assets that I later animated in After Effects. Throughout the process, I learned new techniques such as working with shape layers, typography, easing, expressions and more complex animations. By bringing these different elements together, I created a smooth motion graphic with a clear rhythm and narrative.',
-					],
-				},
-				{
-					heading: 'Reflection',
-					body: [
-						'This was my first larger project in After Effects, and I really enjoyed the entire creative process. From designing the assets to bringing all the animations together, every step taught me new techniques and gave me more confidence in motion design. For my first extensive After Effects project, I am very proud of the final result and of how much I learned throughout the process.',
-					],
-				},
-			],
-		},
-	},
-	{
-		slug: 'antwerp-on-tap-motion',
-		title: 'Antwerp on Tap',
-		category: 'motion-design',
-		image: antwerpOnTab,
-		detail: {
-			year: '2026',
-			duration: '1 month',
-			team: 'Team',
-			disciplines: ['Motion Design'],
-			tools: ['After Effects'],
-			leadVideo: {
-				title: 'Project presentation video',
-				src: withBase('/videos/antwerp-motion-presentation.mp4'),
-				// no poster frame available yet — shows a blank first frame
-				// until you add one and set this
-			},
-			intro:
-				'Antwerp on Tap is a group project for the City of Antwerp, combining UX & Experience Design, Motion Design, Visual Design and Development. We created a mobile experience that invites international beer enthusiasts and city explorers to discover Antwerp through local cafés, curated recommendations and hidden gems across the city. Using Antwerp beer cards as a starting point, the experience encourages users to explore the city one beer at a time.',
-			sections: [
-				{
-					heading: 'The video',
-					body: [
-						'I created this short project presentation video to introduce Antwerp on Tap in a clear and engaging way, giving a quick overview of the concept and the experience we designed for the City of Antwerp.',
-						'The goal was to visually communicate the idea in a short, accessible format. I animated it in After Effects, combining the project’s visual identity with motion to bring the concept to life.',
 					],
 				},
 			],
