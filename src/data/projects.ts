@@ -958,7 +958,7 @@ export const projectsIn = (id: CategoryId) =>
 	projects.filter((p) => p.category === id);
 
 /** Projects shown in the home-page "Selected work" teaser. */
-export const featuredWork = ['table-talk', 'kickstarter', 'antwerp-on-tap']
+export const featuredWork = ['antwerp-on-tap-motion', 'miles-and-meals', 'table-talk']
 	.map((slug) => projects.find((p) => p.slug === slug))
 	.filter((p): p is Project => Boolean(p))
 	.map((p) => ({
