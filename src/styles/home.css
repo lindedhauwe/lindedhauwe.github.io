@@ -100,7 +100,7 @@
 /* "Linde" + curved arrow, pointing down at the illustration */
 .hero__annotation {
 	position: absolute;
-	top: 28%;
+	top: 36%;
 	left: 72%;
 	display: grid;
 	justify-items: end;
@@ -155,6 +155,13 @@
 
 	.hero__annotation-arrow {
 		width: 3.25rem;
+	}
+}
+
+/* tablet only — desktop (>=64rem) keeps the position set above */
+@media (min-width: 40rem) and (max-width: 64rem) {
+	.hero__annotation {
+		top: 38%;
 	}
 }
 
