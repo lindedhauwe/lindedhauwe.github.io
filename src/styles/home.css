@@ -160,8 +160,17 @@
 
 /* tablet only — desktop (>=64rem) keeps the position set above */
 @media (min-width: 40rem) and (max-width: 64rem) {
+	.hero__statement {
+		top: 24%;
+		font-size: clamp(4rem, 7.5vw, 7rem);
+	}
+
+	.hero__word--craft {
+		font-size: clamp(4.5rem, 10vw, 7.5rem);
+	}
+
 	.hero__annotation {
-		top: 38%;
+		top: 46%;
 	}
 }
 
