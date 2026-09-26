@@ -10,10 +10,10 @@ import concert from '../assets/images/concert.jpeg';
 import '../styles/story-modal.css';
 
 const slides = [
-	{ img: travel, alt: 'On a jetty over a turquoise lake in Austria' },
-	{ img: walk, alt: 'Out on a walk in the woods' },
-	{ img: cat, alt: 'Hanging out with my cat' },
-	{ img: concert, alt: 'At a concert' },
+	{ img: travel, alt: 'On a jetty over a turquoise lake in Austria', caption: 'somewhere else' },
+	{ img: walk, alt: 'Out on a walk in the woods', caption: 'nature break' },
+	{ img: cat, alt: 'Hanging out with my cat', caption: 'my queen slays again' },
+	{ img: concert, alt: 'At a concert', caption: 'good noise' },
 ];
 ---
 
@@ -68,6 +68,7 @@ const slides = [
 							sizes="(min-width: 30rem) 24rem, 100vw"
 							loading="lazy"
 						/>
+						<figcaption class="story-modal__caption">{s.caption}</figcaption>
 					</figure>
 				))
 			}
