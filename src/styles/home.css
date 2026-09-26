@@ -172,6 +172,10 @@
 	.hero__annotation {
 		top: 46%;
 	}
+
+	.hero__annotation-name {
+		margin-right: 0.5em;
+	}
 }
 
 /* ---------------------------------------------------------------------------
@@ -557,6 +561,7 @@
 /* strip of coloured tape holding the photo down — opaque, matte, torn ends */
 .work-card__tape {
 	position: absolute;
+	z-index: 1;
 	width: 7rem;
 	height: 2.1rem;
 	filter: drop-shadow(0 0.2rem 0.35rem rgba(14, 13, 8, 0.22));
