@@ -516,15 +516,18 @@
 	width: 100%;
 	aspect-ratio: 4 / 3;
 	object-fit: cover;
-	transition: filter 0.25s ease;
 }
 
+/* covers the photo on hover with a flat colour from the palette instead
+   of blurring it — blur read as a glitch, not the site's flat/paper-cut
+   style */
 .work-card__field {
 	position: absolute;
 	inset: 0;
 	display: grid;
 	place-items: center;
 	padding: 1rem;
+	background: var(--color-green);
 	font-family: var(--font-hand);
 	font-weight: 700;
 	font-size: var(--step-3);
@@ -534,13 +537,13 @@
 	transition: opacity 0.25s ease;
 }
 
-.work-card__field--motion-design {
+.work-card__field--visual-design {
+	background: var(--color-pink);
 	color: var(--color-ink);
 }
 
-.work-card:hover .work-card__img,
-.work-card:focus-within .work-card__img {
-	filter: blur(4px);
+.work-card__field--user-experience {
+	background: var(--color-blue);
 }
 
 .work-card:hover .work-card__field,
