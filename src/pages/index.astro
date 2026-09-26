@@ -186,7 +186,7 @@ import '../styles/home.css';
 											widths={[400, 640, 900]}
 											sizes="(min-width: 48rem) 22rem, 90vw"
 										/>
-										<span class="work-card__field" aria-hidden="true">{w.field}</span>
+										<span class:list={['work-card__field', `work-card__field--${w.category}`]} aria-hidden="true">{w.field}</span>
 									</span>
 									<span class="work-card__caption">{w.title}</span>
 								</span>

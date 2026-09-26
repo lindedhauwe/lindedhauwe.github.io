@@ -554,6 +554,10 @@
 	transition: opacity 0.25s ease;
 }
 
+.work-card__field--motion-design {
+	color: var(--color-ink);
+}
+
 .work-card:hover .work-card__img,
 .work-card:focus-within .work-card__img {
 	filter: blur(4px);

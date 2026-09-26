@@ -967,4 +967,5 @@ export const featuredWork = ['antwerp-on-tap-motion', 'miles-and-meals', 'table-
 		alt: `${p.title} project`,
 		href: withBase(`/projects/${p.slug}/`),
 		field: categories.find((c) => c.id === p.category)?.label ?? '',
+		category: p.category,
 	}));
